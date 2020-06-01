@@ -13,7 +13,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <meta name="theme-color" content="#2f4154">
+  <meta name="theme-color" content="#87847e">
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      21
        分钟
     </span>
   
@@ -311,7 +311,7 @@ hexo deploy</code></pre>
   <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"build-blog/pic.jpg"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"30%"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"30%"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"oauth"</span>  /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 
-<h5 id="2-gt-评论插件"><a href="#2-gt-评论插件" class="headerlink" title="2&gt;评论插件"></a>2&gt;评论插件</h5><p>当前博客中的评论功能使用了Fluid推荐的utteranc.es插件，但经常会有加载比较慢的问题，乍一看以为不让评论…</p>
+<h5 id="2-gt-评论插件"><a href="#2-gt-评论插件" class="headerlink" title="2&gt;评论插件"></a>2&gt;评论插件</h5><p>Fluid推荐的utteranc.es插件，经常会有加载比较慢的问题，乍一看以为不让评论…</p>
 <p>这个配置过程也很简单。</p>
 <p>首先在github创建一个公开的仓库，比如命名为’deepdeer_comments’。</p>
 <p>点击<a href="https://github.com/apps/utterances" target="_blank" rel="noopener">这个链接</a>安装应用，选择“only select repositories”选项，找到刚刚建立好的仓库，点击install。</p>
@@ -323,8 +323,8 @@ hexo deploy</code></pre>
   <img src="/2020/06/01/build-blog/utter.jpg" srcset="/img/loading.gif" width="70%" height="70%" alt="oauth">
 </div>
 
-
-
+<p>这个博客目前用的是Gitalk插件，配置与Next主题中提到的大致相同。旧版Fluid代码中该插件配置有问题，但在最新版已经改正，可以正常使用，感谢<a href="https://juejin.im/post/5ed177e36fb9a047923a39fe" target="_blank" rel="noopener">这篇文章</a>。</p>
+<h3 id="三-自定义域名"><a href="#三-自定义域名" class="headerlink" title="三. 自定义域名"></a>三. 自定义域名</h3><p>本博客使用了阿里云上购买的域名。</p>
 <h4 id="3-Markdown编辑器推荐"><a href="#3-Markdown编辑器推荐" class="headerlink" title="3.Markdown编辑器推荐"></a>3.Markdown编辑器推荐</h4><p>这些博客都是用<a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a>写的。该软件界面简洁，即时效果，很好用，推荐~</p>
 <p>Typora除了支持公式块之外，还支持行内公式，在偏好设置中勾选”内联公式“即可。</p>
 <img src="/2020/06/01/build-blog/gongshi.png" srcset="/img/loading.gif" alt="oauth" style="zoom:40%;">
@@ -404,10 +404,10 @@ hexo deploy</code></pre>
       addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
         var gitalk = new Gitalk({
           clientID: '719893e76127bcc98b08',
-          clientSecret: '6c8a8a5a6874bba244675fac71d93f914f89fdf9',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
           repo: 'deepdeer.github.io',
           owner: 'DeepDeer',
-          admin: 'DeepDeer',
+          admin: '['DeepDeer']',
           id: 'abe2f11339bee105f3f102052ebaa0c7',
           language: 'zh-CN',
           perPage: 15,
