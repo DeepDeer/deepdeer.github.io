@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      24
        分钟
     </span>
   
@@ -323,7 +323,14 @@ hexo deploy</code></pre>
   <img src="/2020/06/01/build-blog/utter.jpg" srcset="/img/loading.gif" width="70%" height="70%" alt="oauth">
 </div>
 
-<p>这个博客目前用的是Gitalk插件，配置与Next主题中提到的大致相同。旧版Fluid代码中该插件配置有问题，但在最新版已经改正，可以正常使用，感谢<a href="https://juejin.im/post/5ed177e36fb9a047923a39fe" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>这个博客目前用的是Gitalk插件，配置与Next主题中提到的大致相同。Fluid代码中该插件配置有问题，评论无法分页显示，感谢<a href="https://juejin.im/post/5ed177e36fb9a047923a39fe" target="_blank" rel="noopener">这篇文章</a>。即更改fluid主题下的<code>layout/_partial/comments/gitalk.ejs</code>文件内容中的’id’一栏部分</p>
+<pre><code class="hljs python"><span class="hljs-comment">#原有的</span>
+id: <span class="hljs-string">'&lt;%- md5(theme.gitalk.id) %&gt;'</span>,
+<span class="hljs-comment">#改正后</span>
+id: &lt;%- theme.gitalk.id %&gt;,</code></pre>
+
+
+
 <h3 id="三-自定义域名"><a href="#三-自定义域名" class="headerlink" title="三. 自定义域名"></a>三. 自定义域名</h3><p>本博客使用了阿里云上购买的域名。</p>
 <p>在<a href="https://wanwang.aliyun.com/domain/searchresult/?keyword=skylasun&suffix=.cn#/?keyword=skylasun&suffix=cn" target="_blank" rel="noopener">这里</a>点击“控制台”，登录后，找到边栏中的“域名”。选择“域名注册”</p>
 <div align="center">
