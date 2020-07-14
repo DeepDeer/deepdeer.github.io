@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>加密DNS协议相关内容 - DeepDeer</title>
+  <title>Web安全攻防实战[1]-极客时间 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                加密DNS协议相关内容
+                Web安全攻防实战[1]-极客时间
               
             </span>
 
@@ -156,8 +156,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-01 17:33">
-      2020年6月1日 下午
+    <time datetime="2020-07-08 08:44">
+      2020年7月8日 早上
     </time>
   </div>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      75 字
+      1.3k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      14
        分钟
     </span>
   
@@ -208,8 +208,41 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>加密DNS协议如DNS over HTTPS，DNS over TLS以提出很长一段时间，越来越多公司开始部署支持。本文检索当前针对加密DNS协议的相关研究，梳理研究内容，提出未来方向。</p>
-<h3 id="一-背景"><a href="#一-背景" class="headerlink" title="一. 背景"></a>一. 背景</h3><h3 id="二-相关工作"><a href="#二-相关工作" class="headerlink" title="二. 相关工作"></a>二. 相关工作</h3><h3 id="三-科研想法"><a href="#三-科研想法" class="headerlink" title="三. 科研想法"></a>三. 科研想法</h3>
+              <p>本文内容为极客时间《Web安全攻防实战》课程学习笔记整理。</p>
+<h2 id="第一章-Web安全基础"><a href="#第一章-Web安全基础" class="headerlink" title="第一章. Web安全基础"></a>第一章. Web安全基础</h2><h3 id="一-前端开发"><a href="#一-前端开发" class="headerlink" title="一. 前端开发"></a>一. 前端开发</h3><p>Web开发，前后端分离，首先可以减轻服务器的运算成本，同时减轻开发者人员的学习成本。前端更关注页面表现、速度流畅、兼容性、用户体验等等；后端则强调高并发、高可用、高性能、安全，存储，业务等。</p>
+<p>HTML（超文本标记语言），用于承载网站内容；CSS（层叠样式表），用于表现HTML或XML等文件样式；JS，可以插入HTML页面，基于原型编程、多范式的动态脚本语言，是Web安全中的重点关注之一，由JS引申出XSS攻击、文件上传漏洞，常年占据Owasp Top10。Node.js是运行在服务端的JS，基于Google的V8引擎，是近些年崛起的新的后端框架之一。</p>
+<p>Web App是基于网页技术开发的特定功能应用；常见Web服务器包含Apache HTTP Server，由于跨平台和安全性被广泛使用；Nginx带有负载均衡器和HTTP缓存，主打性能；IIS，是微软主推的服务器；Lighttpd由德国开发，非常低的内存开销，轻量级服务器；Tomcat技术先进、性能稳定且免费，和JAVA联动比较高。</p>
+<p>Web应用框架，定位是减轻网页开发时共性活动的工作负荷，提升代码规范性和可读性。前端比较流行JQuery, Bootstrap，React.js, Vue等等；后端比较流行的是Spring MVC，Django，Flask，Tornado等。大部分框架都会提供一个内置管理后台，进行网站内容、用户等管理。</p>
+<h3 id="二-Web安全总览"><a href="#二-Web安全总览" class="headerlink" title="二. Web安全总览"></a>二. Web安全总览</h3><h4 id="1-协议基础"><a href="#1-协议基础" class="headerlink" title="1.协议基础"></a>1.协议基础</h4><p>HTTP协议工作流程：1）HTTP客户端（浏览器）与Web服务端的HTTP端口建立TCP连接；2）发送HTTP请求（请求行、请求头部、空行和请求数据）；3）服务器接收请求，定位请求资源并返回HTTP响应（状态行、响应头部、空行和响应数据）；4）释放TCP连接，如果connection模式为close，则服务器主动关闭连接，客户端被动关闭，若模式为keepalive，则连接会保持一段时间，可以继续接收请求；5）客户端解析HTML内容。</p>
+<div align="center">
+  <img src="sec-geek/http.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+
+<p><strong>GET和POST请求</strong>的区别：1）参数：GET请求的参数拼接在URL后面，POST放在请求体里面；2）长度限制：GET有具体长度限制，一般不超过1024KB，POST理论上没有，但浏览器一般有个界限；3）安全：GET的数据明文显示在URL上，安全和私密性差一些。另外，由于浏览器限定，造成应用过程中，GET会产生一个数据包（http header和data一起发出，服务器响应200），POST产生两个（先发送header，服务器响应100，再发送data，服务器响应200）。访问资源等指令型请求是GET的主要应用场景，涉及一定私密性的登录等场景一般是POST。</p>
+<p>HTTP协议，目前主流适用1.1版本，主要有1）GET方法：请求获取资源；2）POST方法：传输一些内容；3）PUT方法：将自己的文件和内容传输到服务器上；4）HEAD方法：只通过报文头部做通信；5）DELETE方法：删除文件；6）OPTIONS方法：了解服务器支持哪些方法；7）CONNECT方法：希望通过哪些隧道协议连接；8）TRACE方法：追踪路径。下图则是HTTP的响应码：</p>
+<div align="center">
+  <img src="/2020/07/08/sec-geek/HTTP_r.jpg" srcset="/img/loading.gif" width="60%" height="60%" alt="oauth">
+</div>
+
+<h4 id="2-Web安全溯源"><a href="#2-Web安全溯源" class="headerlink" title="2.Web安全溯源"></a>2.Web安全溯源</h4><p>Web是对HTTP协议的实际应用，是由于Web应用的限制没有做好，会导致攻击者利用一些协议逻辑、实现偏差等找到里面的漏洞。Web安全的本质在于信任问题，即前端输入不可信。</p>
+<div align="center">
+  <img src="/2020/07/08/sec-geek/web-sec.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+
+<h4 id="3-Web安全相关工具"><a href="#3-Web安全相关工具" class="headerlink" title="3.Web安全相关工具"></a>3.Web安全相关工具</h4><h5 id="1》客户端工具"><a href="#1》客户端工具" class="headerlink" title="1》客户端工具"></a>1》客户端工具</h5><p><strong>Burp suite</strong>，是一个集成平台框架，包含了很多工具和接口；</p>
+<ul>
+<li>Proxy，一个拦截HTTP(s)的代理服务器，作为浏览器和目标服务器的中间人，可以拦截、查看、修改两个方向上的原始数据流。</li>
+<li>Intruder，一个高度可定制工具，可实现自动化攻击，比如枚举标识符，使用fuzzing技术探测常规漏洞等。</li>
+<li>Repeater，手动操作补发单独HTTP请求，分析应用响应。</li>
+<li>Sequencer，分析不可预知的应用程序会话令牌和重要数据项的随机性的工具。</li>
+<li>Decoder，进行手动执行或对应用程序数据智能编码解码。</li>
+<li>Comparer，通过一些相关的请求和响应得到两项数据的可视化差异。</li>
+</ul>
+<p><strong>Curl</strong>，使用url形式传输数据，多用于抓取网页，网络监控等，解决开发、调试中遇到的问题。</p>
+<p><strong>Postman</strong>，一款网页调试工具，同时支持发送HTTP请求，本质是可视化版本的curl。</p>
+<h5 id="2》网页浏览器插件"><a href="#2》网页浏览器插件" class="headerlink" title="2》网页浏览器插件"></a>2》网页浏览器插件</h5><p><strong>HackBar</strong>，Firefox插件（HackBar Quantum），包含一些常用的工具，主要用于手工渗透某个Web漏洞。可快速构建HTTP请求，实现SQL注入、XSS、加密等。</p>
+<p><strong>Wappalyzer</strong>，网站技术分析插件，了解目标网站使用的平台架构、网站环境、服务器配置、JS框架、编程语言等。</p>
+
             </article>
             <hr>
             <div>
@@ -218,7 +251,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/DNS/">DNS</a>
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
                     
                   </div>
                 
@@ -226,7 +259,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
                     
                   </div>
                 
@@ -239,9 +272,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/01/syl-sec/">
+                      <a href="/2020/07/08/sec-360/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">实验楼-信息安全课程系列-Python</span>
+                        <span class="hidden-mobile">Web安全原理与实践-360</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -249,8 +282,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/01/build-blog/">
-                        <span class="hidden-mobile">这个博客的搭建过程</span>
+                      <a href="/2020/07/01/syl-sec/">
+                        <span class="hidden-mobile">实验楼-信息安全课程系列-Python</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

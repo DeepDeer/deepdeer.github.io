@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>加密DNS协议相关内容 - DeepDeer</title>
+  <title>Web安全原理与实践-360 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                加密DNS协议相关内容
+                Web安全原理与实践-360
               
             </span>
 
@@ -156,8 +156,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-01 17:33">
-      2020年6月1日 下午
+    <time datetime="2020-07-08 10:05">
+      2020年7月8日 上午
     </time>
   </div>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      75 字
+      1.8k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      19
        分钟
     </span>
   
@@ -208,8 +208,58 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>加密DNS协议如DNS over HTTPS，DNS over TLS以提出很长一段时间，越来越多公司开始部署支持。本文检索当前针对加密DNS协议的相关研究，梳理研究内容，提出未来方向。</p>
-<h3 id="一-背景"><a href="#一-背景" class="headerlink" title="一. 背景"></a>一. 背景</h3><h3 id="二-相关工作"><a href="#二-相关工作" class="headerlink" title="二. 相关工作"></a>二. 相关工作</h3><h3 id="三-科研想法"><a href="#三-科研想法" class="headerlink" title="三. 科研想法"></a>三. 科研想法</h3>
+              <p>本文内容为<a href="https://admin.college.360.cn/" target="_blank" rel="noopener">360网络安全大学</a>于2020年初举行的《Web安全原理与实践》系列课程的学习笔记。</p>
+<h2 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h2><h4 id="1-网络安全"><a href="#1-网络安全" class="headerlink" title="1.网络安全"></a>1.网络安全</h4><p><strong>网络安全</strong>是指网络系统中的硬件、软件及其系统中的数据受到保护，不因偶然的或恶意的原因而遭受破坏、篡改、泄露，系统连续可靠地运行，网络服务不中断。<strong>包括</strong>信息系统（主机、网络服务器）的安全、网络边界安全（WAF，防火墙等）及网络通信的安全。<strong>目标</strong>是网络系统中信息的<strong>机密性、完整性、可用性、不可抵赖性和可控性</strong>（五要素）等。</p>
+<div align="center">
+  <img src="/2020/07/08/sec-360/cybersecurity.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+
+<p><strong>信息安全三要素（CIA）</strong>，机密性Confidentiality（保证信息不能被未授权地访问）、完整性Integrity（信息在生成、传输、存储、使用过程中不发生非授权篡改）、可用性Availability（授权用户根据需啊可以随时访问所需信息）。可控性是服务器等资源应该时刻在掌控之内；不可抵赖性即需要保存任何操作记录。</p>
+<p><strong>网络安全事件分类</strong>如下图所示：</p>
+<div align="center">
+  <img src="/2020/07/08/sec-360/cyber_cla.jpg" srcset="/img/loading.gif" width="100%" height="100%" alt="oauth">
+</div>
+
+<p>网络安全事件列举：1）2014年1月21日，中国国内通用顶级域的根服务器忽然出现异常；2）OpenSSL心脏出血漏洞，2014年4月爆出Heartleed漏洞，读内存数据，涉及各大网银、门户网站等；3）数据泄露：12306、iCloud、Gmail、酒店、2017年暗网出现14亿邮箱密码；4）蠕虫病毒：2007年熊猫烧香；5）僵尸网络：DDOS攻击、勒索、发送垃圾邮件及网络钓鱼、挖矿等；6）无线安全：2017年12月2日连接星巴克WiFi，开始挖矿。</p>
+<h4 id="2-信息安全法律法规"><a href="#2-信息安全法律法规" class="headerlink" title="2.信息安全法律法规"></a>2.信息安全法律法规</h4><p>《宪法》公民的通信自由和通信秘密受法律的保护。</p>
+<p>《刑法》1）285条非法侵入计算机信息系统罪；2）286条破坏计算机信息系统罪；3）287条利用计算机实施犯罪的提示性规定。</p>
+<p>《网络安全法》2017年6月1号起正式实施，主要包含五个方面内容：网络安全支持与促进、网络运行安全、<strong>关键信息基础设施</strong>的运行安全、网络信息安全、监测预警应急处置。规定<strong>网络安全等级保护制度</strong>，按照规定留存相关的网络日志不少于<strong>六个月</strong>。</p>
+<h4 id="3-信息安全常识"><a href="#3-信息安全常识" class="headerlink" title="3.信息安全常识"></a>3.信息安全常识</h4><p>网络安全属于信息安全的一部分。网络安全主要是保证网络环境的持续、可靠、安全地运行。而信息安全主要包括：运行安全、人员安全、实体安全、计算机安全、通信安全和信息本身安全。</p>
+<p>PC安全：安装防病毒软件、定期更新操作系统及软件、不随便安装来历不明的软件、关闭不必要的网络通信协议、定期备份数据。</p>
+<p>密码安全：密码强度、低关联性、密码保护；弱口令。</p>
+<p>邮件安全：勒索病毒、商业邮件诈骗、仿冒企业邮件。邮件别名、文档加密；</p>
+<p>社会工程学安全：利用人的弱点获得信息、建筑物、系统和数据访问权限。畏惧权威、懒惰心理、害怕失去等</p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="一-KALI渗透平台概述"><a href="#一-KALI渗透平台概述" class="headerlink" title="一. KALI渗透平台概述"></a>一. KALI渗透平台概述</h3><h4 id="1-虚拟机常识"><a href="#1-虚拟机常识" class="headerlink" title="1.虚拟机常识"></a>1.虚拟机常识</h4><p>网络模式：1）桥接模式：直接连接物理网络；2）NAT模式：用于共享主机的IP地址；3）仅主机模式：与主机共享的专用模式。</p>
+<p>创建虚拟机的磁盘类型：1）新建一个虚拟磁盘，可以直接拷走（首选）；2）使用已经建立的虚拟磁盘；3）使用实际的磁盘，文件交换方便，但虚拟机操作系统受到损害后，会影响实际主机操作系统。</p>
+<h4 id="2-Kali工具"><a href="#2-Kali工具" class="headerlink" title="2.Kali工具"></a>2.Kali工具</h4><p>Kali Top 10工具</p>
+<div align="center">
+  <img src="/2020/07/08/sec-360/kail_top.jpg" srcset="/img/loading.gif" width="80%" height="80%" alt="oauth">
+</div>
+
+<p>Kali工具分类（14类）：信息收集、无线攻击、密码破解、压力测试、取证工具、逆向工程、硬件攻防、漏洞挖掘、Web应用、漏洞利用工具、嗅探和欺骗、后门维持、情报分析。</p>
+<p>Kali是一个综合性的平台，工具丰富，但比较适合入门级，学习理论部分。</p>
+<h4 id="3-经典工具"><a href="#3-经典工具" class="headerlink" title="3. 经典工具"></a>3. 经典工具</h4><p>wafw00f，WAF识别工具，通过特征码识别的形式尝试识别服务器端部署的WAF，包括云WAF。</p>
+<p>探测工具LBD，检测给定的域是否使用DNS或HTTP负载均衡。</p>
+<p>Hydra（九头鸟）暴力破解工具，xhydra是图形化版本。</p>
+<p>SETooklit，基于python语言开发的社会工程学工具包。</p>
+<p>NMap的四项基本功能：主机发现、端口扫描、版本侦测和操作系统探测（OS-DB的系统指纹数据库）。Nmap基本参数配置，包括扫描类型、功能选项和扫描目标设定。Nmap脚本和NSE脚本，基于Lua语言，默认保存在/usr/share/nmap/scripts路径下。</p>
+<p>Metaslpoit一款开源安全漏洞检测工具，一个强大的开源框架，继承了常见的溢出漏洞和流行的shellcode。可以在网上搜到大量教程进行学习。Meterpreter持久化访问方式。msf5使用别人的溢出攻击代码，利用漏洞。</p>
+<h3 id="二-实验总结"><a href="#二-实验总结" class="headerlink" title="二. 实验总结"></a>二. 实验总结</h3><h4 id="1-Hydra暴力破解"><a href="#1-Hydra暴力破解" class="headerlink" title="1.Hydra暴力破解"></a>1.Hydra暴力破解</h4><p>Hydra支持常见的登录方式，比如SSH，FTP，HTTP，MYSQL，VNC等；而理论上只要有登录的地方，就可以进行暴力破解。</p>
+<pre><code class="hljs bash"><span class="hljs-comment">#常见的用户名、密码文件已经下载好</span>
+<span class="hljs-comment">#暴破HTTP</span>
+hydra -L user.txt -P passwd.txt x.x.x.x http-get
+<span class="hljs-comment">#暴破SSH</span>
+hydra -L user.txt -P passwd.txt x.x.x.x ssh
+<span class="hljs-comment">#暴破ftp </span>
+hydra -L user.txt -P passwd.txt x.x.x.x ftp</code></pre>
+
+<h4 id="2-SET-钓鱼网站"><a href="#2-SET-钓鱼网站" class="headerlink" title="2.SET-钓鱼网站"></a>2.SET-钓鱼网站</h4><p>SET是开源的社会工程学套件，支持鱼叉式网络钓鱼攻击、网页攻击、传染媒介式（木马）、建立payload和listener、邮件群发攻击、Arduino基础攻击、无线接入点攻击、二维码攻击和Powershell攻击等常见攻击场景。使用的攻击方法有Java Applet攻击方法、Metasploit浏览器利用方法、Tabnabbing攻击方法、Web顶击攻击方法、多重攻击Web方法、全屏幕攻击方法和HTA攻击方法等。</p>
+<pre><code class="hljs bash"><span class="hljs-comment">#root用户开启SET工具</span>
+setoolkit
+<span class="hljs-comment">#根据界面中的提示完成选择，工具可以自动生成，比如仿照google的登录界面，获得界面上的输入。</span></code></pre>
+
+<h4 id="3-Nmap扫描与RDP连接"><a href="#3-Nmap扫描与RDP连接" class="headerlink" title="3.Nmap扫描与RDP连接"></a>3.Nmap扫描与RDP连接</h4><p>网络扫描的目的即利用各种工具对目标的IP地址或地址段的主机查找漏洞。对于系统管理者而言，可以额通过扫描技术，了解网络的安全配置和正在运行的应用服务，即使发现可能存在的漏洞和错误配置，客观评估风险等级。一个完整的网络安全扫描过程通常分为三个阶段：1）发现目标主机或网络；2）搜集目标信息，比如主机运行的操作系统类型，服务，服务软件的版本等，网络拓扑结构、路由设备及主机信息。</p>
+<h2 id="漏洞与实践"><a href="#漏洞与实践" class="headerlink" title="漏洞与实践"></a>漏洞与实践</h2><h3 id="一-XSS漏洞"><a href="#一-XSS漏洞" class="headerlink" title="一. XSS漏洞"></a>一. XSS漏洞</h3><h3 id="二-SQL注入"><a href="#二-SQL注入" class="headerlink" title="二. SQL注入"></a>二. SQL注入</h3><h3 id="三-上传漏洞"><a href="#三-上传漏洞" class="headerlink" title="三. 上传漏洞"></a>三. 上传漏洞</h3><h3 id="四-命令执行漏洞"><a href="#四-命令执行漏洞" class="headerlink" title="四. 命令执行漏洞"></a>四. 命令执行漏洞</h3><h3 id="五-文件包含漏洞"><a href="#五-文件包含漏洞" class="headerlink" title="五. 文件包含漏洞"></a>五. 文件包含漏洞</h3><h3 id="六-Webshell与提权"><a href="#六-Webshell与提权" class="headerlink" title="六. Webshell与提权"></a>六. Webshell与提权</h3><h3 id="七-Web中间件"><a href="#七-Web中间件" class="headerlink" title="七. Web中间件"></a>七. Web中间件</h3><h2 id="企业防护"><a href="#企业防护" class="headerlink" title="企业防护"></a>企业防护</h2>
             </article>
             <hr>
             <div>
@@ -218,7 +268,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/DNS/">DNS</a>
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
                     
                   </div>
                 
@@ -226,7 +276,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
                     
                   </div>
                 
@@ -239,9 +289,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/01/syl-sec/">
+                      <a href="/2020/07/14/story-1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">实验楼-信息安全课程系列-Python</span>
+                        <span class="hidden-mobile">【小故事】无法消散</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -249,8 +299,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/01/build-blog/">
-                        <span class="hidden-mobile">这个博客的搭建过程</span>
+                      <a href="/2020/07/08/sec-geek/">
+                        <span class="hidden-mobile">Web安全攻防实战[1]-极客时间</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
