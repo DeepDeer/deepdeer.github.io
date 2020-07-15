@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>Web安全原理与实践-360 - DeepDeer</title>
+  <title>Web安全原理与实践-360【1】 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                Web安全原理与实践-360
+                Web安全原理与实践-360【1】
               
             </span>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      5.2k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      57
        分钟
     </span>
   
@@ -259,7 +259,85 @@ setoolkit
 <span class="hljs-comment">#根据界面中的提示完成选择，工具可以自动生成，比如仿照google的登录界面，获得界面上的输入。</span></code></pre>
 
 <h4 id="3-Nmap扫描与RDP连接"><a href="#3-Nmap扫描与RDP连接" class="headerlink" title="3.Nmap扫描与RDP连接"></a>3.Nmap扫描与RDP连接</h4><p>网络扫描的目的即利用各种工具对目标的IP地址或地址段的主机查找漏洞。对于系统管理者而言，可以额通过扫描技术，了解网络的安全配置和正在运行的应用服务，即使发现可能存在的漏洞和错误配置，客观评估风险等级。一个完整的网络安全扫描过程通常分为三个阶段：1）发现目标主机或网络；2）搜集目标信息，比如主机运行的操作系统类型，服务，服务软件的版本等，网络拓扑结构、路由设备及主机信息。</p>
-<h2 id="漏洞与实践"><a href="#漏洞与实践" class="headerlink" title="漏洞与实践"></a>漏洞与实践</h2><h3 id="一-XSS漏洞"><a href="#一-XSS漏洞" class="headerlink" title="一. XSS漏洞"></a>一. XSS漏洞</h3><h3 id="二-SQL注入"><a href="#二-SQL注入" class="headerlink" title="二. SQL注入"></a>二. SQL注入</h3><h3 id="三-上传漏洞"><a href="#三-上传漏洞" class="headerlink" title="三. 上传漏洞"></a>三. 上传漏洞</h3><h3 id="四-命令执行漏洞"><a href="#四-命令执行漏洞" class="headerlink" title="四. 命令执行漏洞"></a>四. 命令执行漏洞</h3><h3 id="五-文件包含漏洞"><a href="#五-文件包含漏洞" class="headerlink" title="五. 文件包含漏洞"></a>五. 文件包含漏洞</h3><h3 id="六-Webshell与提权"><a href="#六-Webshell与提权" class="headerlink" title="六. Webshell与提权"></a>六. Webshell与提权</h3><h3 id="七-Web中间件"><a href="#七-Web中间件" class="headerlink" title="七. Web中间件"></a>七. Web中间件</h3><h2 id="企业防护"><a href="#企业防护" class="headerlink" title="企业防护"></a>企业防护</h2>
+<p>使用nmap -O【IP地址】，扫描某主机上开放的端口，利用此端口实现rdesktop远程桌面连接。</p>
+<h4 id="4-Burpsuite工具与MIME上传检测绕过"><a href="#4-Burpsuite工具与MIME上传检测绕过" class="headerlink" title="4. Burpsuite工具与MIME上传检测绕过"></a>4. Burpsuite工具与MIME上传检测绕过</h4><p>服务器端上传检测文件时，在HTTP中MIME类型被定义在Content-Type header中。利用Burpsuite代理抓包后修改相关数据包信息（修改上传文件后缀名，同时修改Content-Type字段）绕过MIME检测。实验涉及Burpsuite的基本操作，如与浏览器关联、抓包改包等。</p>
+<h4 id="5-Burpsuite暴力破解"><a href="#5-Burpsuite暴力破解" class="headerlink" title="5.Burpsuite暴力破解"></a>5.Burpsuite暴力破解</h4><p>Intruder功能包括如利用漏洞、Web应用程序模糊测试，进行暴力猜解等。Intruder主要有四个模块：Target选项，用于配置目标服务器的详细信息；Positions，设置Payloads的插入点以及攻击类型；Opetions选项，包含request headers、request engine、attack results、grep match、grep extract、grep payloads和redirections。</p>
+<h2 id="漏洞与实践"><a href="#漏洞与实践" class="headerlink" title="漏洞与实践"></a>漏洞与实践</h2><h3 id="一-XSS漏洞"><a href="#一-XSS漏洞" class="headerlink" title="一. XSS漏洞"></a>一. XSS漏洞</h3><p>跨站脚本（XSS， Cross-Site Scripting），由于Web应用程序对用户的输入过滤不足，攻击者利用漏洞把恶意的脚本代码（HTML代码/JS脚本）注入到网页中。<strong>其他用户</strong>浏览网页时，会执行其中的恶意代码。XSS主要用于对用户Cookie资料窃取、会话劫持、钓鱼欺骗等。</p>
+<div align="center">
+  <img src="/2020/07/08/sec-360/xss.jpg" srcset="/img/loading.gif" width="60%" height="60%" alt="oauth">
+</div>
+
+<p>常见XSS分为以下三类：反射型XSS</p>
+<h4 id="1-反射型XSS"><a href="#1-反射型XSS" class="headerlink" title="1.反射型XSS"></a>1.反射型XSS</h4><p>反射型XSS，也称为非持久性XSS，参数型XSS，主要用于将恶意脚本附加到URL地址的参数中。</p>
+<div align="center">
+  <img src="/2020/07/08/sec-360/fxss.jpg" srcset="/img/loading.gif" width="60%" height="60%" alt="oauth">
+</div>
+
+<p>一般会使用编码迷惑受害者，或绕过过滤语句。熟悉以下编码形式：URL编码、HTML实体化编码等。</p>
+<h4 id="2-持久型XSS"><a href="#2-持久型XSS" class="headerlink" title="2.持久型XSS"></a>2.持久型XSS</h4><p>持久型XSS，也即存储型XSS，不需要用户单击特定URL就可以执行。攻击者事先将恶意JS代码上传或存储到漏洞服务器中，当受害者浏览包含此恶意JS代码的页面就会执行恶意代码。网站中存在表单的地方常见此类XSS。</p>
+<div align="center">
+  <img src="/2020/07/08/sec-360/cxss.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+
+<h4 id="3-DOM型XSS"><a href="#3-DOM型XSS" class="headerlink" title="3.DOM型XSS"></a>3.DOM型XSS</h4><p>DOM即Domcument object mode，文档对象模型，HTML DOM中一般定义对象属性以及执行方法。DOM会将XML节点构建成树状结构，以此反映XML文件本身的阶层结构。DOM中有多种类型节点，包括1）元素节点；2）文本节点和3）属性节点。</p>
+<p>DOM型XSS与其它两类XSS的区别主要在于，“程序执行不依赖于服务器端的数据，从客户端获得DOM中的数据并在本地执行”（通过DOM对象执行其中的元素）。</p>
+<h4 id="4-XSS常见语句与编码绕过"><a href="#4-XSS常见语句与编码绕过" class="headerlink" title="4.XSS常见语句与编码绕过"></a>4.XSS常见语句与编码绕过</h4><p>常见XSS标签为&lt;script&gt;,&lt;img&gt;，&lt;input&gt;标签下的触发alert语句。</p>
+<p>绕过的常用操作有，闭合标签，大小写绕过，双写关键字；目前有很多浏览器对引号做了过滤，我们可以用反撇号绕过。</p>
+<p>HTML实体编码，例如实体编码（双引号&amp;quot）；ASC编码（&amp;#34）；十六进制编码；Base64（一种用64个字符表示的编码方式，包括a-z，A-Z，0-9，+，/）来表示任意二进制数据。</p>
+<h3 id="二-CSRF漏洞"><a href="#二-CSRF漏洞" class="headerlink" title="二. CSRF漏洞"></a>二. CSRF漏洞</h3><h4 id="1-浏览器同源策略"><a href="#1-浏览器同源策略" class="headerlink" title="1.浏览器同源策略"></a>1.浏览器同源策略</h4><p>1995年由Netscape公司引入浏览器，即A网页设置的Cookie，B网页不能打开，除非这两个网页“同源”。同源的意思是：1）协议相同；2）域名相同；3）端口相同。这个策略的目的是为了保证用户信息安全，防止恶意网站窃取数据。同源策略有三种限制范围：1）Cookie、LocalStorage和IndexDB无法读取；2）Dom无法获取；3）AJAX请求不能发送。</p>
+<p>HTTP是无状态连接，Cookie保存在客户端浏览器，只要会话没有被注销，都可以访问。</p>
+<p><strong>Cookie作用域</strong>，其中包括两个重要属性：Domain和Path。</p>
+<h4 id="2-CSRF跨站请求伪造"><a href="#2-CSRF跨站请求伪造" class="headerlink" title="2.CSRF跨站请求伪造"></a>2.CSRF跨站请求伪造</h4><p>Cross-site request forgery，黑客利用已经登录的用户，诱使其访问或登录某个早已构造号的恶意连接或页面，然后在用户毫不知情的情况下，以用户的名义完成非用户本意的非法操作。也被称为One Click Attack或Session Riding，写为CSRF或XSRF。这种攻击相比于XSS更为小众而且难以防范，属于“借刀杀人”。</p>
+<p>session是保存在服务端，然后下发到客户端由cookie携带，cookie直接在客户端。</p>
+<p>一个CSRF漏洞攻击的实现需要三部分组成：1）一个漏洞（无需验证、任意修改后台数据、新增请求等）；2）伪装数据操作请求的恶意链接或页面；3）诱使用户（在cookie还有效的时候）主动访问或登录恶意链接，触发非法操作。</p>
+<h4 id="3-CSRF的防御"><a href="#3-CSRF的防御" class="headerlink" title="3.CSRF的防御"></a>3.CSRF的防御</h4><p>基于token随机值的CSRF防御，使用这种方法本身是可以防御掉CSRF的，但在有XSS漏洞的情况下可以绕过。</p>
+<p>终极防御可以彻底防御掉CSRF漏洞，比如除了CSRF token防御外，还加入当前的账号密码验证。另外不同等级的csrf token的构造方法的安全程度也不同，有直接递增的，有使用时间戳加随机函数构造的，还有使用sha1加密的。</p>
+<p>课程中使用<strong>DVMA平台</strong>完成实验。</p>
+<h3 id="二-SQL注入"><a href="#二-SQL注入" class="headerlink" title="二. SQL注入"></a>二. SQL注入</h3><h4 id="1-数据库基础"><a href="#1-数据库基础" class="headerlink" title="1.数据库基础"></a>1.数据库基础</h4><p>数据库可以大致分为关系型数据库（如MySQL，Oracle，Access等）和非关系型数据库（Not only SQL，比如Redis，mongoDB等）。</p>
+<p>关系型数据库遵循<strong>ACID理论</strong>：1）原子性（Atomicity）：事件为一个不可分割的单位，事务中的操作要么都发生，要么都不发生；2）一致性（Consistency）：事务前后数据的完整性必须保持一致；3）隔离性（Isolation）：多个用户并发访问数据库时，数据库为每个用户开启事务，多个并发事务之间相互隔离，数据不干扰；4）持久型（Durability）：一个事物一旦被提交，它对数据库的改变是永久性的，接下来的任何数据库发生故障也不会有影响。</p>
+<p>数据库访问接口：</p>
+<ul>
+<li><strong>开放数据库连接ODBC</strong>：为了解决异构数据库间的数据共享，为数据库访问提供统一接口，允许应用程序一SQL为数据存取标准，存取不同DBMS管理的数据。使用ODBC可以访问各类计算机上的DB文件，甚至访问如Excel表和ASCII数据文件这类非数据库对象。<strong>ODBC提供了一个公共数据访问层，可以用来访问几乎所有的关系型数据库</strong>。</li>
+<li><strong>数据访问对象DAO</strong>：允许Visual Basic开发者通过ODBC像直接连接到其它数据库一样。连接Access表。如果数据库时Access数据库且在本地使用，建议用这种方式。</li>
+<li><strong>远程数据对象RDO</strong>：一个到ODBCDE、面向对象的数据访问接口，同DAO结合提供一个接口，展示出ODBC的底层功能和灵活性。</li>
+<li><strong>对象连接与嵌入数据库OLE DB</strong>: 具有面向其它非SQL数据类型的通路（ODBC是为了访问关系型数据库而专门开发的）。</li>
+<li><strong>活动数据对象（ADO)</strong>：最新的数据库访问模式，具有简单易用的特点，目前已是数据库开发的主流。</li>
+</ul>
+<div align="center">
+  <img src="/2020/07/08/sec-360/dbd.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+
+<p><strong>识别数据库</strong>，可以使用盲跟踪（根据Web应用技术、不同数据库SQL语句差异）或非盲跟踪（报错、直接查询）方法。具体来讲：1）不同的数据库会有不同的默认端口号；2）在报错信息里可以看到数据库关键字；3）各数据库的版本查询方法区别，不同版本号对应的漏洞基本上是固定的；4）各数据库在字符串处理时会有区别，比如如何获取字符串长度，截取字符串等；5）各数据库与网页编程语言的搭配也比较固定。</p>
+<h4 id="2-SQL语法基础"><a href="#2-SQL语法基础" class="headerlink" title="2.SQL语法基础"></a>2.SQL语法基础</h4><p>order by，排序，可以利用这个语句判断某个表的字段数。</p>
+<p>limit，过滤打印结果的数据，参数包括偏移量和数目。</p>
+<p>group by，按组处理，一般需要与select后面的条件函数共同使用。</p>
+<p>union，联合查询，可以结合系统函数暴露数据库信息；比如MySQL 5.5以上版本包括information_schema数据库，保存着所维护的所有其他数据库的信息，union select集合load file（）可以读取服务器文件内容。</p>
+<h4 id="3-SQL注入漏洞利用"><a href="#3-SQL注入漏洞利用" class="headerlink" title="3.SQL注入漏洞利用"></a>3.SQL注入漏洞利用</h4><p>SQL注入是攻击者利用Web应用程序对用户输入验证上的疏忽，在输入的输入数据中包含某些数据库系统有特殊意义的符号，直接把用户输入的数据拼接为SQL语句执行，从而影响数据库安全和平台安全。实现此类攻击有两个条件:1）用户可以控制输入；2）原本程序要执行SQL语句，拼接了用户的恶意语句。</p>
+<p>SQL注入带来的常见危害为：1）绕过登录验证，比如使用<strong>万能密码</strong>登录网站后台；2）获取敏感数据；3）文件系统操作；4）注册表操作；5）执行系统命令。</p>
+<p>常用的SQL注入方式：1）经典的恒为真的逻辑表达式；2）数据库函数，如sleep使数据库休眠；3）特殊符号，如单引号，双引号。</p>
+<h5 id="1-gt-SQL注入分类"><a href="#1-gt-SQL注入分类" class="headerlink" title="1&gt; SQL注入分类"></a>1&gt; SQL注入分类</h5><p>首先依照<strong>注入点类型</strong>可以分为1）数字型；2）字符型；3）搜索型；其中搜索型的SQL语句原型为：</p>
+<pre><code class="hljs sql"><span class="hljs-comment">#原形式</span>
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名 <span class="hljs-keyword">where</span> 字段 <span class="hljs-keyword">like</span> <span class="hljs-string">'%关键字%'</span>
+<span class="hljs-comment">#攻击形式</span>
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名 <span class="hljs-keyword">where</span> 字段 <span class="hljs-keyword">like</span> <span class="hljs-string">'%'</span> <span class="hljs-keyword">and</span> [查询条件] <span class="hljs-keyword">and</span> <span class="hljs-string">'%'</span>=<span class="hljs-string">'%'</span></code></pre>
+
+<p>按<strong>注入技术</strong>分类，可分为1）基于布尔的盲注；2）基于时间的盲注；3）基于报错的注入；4）联合查询注入和堆查询注入。</p>
+<p>按SQL注入<strong>漏洞形成原因</strong>分类，可分为1）动态字符串构建引起，如转义字符、报错信息、联合查询、多次提交等；2）后台存在问题，如后台无用户数据编码或过滤，或可以直接拼接用户传递的代码；3）错误处理不当，将详细的内部报错信息返回给用户；4）不安全的数据库配置，比如默认账户（SQL server的sa账户，MySQL的root和anonymous账户）、权限问题。</p>
+<h5 id="2-gt-SQL注入过程"><a href="#2-gt-SQL注入过程" class="headerlink" title="2&gt; SQL注入过程"></a>2&gt; SQL注入过程</h5><p>手工注入过程：1）是否存在注入点；2）字段长度；3）字段回显位置；4）数据库信息；5）数据库名；6）数据库表；7）数据库表中所有字段以及字段值；8）猜解账号密码；9）登录管理员后台。</p>
+<h4 id="4-SQL盲注"><a href="#4-SQL盲注" class="headerlink" title="4. SQL盲注"></a>4. SQL盲注</h4><p>重点是找到注入点并明确注入类型。SQL盲注即，当数据库运行返回结果<strong>只反馈对错</strong>而不返回信息时，采用<strong>逻辑判断</strong>是否正确的盲注来获取信息。盲注可以分为三类：布尔盲注、时间盲注和报错型盲注。</p>
+<p>盲注一般使用<strong>二分法</strong>。使用最多的是条件语句。时间盲注最相关的是sleep(time)函数和BENCHMARK(count, expr)函数。</p>
+<h4 id="5-实验"><a href="#5-实验" class="headerlink" title="5.实验"></a>5.实验</h4><p>网站推荐：SQL Injection sqli 和 DVWA以及CMS论坛网站。</p>
+<h5 id="1-gt-SQLMap工具简介"><a href="#1-gt-SQLMap工具简介" class="headerlink" title="1&gt;SQLMap工具简介"></a>1&gt;SQLMap工具简介</h5><p>一款开源的自动化SQL注入工具，主要功能是扫描、发现并利用给定的URL的SQL注入漏洞。针对某个URL可以判断可注入的参数，判断可以用哪种SQL注入技术，识别出后台数据库类型，根据用户选择，读取一些数据。SQLMap主要支持针对关系型数据库的注入。</p>
+<p>SQLMap检测之<strong>前置发包</strong>，会检测网站连通性、WAF探测（使用响应相似度技术、时间延迟等因素，判断目标网站是否受WAF保护）、网页稳定性检测、参数动态性检测、启发式注入检测和误报检测。</p>
+<p><strong>响应相似度对比技术</strong>，即sqlmap在前置发包过程里，将网站连通性测试中的响应定义为原始响应（包括状态码、HTTP响应头、HTTP响应体）。原始响应会作为对比过程中被对比的对象，一个请求响应后，与原始响应对比，得出结果。</p>
+<h5 id="2-gt-SQLMap参数"><a href="#2-gt-SQLMap参数" class="headerlink" title="2&gt; SQLMap参数"></a>2&gt; SQLMap参数</h5><p>获取目标方式：1）-u，直接输入目标URL；2）-m，读取文件中的URL；3）-r 从文本文件中获取HTTP请求；4）-g，测试注入Google的搜索结果的GET参数；5）-l，从Burp或WebScarab代理中获取日志。</p>
+<p><em>使用演示：- -dbs, 查看当中的数据库名称；3）-D，指定数据库；4）- - tables, 打印数据库表名；5）- - dump，打印内容。</em></p>
+<p>请求目标的方式：1）- - method，指定使用的http方法（GET POST等）；2）- - data，把数据以POST方式提交；3）- - param-del，GET或POST的数据用&amp;以外的其它字符分割；4）- - cookie，- - load-cookies，- - drop-set-cookie等一些头部参数（出现网站重定向提示后可以加入cookie）；5）- - flush-session，将之前扫描过的缓存清除掉。</p>
+<p>注入测试相关参数：1）- - level，- - risk，为探测等级和风险等级；2）-p， - - skip，前者手动设置想要测试的参数，后者设置跳过的参数。</p>
+<p>注入技术参数：1）- - technique，指定探测技术等</p>
+<p>探测是否有WAF：1）- -check-waf；2）tamper目录中是waf绕过脚本，比如url编码转换，字符串unicode编码绕过，改写特殊字符语句等。</p>
+<h5 id="3-gt-SQL盲注"><a href="#3-gt-SQL盲注" class="headerlink" title="3&gt; SQL盲注"></a>3&gt; SQL盲注</h5><p>SQLI平台上的lesson5（布尔盲注），lesson8（报错盲注），lesson9（时间盲注）</p>
+<h3 id="三-上传漏洞"><a href="#三-上传漏洞" class="headerlink" title="三. 上传漏洞"></a>三. 上传漏洞</h3><h3 id="四-命令执行漏洞"><a href="#四-命令执行漏洞" class="headerlink" title="四. 命令执行漏洞"></a>四. 命令执行漏洞</h3><h3 id="五-文件包含漏洞"><a href="#五-文件包含漏洞" class="headerlink" title="五. 文件包含漏洞"></a>五. 文件包含漏洞</h3><h3 id="六-Webshell与提权"><a href="#六-Webshell与提权" class="headerlink" title="六. Webshell与提权"></a>六. Webshell与提权</h3><h3 id="七-Web中间件"><a href="#七-Web中间件" class="headerlink" title="七. Web中间件"></a>七. Web中间件</h3><h2 id="企业防护"><a href="#企业防护" class="headerlink" title="企业防护"></a>企业防护</h2>
             </article>
             <hr>
             <div>
