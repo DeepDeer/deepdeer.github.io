@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      6.8k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      57
+      75
        分钟
     </span>
   
@@ -315,6 +315,7 @@ setoolkit
 <h4 id="3-SQL注入漏洞利用"><a href="#3-SQL注入漏洞利用" class="headerlink" title="3.SQL注入漏洞利用"></a>3.SQL注入漏洞利用</h4><p>SQL注入是攻击者利用Web应用程序对用户输入验证上的疏忽，在输入的输入数据中包含某些数据库系统有特殊意义的符号，直接把用户输入的数据拼接为SQL语句执行，从而影响数据库安全和平台安全。实现此类攻击有两个条件:1）用户可以控制输入；2）原本程序要执行SQL语句，拼接了用户的恶意语句。</p>
 <p>SQL注入带来的常见危害为：1）绕过登录验证，比如使用<strong>万能密码</strong>登录网站后台；2）获取敏感数据；3）文件系统操作；4）注册表操作；5）执行系统命令。</p>
 <p>常用的SQL注入方式：1）经典的恒为真的逻辑表达式；2）数据库函数，如sleep使数据库休眠；3）特殊符号，如单引号，双引号。</p>
+<p>防护策略：严格限制数据库的操作权限，尽量给出能满足所有操作的最低权限，在Web层可以过滤用户的输入来防止SQL注入比如用Filter过滤全局表单参数，或者使用WAF系统进行专业防护。</p>
 <h5 id="1-gt-SQL注入分类"><a href="#1-gt-SQL注入分类" class="headerlink" title="1&gt; SQL注入分类"></a>1&gt; SQL注入分类</h5><p>首先依照<strong>注入点类型</strong>可以分为1）数字型；2）字符型；3）搜索型；其中搜索型的SQL语句原型为：</p>
 <pre><code class="hljs sql"><span class="hljs-comment">#原形式</span>
 <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名 <span class="hljs-keyword">where</span> 字段 <span class="hljs-keyword">like</span> <span class="hljs-string">'%关键字%'</span>
@@ -326,6 +327,9 @@ setoolkit
 <h5 id="2-gt-SQL注入过程"><a href="#2-gt-SQL注入过程" class="headerlink" title="2&gt; SQL注入过程"></a>2&gt; SQL注入过程</h5><p>手工注入过程：1）是否存在注入点；2）字段长度；3）字段回显位置；4）数据库信息；5）数据库名；6）数据库表；7）数据库表中所有字段以及字段值；8）猜解账号密码；9）登录管理员后台。</p>
 <h4 id="4-SQL盲注"><a href="#4-SQL盲注" class="headerlink" title="4. SQL盲注"></a>4. SQL盲注</h4><p>重点是找到注入点并明确注入类型。SQL盲注即，当数据库运行返回结果<strong>只反馈对错</strong>而不返回信息时，采用<strong>逻辑判断</strong>是否正确的盲注来获取信息。盲注可以分为三类：布尔盲注、时间盲注和报错型盲注。</p>
 <p>盲注一般使用<strong>二分法</strong>。使用最多的是条件语句。时间盲注最相关的是sleep(time)函数和BENCHMARK(count, expr)函数。</p>
+<p><strong>HTTP文件头注入</strong>（拓展）</p>
+<p>常见HTTP请求头有：1）Host, 指定被请求资源的地址和端口号；2）User-Agent，客户端的操作系统、浏览器和其它属性；3）Referer，上一个访问的URL，即用户从哪里跳转到这个页面的；4）Cookie，一段文本代表请求者的身份；5）Range，请求实体的部分内容，多线程下载一定会用到；6）X-Forwarded-For，XXF头，代表请求端的IP，可以有多个；7）Accept，指定客户端接收那些MIME类型的信息；8）Accept-Charset，指定客户端接收的字符集。</p>
+<p>据此可以分为Cookie注入、Referer注入、UA注入、XFF头注入等。<strong>webbug3.0平台</strong>可以进行练习。</p>
 <h4 id="5-实验"><a href="#5-实验" class="headerlink" title="5.实验"></a>5.实验</h4><p>网站推荐：SQL Injection sqli 和 DVWA以及CMS论坛网站。</p>
 <h5 id="1-gt-SQLMap工具简介"><a href="#1-gt-SQLMap工具简介" class="headerlink" title="1&gt;SQLMap工具简介"></a>1&gt;SQLMap工具简介</h5><p>一款开源的自动化SQL注入工具，主要功能是扫描、发现并利用给定的URL的SQL注入漏洞。针对某个URL可以判断可注入的参数，判断可以用哪种SQL注入技术，识别出后台数据库类型，根据用户选择，读取一些数据。SQLMap主要支持针对关系型数据库的注入。</p>
 <p>SQLMap检测之<strong>前置发包</strong>，会检测网站连通性、WAF探测（使用响应相似度技术、时间延迟等因素，判断目标网站是否受WAF保护）、网页稳定性检测、参数动态性检测、启发式注入检测和误报检测。</p>
@@ -337,7 +341,37 @@ setoolkit
 <p>注入技术参数：1）- - technique，指定探测技术等</p>
 <p>探测是否有WAF：1）- -check-waf；2）tamper目录中是waf绕过脚本，比如url编码转换，字符串unicode编码绕过，改写特殊字符语句等。</p>
 <h5 id="3-gt-SQL盲注"><a href="#3-gt-SQL盲注" class="headerlink" title="3&gt; SQL盲注"></a>3&gt; SQL盲注</h5><p>SQLI平台上的lesson5（布尔盲注），lesson8（报错盲注），lesson9（时间盲注）</p>
-<h3 id="三-上传漏洞"><a href="#三-上传漏洞" class="headerlink" title="三. 上传漏洞"></a>三. 上传漏洞</h3><h3 id="四-命令执行漏洞"><a href="#四-命令执行漏洞" class="headerlink" title="四. 命令执行漏洞"></a>四. 命令执行漏洞</h3><h3 id="五-文件包含漏洞"><a href="#五-文件包含漏洞" class="headerlink" title="五. 文件包含漏洞"></a>五. 文件包含漏洞</h3><h3 id="六-Webshell与提权"><a href="#六-Webshell与提权" class="headerlink" title="六. Webshell与提权"></a>六. Webshell与提权</h3><h3 id="七-Web中间件"><a href="#七-Web中间件" class="headerlink" title="七. Web中间件"></a>七. Web中间件</h3><h2 id="企业防护"><a href="#企业防护" class="headerlink" title="企业防护"></a>企业防护</h2>
+<h3 id="三-上传漏洞"><a href="#三-上传漏洞" class="headerlink" title="三. 上传漏洞"></a>三. 上传漏洞</h3><h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h4><p>文件上传<strong>表单属性enctype</strong>有三个可选值，application/x-www-form-urlencoded，multipart/form-data和text/plain（表单以出文本形式编码）。</p>
+<p>上传文件时没有对上传的文件进行严格地过滤，或程序开发部署时没有考虑系统特性，或者攻击者通过Web服务器解析漏洞绕过限制，导致可以上传任意文件。此类攻击实现的条件有：1）Web服务器开放上传功能；2）Web用户对目标目录有可执行权限；3）Web容器可以解析上传的脚本。造成危害包括：1）上传任意文件；2）获取执行权限，直接上传后门文件，导致网站沦陷；3）通过其他漏洞进行提权操作，拿到系统管理权限，导致服务器沦陷。</p>
+<p><strong>小马</strong>，即一句话木马，代码量较小，功能强大，是为了绕过WAF检测。木马的函数执行了我们发送的命令，即使用GET, POST, Cookie相关函数接收数据，并传递给一句话木马中的执行命令的函数。</p>
+<p><strong>大马</strong>，功能丰富，代码量大，功能基本相同，每个团队都有自己的定制大马。</p>
+<h4 id="2-检测与绕过"><a href="#2-检测与绕过" class="headerlink" title="2. 检测与绕过"></a>2. 检测与绕过</h4><h5 id="1-gt-客户端检测与绕过"><a href="#1-gt-客户端检测与绕过" class="headerlink" title="1&gt; 客户端检测与绕过"></a>1&gt; 客户端检测与绕过</h5><p>通过JS代码实现，也称为JS检测与绕过。</p>
+<p>一种方法是直接在浏览器上修改代码，不要调用相关判断函数；第二种方法是使用Burp Suite代理，请求通过前端验证后，由BP抓包后更改发送至后端。</p>
+<h5 id="2-gt-服务端检测与绕过"><a href="#2-gt-服务端检测与绕过" class="headerlink" title="2&gt; 服务端检测与绕过"></a>2&gt; 服务端检测与绕过</h5><p>对于文件上传，只从Web前端进行检测显然防护不足，一般服务器检测包括以下几个方面：</p>
+<ul>
+<li><strong>后缀名</strong>；大小写绕过黑名单过滤；名单列表绕过（某些中间件允许解析其它后缀名，比如php3，phtml等）；Windows特性（比如自动清除末尾的点和空格，多文件流::$DATA）；白名单的绕过需要配合文件包含漏洞和解析漏洞；.htaccess文件攻击（文件中写入 SetHandler application/x-httpd-php 或 SetHandler application/x-httpd-php .jpg 即前者是无论文件类型是什么，只要符合PHP语法，都可以按照PHP运行；也可以使用AddHandler php5-script .php，只要文件名中包含php就按照PHP执行）；利用Apache解析漏洞（Apache从右向左解析后缀名，无法解析则跳过）；</li>
+<li><strong>MIME类型</strong>：MIME是描述消息内容类型的因特网标准，如application/x-javascript，text/html等。在HTTP协议中，使用Content-Type字段表示，而后端也是从这个字段里获取。</li>
+<li><strong>文件内容</strong>：使用getimagesize（）函数获取图片文件的大小参数；其中包括文件幻数检测，即文件头是否是图片的文件头。我们可以直接伪造文件头，在脚本文件的开头补充图片文件头值；或者在图片后面直接写脚本代码（copy 1.jpg/b+1.php/a 2.jpg），但<strong>图片马</strong>上传后需要结合其他漏洞使用。</li>
+<li><strong>00截断</strong>：核心在于出现char(0)，程序中出现这个变量时，会误当作结束符，其后面的数据会被停止。这种方法需要php版本小于5.3.4，magic_quotes_gpc为OFF状态。有GET和POST两种方式。</li>
+<li><strong>条件竞争</strong>：某些网站允许上传任意文件，之后会检查文件是否有可执行脚本，有则删除。但我们可以在上传的脚本中实现生成新文件的功能，即使上传文件被删除后，依然有可以运行的脚本。</li>
+</ul>
+<h4 id="3-Web容器漏洞"><a href="#3-Web容器漏洞" class="headerlink" title="3.Web容器漏洞"></a>3.Web容器漏洞</h4><p>Web容器是一种服务程序，处理从客户端发出的请求，一个服务器可以有多个容器。常见Web容器漏洞这部分学习中用到的是IIS, Apache，Nginx，Tomcat，Jboss，Web Logic等。</p>
+<h5 id="1-gt-Apache解析漏洞"><a href="#1-gt-Apache解析漏洞" class="headerlink" title="1&gt; Apache解析漏洞"></a>1&gt; Apache解析漏洞</h5><p>Apache解析漏洞与用户的配置有密切关系。Apache和php有三种结合方式，包括CGI，FastCGI和Module（使用最多，把php编译为apache的模块）。</p>
+<p>Apache默认一个文件可以由多个以点分割的后缀，当右边的后缀无法识别，则继续向左识别。其实Apache这个特性<strong>本身没有问题</strong>，因为即使将这类文件识别为PHP文件，PHP引擎也无法处理其他后缀名。问题是处在开发人员为了方便自身工作，而给Apache做了有漏洞的配置，比如：</p>
+<pre><code class="hljs bash"><span class="hljs-comment">#在conf中添加</span>
+AddHandler application/x-http-php .php
+<span class="hljs-comment">#规避方法，改用正则和SetHandler</span>
+&lt;FilesMatch <span class="hljs-string">".+\.php$"</span>&gt;
+SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+&lt;FilesMatch <span class="hljs-string">".+\.ph(p[3457]?|t|tml)\."</span>&gt;
+Require all denied
+&lt;/FilesMatch&gt;</code></pre>
+
+<p><strong>/etc/mime.types文件</strong>中记录了Apache可识别的文件类型，当客户端请求一个文件时，如果后缀在这个列表里，那么apache就返回对应的content-type给浏览器，否则直接给文件内容，由浏览器自行处理。</p>
+<p><strong>/etc/apache2/mods-enables/php7.2.conf文件</strong>中包含正则匹配，如果请求的文件名符合则把文件交给PHP引擎处理。</p>
+<h5 id="2-gt-IIS解析漏洞"><a href="#2-gt-IIS解析漏洞" class="headerlink" title="2&gt; IIS解析漏洞"></a>2&gt; IIS解析漏洞</h5><p>IIS6.0文件解析漏洞</p>
+<h5 id="3-gt-Nginx解析漏洞"><a href="#3-gt-Nginx解析漏洞" class="headerlink" title="3&gt; Nginx解析漏洞"></a>3&gt; Nginx解析漏洞</h5>
             </article>
             <hr>
             <div>
@@ -367,9 +401,9 @@ setoolkit
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/14/story-1/">
+                      <a href="/2020/07/16/sec-360-2/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【小故事】无法消散</span>
+                        <span class="hidden-mobile">Web安全原理与实践-360【2】</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

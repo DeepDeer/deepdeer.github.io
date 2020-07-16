@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      2.6k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      28
        分钟
     </span>
   
@@ -242,6 +242,36 @@
 <p><strong>Postman</strong>，一款网页调试工具，同时支持发送HTTP请求，本质是可视化版本的curl。</p>
 <h5 id="2》网页浏览器插件"><a href="#2》网页浏览器插件" class="headerlink" title="2》网页浏览器插件"></a>2》网页浏览器插件</h5><p><strong>HackBar</strong>，Firefox插件（HackBar Quantum），包含一些常用的工具，主要用于手工渗透某个Web漏洞。可快速构建HTTP请求，实现SQL注入、XSS、加密等。</p>
 <p><strong>Wappalyzer</strong>，网站技术分析插件，了解目标网站使用的平台架构、网站环境、服务器配置、JS框架、编程语言等。</p>
+<h3 id="三-文件上传漏洞"><a href="#三-文件上传漏洞" class="headerlink" title="三. 文件上传漏洞"></a>三. 文件上传漏洞</h3><h4 id="1-基础概念"><a href="#1-基础概念" class="headerlink" title="1.基础概念"></a>1.基础概念</h4><p>文件上传时大部分Web应用都具备的功能，之所以会发生漏洞，是开发时验证不足，允许用户上传恶意文件。</p>
+<p>实验使用bWAPP漏洞演示平台，使用docker形式安装。</p>
+<p>PHP语言 eval（）函数。<? php @eval($_POST[‘hacker’]); ?> 一句话木马。其它常用PHP函数还有get_current_user和getcwd，比如：</p>
+<pre><code class="hljs bash"><span class="hljs-comment"># 后面连接中是提前上传到受害服务器的php一句话木马文件</span>
+curl -d <span class="hljs-string">"hacker=echo get_current_user();"</span> http://127.0.0.1/images/shell.php</code></pre>
+
+<p>中国菜刀，一款windows平台的集成软件，可以很方便地使用一句话木马获取其它系统权限。</p>
+<p>常用语言的<strong>一句话木马</strong>：</p>
+<pre><code class="hljs bash">&lt;%execute(request(<span class="hljs-string">"value"</span>))%&gt;  <span class="hljs-comment">#asp</span>
+&lt;?php @<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">"value"</span>]);?&gt; <span class="hljs-comment">#php</span>
+&lt;%@ Page Language=<span class="hljs-string">"Jscript"</span>%&gt;   <span class="hljs-comment">#aspx</span>
+&lt;%<span class="hljs-built_in">eval</span>(Request.Item[<span class="hljs-string">"value"</span>])%&gt; 
+&lt;%<span class="hljs-built_in">eval</span> request(<span class="hljs-string">"value"</span>)%&gt;      <span class="hljs-comment">#其它</span>
+&lt;%execute request(<span class="hljs-string">"value"</span>)%&gt;
+&lt;%execute(request(<span class="hljs-string">"value"</span>))%&gt;</code></pre>
+
+<h4 id="2-绕过"><a href="#2-绕过" class="headerlink" title="2.绕过"></a>2.绕过</h4><p>大多网站会限制用户上传文件的类型，简单的绕过形式是<strong>修改文件后缀</strong></p>
+<p>Nginx解析漏洞，在低版本的Nginx中存在一个由PHP-CGI导致的文件解析漏洞，如果URL中有不存在的文件时，PHP会默认向前解析。比如在 <a href="http://www.xx.com/phpinfo.jpg/1.php中1.php不存在，会默认访问phpinfo.jpg文件，并且是按照php格式解析。" target="_blank" rel="noopener">www.xx.com/phpinfo.jpg/1.php中1.php不存在，会默认访问phpinfo.jpg文件，并且是按照php格式解析。</a></p>
+<p>Apache解析漏洞，Apache从右往左判断后缀，并跳过非可识别后缀，比如a.php.test文件，最终会被识别为php文件。</p>
+<p><strong>前端验证绕过</strong>，1）可以通过Burpsuite抓包，然后修改内容后放行；2）可以通过浏览器禁止/删除JS代码的执行。</p>
+<p><strong>.htaccess绕过</strong>，分布式配置文件，提供了一种方式，使配置文件可以随文件夹不同而不同，可以在启用了.htaccess文件的网站，使用此文件类型来绕过限制比较全面的黑名单过滤场景。具体流程：1）上传一个.htaccess文件，文件内容设置为【AddType application/x-httpd-php.test】;2）上传一句话木马文件，文件名设置为shell.test；3）在浏览器中访问shell.test执行。</p>
+<p><strong>大小写绕过</strong>，针对黑名单，比如将php文件改为pHp，这一条是否适用依赖于系统平台对大小写的敏感性。</p>
+<p><strong>Windows文件流特性绕过</strong>，NTFS文件系统实现了多文件流特性，NTFS环境一个文件默认使用的是未命名的文件流，同时可以创建其它命名的文件流，Windows资源管理器默认不显示出文件的命名文件流，这些命名的文件流在功能上和默认使用的未命名文件流一致，甚至可以用来启动程序。Windows和PHP的结合可以完成通过文件流绕过检测。</p>
+<p><strong>%00截断绕过</strong>，其中%00是在字符串或文件流的结尾。此类方法可以生效的根本原因在于我们可以分别控制 存储路径及文件名称。</p>
+<p><strong>文件头检测绕过</strong>，每种类型的文件都具有常见的文件头格式。可以通过将图片头部和代码部分拼接在一起，完成绕过。</p>
+<h4 id="3-源码审计"><a href="#3-源码审计" class="headerlink" title="3. 源码审计"></a>3. 源码审计</h4><p>对于文件类型检测来说，白名单的安全性要远大于黑名单；平时开发时要使用安全的函数；需要熟悉业务部署环境的OS、Web Server配置。</p>
+<p>本次课程中通过代码审计发现bWapp网站的文件上传漏洞高级安全场景下，无法简单绕过。但可以通过<strong>漏洞链</strong>的方式完成渗透，即漏洞之间的联合利用。基于一个成功上传的一句话木马内容的jpg，联合使用本地/远程文件包含漏洞，完成渗透。</p>
+<h4 id="4-Fuzz"><a href="#4-Fuzz" class="headerlink" title="4.Fuzz"></a>4.Fuzz</h4><p><strong>模糊测试</strong>，是一种软件测试技术，将自动化或半自动化生成的随机数据输入到一个程序中，并监视程序异常。</p>
+<p>在Burp中可以使用intruder模块，选择fuzz的点，在日常中可以积累一个常用的fuzz字典。生产环境中，可以依赖返回的length判断攻击是否成功。</p>
+<p><strong>模糊测试（fuzz）和渗透测试（penetration）</strong>都是属于安全测试，后者一般是模拟黑客恶意入侵的方式对产品进行测试，对测试者的能力要求高，成本高，难以大规模使用；而模糊测试可以充分利用机器本身，随机生成和发送数据。但使用时需要注意：1）Fuzz过程中由于会产生大量异常输入，未经人工分析，可能造成生产环境崩溃；2）Fuzz过程会产生大量负载；3）安全监测过程中容易由于过多访问出发警报。因此<strong>Fuzz多用于非生产环境</strong>。</p>
 
             </article>
             <hr>
@@ -282,8 +312,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/01/syl-sec/">
-                        <span class="hidden-mobile">实验楼-信息安全课程系列-Python</span>
+                      <a href="/2020/07/07/story-1/">
+                        <span class="hidden-mobile">【小故事】无法消散</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
