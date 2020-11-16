@@ -58,33 +58,6 @@
   
   
   <entry>
-    <title>图模型攻击总结</title>
-    <link href="/2020/10/13/paper-graph-attack-all/"/>
-    <url>/2020/10/13/paper-graph-attack-all/</url>
-    
-    <content type="html"><![CDATA[<p>博士课题后半部分涉及针对图模型、GNN（或者扩充至知识图谱）的攻击，本文为阅读如下四篇综述文章的总结。</p><blockquote><p>Adversarial Attacks and Defenses on Graphs: A Review and Empirical Study，<a href="https://arxiv.org/abs/2003.00653" target="_blank" rel="noopener">https://arxiv.org/abs/2003.00653</a></p><p>Adversarial Attack and Defense on Graph Data: A Survey， <a href="https://arxiv.org/pdf/1812.10528.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1812.10528.pdf</a></p><p>A Survey of Adversarial Learning on Graph，<a href="https://arxiv.org/abs/2003.05730" target="_blank" rel="noopener">https://arxiv.org/abs/2003.05730</a></p><p>Adversarial Attacks and Defenses on Graphs: A Review and Empirical Study，<a href="https://arxiv.org/pdf/1909.08072.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1909.08072.pdf</a></p></blockquote><h2 id="基础概念"><a class="markdownIt-Anchor" href="#基础概念"></a> 基础概念</h2><p>图分类：</p><p>图的节点、边或节点属性、边属性是否随时间变化：动态图（如社交网络图），静态图（如药物的分子结构）</p><p>有向图无向图；</p><p>带属性图，无属性图（边是否有属性、节点是否有属性）</p><p>同构、异构</p><h2 id="gnn对抗攻击"><a class="markdownIt-Anchor" href="#gnn对抗攻击"></a> GNN对抗攻击</h2>]]></content>
-    
-    
-    <categories>
-      
-      <category>论文笔记</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>机器学习</tag>
-      
-      <tag>图模型</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>【小故事】无法消散</title>
     <link href="/2020/07/07/story-1/"/>
     <url>/2020/07/07/story-1/</url>
