@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>李宏毅2020——深度学习【基础】 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>深鹿计划</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                李宏毅2020——深度学习【基础】
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-12-16 09:23">
+      2020年12月16日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
+<h3 id="一-历史发展"><a class="markdownIt-Anchor" href="#一-历史发展"></a> 一. 历史发展</h3>
+<p>1958年感知机模型被提出；1969年提出感知机模型无法解决非线性问题。</p>
+<p>1980s提出多层感知机尝试解决非线性问题，其实与今天的DNN没有特别明显的差别；</p>
+<p>1986年提出反向传播技术，但在超过三层的模型中就无法训练出好的结果；1989年有人提出只需要一层就可以模拟任何函数，加入足够神经元即可，不需要Deep；（那个年代NN非常之不吃香，人们开始尝试…改名）</p>
+<p>2006年，RBM initialization（受限玻尔兹曼机），非常复杂，人们在一段时间里认为这是一个突破，但目前很少在有使用，因为带来的帮助有限。但它让大家再次对NN领域有了兴趣。</p>
+<p>2009年使用GPU加速；2011年开始在语音识别领域流行；2012年赢得了图像领域的比赛。</p>
+<h3 id="二-基础"><a class="markdownIt-Anchor" href="#二-基础"></a> 二. 基础</h3>
+<p>给定了<strong>网络架构</strong>（连接方法，神经元数目，层数），其实就是定义了一个函数集合，我们希望通过不同的w和b找到其中最优的那个函数。</p>
+<p>不同网络架构的区别在于神经元的不同连接方式，常用的有全连接网络。</p>
+<p>深度神经网络它就是很深。。。。特别深的网络需要比较特殊的网络结构，全连接网络太深的话很难训练起来。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/deep.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>DNN其实就是一连串矩阵预算（输入向量乘权重矩阵再加上偏量），可以使用GPU进行矩阵运算的加速。DNN的隐藏层可以全部视为特征工程部分，最后输出层视为一个多分类器（加一个softmax）。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/matrix.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="1-是否要选择使用dnn"><a class="markdownIt-Anchor" href="#1-是否要选择使用dnn"></a> 1. 是否要选择使用DNN？</h4>
+<p>原本不是DNN的模型，我们需要<strong>找到恰当的特征工程方法</strong>，使用DNN可以直接丢过去，但<strong>问题转化为如何设计合适的DNN网络结构</strong>。我们可以考虑这两个任务哪个更容易解决，来决定是否选择使用深度学习方法。比如在CV或语音识别方面，DNN的效果非常强，但在NLP领域优势没有那么大。</p>
+<h4 id="2-是否可以自动决定网络架构"><a class="markdownIt-Anchor" href="#2-是否可以自动决定网络架构"></a> 2. 是否可以自动决定网络架构？</h4>
+<p>有相关研究（Evolutionary Artificial Neural Networks），但是目前没有被广泛应用起来。</p>
+<p>大家通常选择使用CNN，RNN等架构。</p>
+<h4 id="3-为什么要深度学习"><a class="markdownIt-Anchor" href="#3-为什么要深度学习"></a> 3. 为什么要深度学习？</h4>
+<p>只要有足够多的神经元，一层网络就可以近似所有的函数（宽度学习 &gt;__&lt;）</p>
+<p>“Deeper is Better”？会存在梯度消失的问题，比如损失函数中使用Sigmoid，经过链式法则，靠近输出层的地方有比较大的梯度值更新很快，靠近输入层则相反，导致几乎在已经收敛完成时，靠近输入层还是随机参数状态，陷入局部最小值。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/vanish.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+同等量级参数的情况下，矮胖model和瘦长model哪个好？实验结果表明是后者好。
+<p>DL更有效率，只需要比较少的神经元，意味着比较少的参数，所以用比较少的数据量就可以运算。模组化、逻辑电路、剪窗花的例子。我们没有足够的训练数据所以比较需要Deep learning（这和传统想法不同啊）。</p>
+<p>在语音识别领域，DL逐渐取代以往《信号与系统》等领域的某些步骤（DCT, log, Filter bank等），google甚至尝试从第二步（DFT）开始就直接使用端到端的深度学习网络，最终效果是与传统方法打平。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/speech.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="三-反向传播"><a class="markdownIt-Anchor" href="#三-反向传播"></a> 三. 反向传播</h3>
+<p>DNN里依然是使用<strong>梯度下降</strong>法找最优参数，很多框架都实现了<strong>反向传播</strong>技术，即一种在神经网络中更<strong>有效率</strong>计算偏微分的方法，可以直接使用。大多数深度学习“专家”并不会计算微分。</p>
+<p>最大的问题是DNN中有过多参数，如何有效计算？反向传播就是一种比较有效率的方法，其关键点是<strong>链式法则</strong>。</p>
+<p>两个关键步骤就是：Forward Pass 之后进行 Backword Pass。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/back.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h2 id="训练tips"><a class="markdownIt-Anchor" href="#训练tips"></a> 训练Tips</h2>
+<h3 id="一-问题区分"><a class="markdownIt-Anchor" href="#一-问题区分"></a> 一. 问题区分</h3>
+<p>首先检查<strong>在训练集</strong>上有没有得到好的结果（有没有训练起来），之后再看测试集（不要直接上）。</p>
+<p>另外，不要看到所有不好的效果，都说是因为overfitting，你需要先检查训练集上的效果，如果测试集比训练集差才是<strong>过拟合</strong>。也不是叫欠拟合，因为有的时候模型的能力其实是够的，但是因为局部最优解等问题而没有训练好。李宏毅老师认为严格的“欠拟合”概念是模型参数不够多而导致它本身没有能力解决这个问题。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/recept.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>针对在<strong>训练集效果不好</strong>和在<strong>测试集效果不好</strong>这两个问题，有不同的处理方法，这个必须要清楚。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/recipt.png" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="1-新的激活函数"><a class="markdownIt-Anchor" href="#1-新的激活函数"></a> 1. 新的激活函数</h4>
+<p>梯度消失、Sigmoid</p>
+<p>ReLU、Leaky ReLu、Paramatic ReLu、Maxout</p>
+<p>早年的解决方法是依次（或分批次）训练不同层。目前常用的方法是更换激活函数，由Sigmoid换成了<strong>ReLU</strong>。ReLU的优势在于：1）计算迅速；2）有生物学基础；3）等同于无穷多带有不同bias的sigmoid函数叠加的结果；4）可以弱化梯度消失问题。</p>
+<p>使用的时候非常粗暴地解决了ReLU在0点无法微分的事情，直接忽略…也有一些变种，比如Leaky ReLU（小于零部分加入0.01的系数），Parametric ReLU（小于零部分加入可学习的系数）、<strong>Maxout</strong>（自动学习激活函数，可以学出ReLU，也可以学出其它形状的激活函数）等。</p>
+<p>Maxout把多个神经元的参数视为一组，然后进行一个类似maxpooling的操作。max操作无法微分，那么maxout如何训练呢？其实对于被max操作选中的参数，模型和线性模型是一样的，其它参数直接拿掉就可以（类似一个开关），每一次有不同的输入时，z的大小会变化，被训练到的参数是不一样的，最终其实几乎全部都可以被训练到。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/train.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="2-可调整的学习率"><a class="markdownIt-Anchor" href="#2-可调整的学习率"></a> 2. 可调整的学习率</h4>
+<p>DNN的损失函数更加复杂，需要更灵活的学习率，只是用Adagrad可能无法满足。人们提出RMSProp（在Hinton的线上课程上提出来，没有paper）。RMSProp + Momentum形成Adam。</p>
+<h4 id="3-早停"><a class="markdownIt-Anchor" href="#3-早停"></a> 3. 早停</h4>
+<p>在DeepLearning中，正则化和早停的效果差不多，正则化的作用没有像在SVM等方法中这么厉害。</p>
+<h4 id="4-正则化"><a class="markdownIt-Anchor" href="#4-正则化"></a> 4. 正则化</h4>
+<p>正则化一般不考虑bias项，因为它和使函数更平滑没有关系。</p>
+<p>L1和L2略有不同，L1每次减掉一个（固定的）值，而L2是通过乘法来做的。L1训练出来的结果比较稀疏，L2的话权重平均都比较小。</p>
+<h4 id="5-dropout"><a class="markdownIt-Anchor" href="#5-dropout"></a> 5. Dropout</h4>
+<p>每次都训练一个比较瘦长的网络架构，每次训练的网络是不一样的。在testing的阶段需要在参数上乘以dropout rate。</p>
+<p>可以通过ensemble的角度理解dropout的效果。</p>
+<p>感觉DL领域中的甚多地方都是偏工程或理解直觉的，无法通过严谨的理论推理。</p>
+<h2 id="cnn"><a class="markdownIt-Anchor" href="#cnn"></a> ## CNN</h2>
+<p>CNN的关键点是简化网络架构，如果用全连接网路的话，参数过多。可以做到这样的简化是因为：1）神经元为了发现图片中的某种模式并不需要整张图，只需要局部信息即可；2）同种模式可能出现在图片中的不同区域；3）subsampling（下采样）一些像素可能对整个图片没有太大影响。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/cnn.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>CNN可以视为将全连接层拿掉一些权重，即没有考虑全部输入信息。</p>
+<p>图片分析中，每一个filter是同时考虑所有channel的，但也有相应的参数。CNN实现的过程中需要将vector搞成高维tensor，另外要考虑filter的大小及个数。</p>
+<p>如何了解CNN模型学到了什么？将模型参数固定，通过梯度上升方法寻找使模型激活结果最大的输入（有一些可解释性AI的意思），如下图所示。选取<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mi>j</mi></mrow><annotation encoding="application/x-tex">a_ij</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>不同的位置可以解释不同层的作用。比如，通过放在输出层有研究工作发现，CNN真正学到的东西和人类的想象不同，《Deep Neural Networks are Easily Fooled》。另外我们也可以通过调整最终的Loss函数，对输入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>加入一些限制，使最终找到的CNN理想输入更符合人类的想象。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/what_learned.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>找理想输入/可解释性的部分，感觉可以有挺多应用，比如是否可以在恶意软件检测的部分自动抽取Yara规则。</p>
+<p>**什么时候可以用CNN呢？**场景需要具有如下特性：1）局部信息（远小于全局信息）可以反映出某些模式（pattern），比如围棋中的落子模式；2）同样的模式会出现在不同区域，但代表了同样的意义；3）下采样并不会改变整个样本（比如图像识别），这是max pooling的感性基础，但这一条在alpho go那里为什么成立呢？看文章描述alpho go中应该是没有用到pooling。<strong>在应用时一定要考虑场景特性</strong></p>
+<h2 id="gnn视为cnn的扩展"><a class="markdownIt-Anchor" href="#gnn视为cnn的扩展"></a> GNN（视为CNN的扩展）</h2>
+<p>总的路线图如下，分为spatial-based和spectral-based两种，课程中首先讲了前者。GNN中常用的benchmark dataset是CORA, TU-MUTAG。常用任务为：图分类（真的是图像分类，在MNIST和CIFAR10上superpixel）；回归（ZINC）；节点分类（graph pattern recognition、semi-supervised graph clustering）；边分类（旅行商问题，TSP）；</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/GNN.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="一-spatial-based-gnn"><a class="markdownIt-Anchor" href="#一-spatial-based-gnn"></a> 一. Spatial-based GNN</h3>
+<p>基础操作有Aggregate（等价Convolution）和Readout（代表整个图）。</p>
+<h3 id="二-spectral-based-gnn"><a class="markdownIt-Anchor" href="#二-spectral-based-gnn"></a> 二. Spectral-based GNN</h3>
+<p>从信号与系统过来，经过傅里叶变换之后，卷积操作变成乘法操作即可。</p>
+<p>合成分析，信号可以视为N维空间的向量，我们常用cos(x)或sin(x)作为bases。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/f.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>Graph Laplacian， L =  D - A，即度矩阵减去邻接矩阵，最后L是一个半正定矩阵，通过谱分解后，计算出特征值和特征向量。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/spectral.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>频率越大，相邻两点间的信号量变化越大。在图上的操作，某种程度上代表了某个节点与其相邻节点信号能量差，由此来量化频率的大小。所以特征值<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span>表示频率变化。</p>
+<p>如何在图上将信号在数值与频率意义上的相互转换。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/s1.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/s2.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>在频率意义上如何进行过滤？有问题：1）滤波函数参数与输入节点数呈正比；2）学习滤波器的时候可能了一些不希望学习到的东西，并不是localized的，多次方会考虑多步邻居。</p>
+<p>ChebNet，主打速度快而且可以局部化。选择拉普拉斯多项式函数从而限定在考虑K近邻局部信息，而且限制了参数数量与K成正比。但依然存在计算复杂度太高的问题<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。将一组多项式函数转换成为另一组多项式函数，会使计算更加简单。类比下面的高中试题例子。最后的计算时递归的形式，计算量变为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>K</mi><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(KE)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/chebnet.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>最后变成，需要学习一组/几组参数，处理经过k次递归计算的输入信号。</p>
+<p><strong>GCN</strong></p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/gcn.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>MLP的意思是直接用特征来做，一般被认为是一个benchmark。GCN的效果并没有很强，一般使用GAT或GraphSAGE。</p>
+<p>使用dropedge技巧稍稍拯救一下太深层的GCN。</p>
+<h3 id="三-graph生成"><a class="markdownIt-Anchor" href="#三-graph生成"></a> 三. Graph生成</h3>
+<p>通过VAE 和 GAN做。还有Auto-regressive-based model，每一步生成一个节点/边。</p>
+<p><strong>最终总结</strong></p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/summary.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h2 id="rnn"><a class="markdownIt-Anchor" href="#rnn"></a> RNN</h2>
+<h3 id="一-lstm基础"><a class="markdownIt-Anchor" href="#一-lstm基础"></a> 一. LSTM基础</h3>
+<p>希望神经网络具有记忆，除了考虑输入之外还要考虑存在<strong>memory</strong>里的值，所以就考虑到了输入序列的次序。</p>
+<p>Elman Network （memory里存的是hidden layer中的值）和 Jordan Network（memory里存的是output layer的值）。</p>
+<p>Bidirectional RNN的好处就是上下文兼顾，而不是只处理上文。</p>
+<p>LSTM（Long Short-term Memory）有三个gate，包括input gate（控制否是写入memory），output gate（控制是否可以读出memory）以及forget gate（控制memory要忘掉记得过去的东西）。可以认为LSTM有<strong>四个输入和一个输出</strong>。一般门里面选择sigmoid的函数，表示门被打开的程度。在神经元个数相同的情况下，LSTM是一般神经网络参数的4倍。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/lstm.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/lstm_1.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>LSTM的最终形态，将前一个时间的hidden layer，memory都考虑到输入中来。然后叠加个五六层。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/lst_b.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>目前说在做RNN的人基本都是在用LSTM。Keras中实现了三种有，<strong>LSTM，GRU和SimpleRNN</strong>（最开始上课时引入的那个模型）。</p>
+<p>RNN由于同样的参数在不同时间点反复使用（不是激活函数的锅），会有<strong>梯度消失问题</strong>，所以其的训练比较困难。RNN的error surface是非常陡峭的，参数比较容易飞出去，程序就NAN了。使用了非常工程化的一招clipping，即设计了一个阈值。解决的技巧就是<strong>LSTM</strong>，可以解决梯度消失问题（但不解决gradient explode问题）。**为什么LSTM可以做到呢？**因为memory和input是加在一起的，如果当前输入会影响到memory的话，那么这个影响会永远存在（传言，训练LSTM是需要确保forget gate在多数情况下都开启）。</p>
+<p><strong>GRU</strong>只有两个门（input gate 和 forget gate合为一体），需要的参数量更少。LSTM如果过拟合比较严重，可以尝试一下GRU。</p>
+<p>两种注意力机制网络结构，后者为Neural Turing Machine（包含了Writing Head Controller部分）。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/attention.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="二-structural-learning"><a class="markdownIt-Anchor" href="#二-structural-learning"></a> 二. Structural Learning</h3>
+<h4 id="1-统一框架与三大问题"><a class="markdownIt-Anchor" href="#1-统一框架与三大问题"></a> 1. 统一框架与三大问题</h4>
+<p>输入输出不是一个向量，而是一种结构化数据（sequence、list、tree、bounding box等）的时候该如何处理。应用场景包括比如：语音识别、机器翻译、语义解析、目标检测（图像到边框）、文本总结等。统一框架如下，即寻找一个可以衡量输入输出匹配性的函数F，测试阶段穷举所有可能的输出，选取在当前函数F下分值最高的y，作为最终结果。其实也可以将函数F理解为x和y一同出现的几率P。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/struct.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>我们需要解决如下三个问题：1）几率函数形式；2）如何找到最恰当的输出；3）如何找到合适的几率函数。可以将简单的DNN视为structural learning的子类，将DNN中的函数f和损失函数一同视为structural learning中的几率函数F。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/three.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="2-三大问题的解决"><a class="markdownIt-Anchor" href="#2-三大问题的解决"></a> 2. 三大问题的解决</h4>
+<p>问题1：抽取features，目标检测中可以使用CNN抽取特征。</p>
+<p>问题2：假装没有问题，已经解决；</p>
+<p>问题3：算法步骤如下，重点在于证明这个方法最后是可以收敛/停止的。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/algorithm.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="3-structured-svm"><a class="markdownIt-Anchor" href="#3-structured-svm"></a> 3. Structured SVM</h4>
+<h4 id="4-sequence-labeling"><a class="markdownIt-Anchor" href="#4-sequence-labeling"></a> 4. Sequence Labeling</h4>
+<p>李老师认为GAN也是属于structural learning。</p>
+<h3 id="三-deep-learning-vs-structural-learning"><a class="markdownIt-Anchor" href="#三-deep-learning-vs-structural-learning"></a> 三. Deep Learning vs Structural Learning</h3>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/compare.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>现在流行把它们组装起来，未来的趋势是将Deep和Structured组装在一起。</p>
+<div align="center">
+  <img src="/2020/12/16/DL-lhy/together.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/16/pytorch-book/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Pytorch学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/14/ML-lhy/">
+                        <span class="hidden-mobile">李宏毅2020——机器学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

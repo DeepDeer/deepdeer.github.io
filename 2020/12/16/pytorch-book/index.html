@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>DGA检测相关工作梳理 - DeepDeer</title>
+  <title>Pytorch学习 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                DGA检测相关工作梳理
+                Pytorch学习
               
             </span>
 
@@ -156,8 +156,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-14 17:33">
-      2020年10月14日 下午
+    <time datetime="2020-12-16 09:37">
+      2020年12月16日 上午
     </time>
   </div>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      0 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      1
        分钟
     </span>
   
@@ -208,63 +208,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>博士期间有一部分研究是DGA检测，现将相关资料整理在此。</p>
-<h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
-<p>僵尸网络（Botnet）被用于实施如DDoS、垃圾邮件、隐私窃取等攻击，造成很大危害。防御者多尝试使用sinkhole方法予以拦截，通过更改域名解析结果，将肉鸡重定向到某些受控节点或无效地址上。而为了绕过这类防御手段，攻击者（bot master）常利用域名生成算法（DGA）提升C&amp;C节点的灵活性。</p>
-<p>DGA本质为随机字符串生成方法，根据给定的输入（seed）动态生成大量备选域名，攻击者可以选取其中一小部分用于C&amp;C通信。通过随机切换注册域名，让类似黑名单等静态检测方法失效，而且由于此类注册域名存活时间短，不容易被反复监测到，也比较容易绕过域名评分系统。有关DGA基本情况已经有很多文章都介绍过了，个人感觉还是Usenix Security16的文章最为系统和靠谱，毕竟作者还维护出了DGArchive，成为这个小方向的基线。</p>
-<blockquote>
-<p>《A Comprehensive Measurement Study of Domain Generating Malware》，Usenix Security 16</p>
-</blockquote>
-<p>这篇文章逆向分析了43个使用了DGA的恶意软件家族，通过重写算法，基于253个种子得到了全部DGA域名，维护成DGArchive数据库。此外作者查询积累了14年的WHOIS记录，发现DGA域名注册状态和拥有者的变化一般是从攻击者转为防御者的sinkhole。</p>
-<h3 id="1-dga分类"><a class="markdownIt-Anchor" href="#1-dga分类"></a> 1. DGA分类</h3>
-<p>按照</p>
-<h2 id="检测方法"><a class="markdownIt-Anchor" href="#检测方法"></a> 检测方法</h2>
-<h3 id="1-2010年左右"><a class="markdownIt-Anchor" href="#1-2010年左右"></a> 1. 2010年左右</h3>
-<p>Detecting algorithmically generated malicious domain names</p>
-<p>Fromthrow-away traffic to bots: detecting the rise of DGA-based malware</p>
-<h3 id="2-深度学习时代"><a class="markdownIt-Anchor" href="#2-深度学习时代"></a> 2. 深度学习时代</h3>
-<p>如果说，那么近年有关DGA检测方法的学术高光时刻应该是US18的这篇FANCI，在此之后，各类DGA检测方法层出不穷，但大家貌似都绕不开文本字符分析，只是在特征提取、神经网络设计上有所不同，也有一些会加入其它信息。</p>
-<blockquote>
-<p>《MaldomDetector: A system for detecting algorithmically generated domain names with machine learning》Computer&amp;Security 2020</p>
-<p>《Inline Detection of DGA Domains Using Side Information》arxiv 2020</p>
-</blockquote>
-<p>基于图模型的检测，但这种情况下，大家的胃口就不局限于DGA啦，基本都是恶意域名检测</p>
-<h3 id="3-wordlist-based-dga"><a class="markdownIt-Anchor" href="#3-wordlist-based-dga"></a> 3. Wordlist-based DGA</h3>
-<p>2018年RAID文章开始关注基于词表的DGA方法；</p>
-<h3 id="4-加密协议dohdot影响"><a class="markdownIt-Anchor" href="#4-加密协议dohdot影响"></a> 4. 加密协议DoH，DoT影响</h3>
-<blockquote>
-<p>《Encrypted and Covert DNS Queries for Botnets: Challenges and Countermeasures》C&amp;S 2020</p>
-</blockquote>
-<p>另外，有关DoH、DoT的部署测量、效率影响、隐私保护等方面都有很优秀的相关工作（大佬们总是又快又厉害），后面再总结一篇博文。</p>
-<h3 id="5-对抗检测"><a class="markdownIt-Anchor" href="#5-对抗检测"></a> 5. 对抗检测</h3>
-<p>DeepDGA，MaskDGA，charbot，Khaos</p>
-<h2 id="相关论文"><a class="markdownIt-Anchor" href="#相关论文"></a> 相关论文</h2>
-<h2 id="资源列表"><a class="markdownIt-Anchor" href="#资源列表"></a> 资源列表</h2>
-<ol>
-<li>
-<p>DGA域名及种子资源，<a href="https://dgarchive.caad.fkie.fraunhofer.de/site/index.html#instant-lookup" target="_blank" rel="noopener">DGArchive</a>, <a href="https://data.netlab.360.com/dga/" target="_blank" rel="noopener">360NetLab</a>, 两者都经常有更新。其中DGArchive使用前需要申请注册，记得应该是向<strong><a href="mailto:daniel.plohmann@fkie.fraunhofer.de">daniel.plohmann@fkie.fraunhofer.de</a></strong>发一封邮件，如果实在申请不到，我们有一个账号，下载了一些数据，可以私信~</p>
-</li>
-<li>
-<p><a href="https://data.mendeley.com/datasets/y8ph45msv8/1" target="_blank" rel="noopener">UMUDGA</a>, 公开的DGA数据库，学术风格，其中对域名做了N-gram的数据处理，也包含了产生各家族DGA的算法。相关论文为《UMUDGA: A dataset for profiling DGA-based botnet》发表在CCF-B类期刊Computer&amp;Security 2020上。</p>
-</li>
-<li>
-<p>DGA算法发现与解析（羡慕会做逆向的大神，而且人家第一篇博客是从14年开始的，一直坚持，敬佩），<a href="https://johannesbader.ch/tag/dga/" target="_blank" rel="noopener"> 大神博客</a> 写的非常详尽了，<a href="https://github.com/baderj/domain_generation_algorithms" target="_blank" rel="noopener"> Github链接</a>。</p>
-</li>
-<li>
-<p>其它网站：</p>
-<ul>
-<li>在线沙箱分析，<a href="https://app.any.run/" target="_blank" rel="noopener">https://app.any.run/</a></li>
-<li>在线沙箱分析，<a href="https://www.hybrid-analysis.com/" target="_blank" rel="noopener">https://www.hybrid-analysis.com/</a></li>
-<li>恶意样本下载，<a href="https://bazaar.abuse.ch/browse.php?search=bamital" target="_blank" rel="noopener">https://bazaar.abuse.ch/browse.php?search=bamital</a></li>
-</ul>
-</li>
-<li>
-<p>域名处理工具</p>
-</li>
-</ol>
-<h2 id="瞎扯"><a class="markdownIt-Anchor" href="#瞎扯"></a> 瞎扯</h2>
-<p>虽然博士课题中有一部分涵盖自动化DGA域名检测，但感觉业界真正使用的还是逆向分析技术，毕竟AI方法黑盒具有太多不可解释性，没法跟客户交代。在做论文的时候，大家都非常关注追求极低的误报率。但之前在一个安全厂商实习时，了解到他们会把这类AI加持的检测引擎作为一个过滤器使用，这种场景下可能就需要漏报较小了吧。</p>
-
+              
             </article>
             <hr>
             <div>
@@ -273,7 +217,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识梳理</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
                     
                   </div>
                 
@@ -282,8 +226,6 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
                     
                   </div>
                 
@@ -296,9 +238,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/16/talk-1/">
+                      <a href="/2020/12/21/lhy-advanced/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">大规模图数据分析技术：挑战与机遇</span>
+                        <span class="hidden-mobile">李宏毅2020——深度学习【其它】</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -306,8 +248,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/07/story-1/">
-                        <span class="hidden-mobile">【小故事】无法消散</span>
+                      <a href="/2020/12/16/DL-lhy/">
+                        <span class="hidden-mobile">李宏毅2020——深度学习【基础】</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -519,6 +461,13 @@
 
 
 
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
 
 
 

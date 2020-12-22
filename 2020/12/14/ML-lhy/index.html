@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>李宏毅2020——机器学习 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>深鹿计划</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                李宏毅2020——机器学习
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-12-14 08:34">
+      2020年12月14日 早上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>课程视频可以在B站（<a href="https://www.bilibili.com/video/BV1JE411g7XF%EF%BC%89%E6%88%96Youtube%E6%89%BE%E5%88%B0%EF%BC%8C%E8%AF%BE%E7%A8%8B%E5%AE%98%E6%96%B9%E7%BD%91%E7%AB%99%E4%B8%BA%EF%BC%8Chttp://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html%E3%80%82" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1JE411g7XF）或Youtube找到，课程官方网站为，http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html。</a></p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/learn_map.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+关键点：
+<p>老师的讲解思路以回归问题入手，使用MSE作为损失函数；之后再扩展/改进到分类问题</p>
+<p>助教对于5大优化器方法（及各类研究型改进方法）的原理、使用场景的介绍。</p>
+<h2 id="基础概念"><a class="markdownIt-Anchor" href="#基础概念"></a> 基础概念</h2>
+<h3 id="一-梯度下降"><a class="markdownIt-Anchor" href="#一-梯度下降"></a> 一. 梯度下降</h3>
+<p>线性回归问题没有局部最小解（损失函数是convex的）。</p>
+<p>求解最优问题时“梯度越大的点距离最优点越远”这个通常只在<strong>仅有一个参数</strong>的时候成立，在<strong>跨参数的时候</strong>就无法进行这样的比对。最好的step应当把当前变量的二次微分也考虑进来。另外，在多个参数的时候也许会不降反增（我的世界视频）。</p>
+<p>梯度下降法的局限不仅限于局部最小值，还有saddle point，或者导数很小的plateau。</p>
+<h4 id="1-学习率"><a class="markdownIt-Anchor" href="#1-学习率"></a> 1. 学习率</h4>
+<p>学习率，通常来讲可以随着参数的调整情况而减小学习率，但准确来讲是根据不同参数及不同更新情况调整学习率，比如<strong>Adagrad</strong>。当然这个方法到后面会计算比较慢。还有一系列表现更好的优化方法，比如常用Adam。</p>
+<p><strong>Adagrad</strong>主要考虑梯度值的**“反差”**（How surprise it is），即当前梯度值与历史值的相对大小。从另一个角度来讲，Adagrad分母部分代表了二次微分的估算（这里是对于相对大小的近似，没有直接计算二次微分是出于复杂度的考虑）。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/adagrad.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+**Stochastic Gradient Descent**（SGD），每次只拿一个样本出来计算损失函数值，多次计算，速度快，不稳定。
+<h4 id="2-feature-scaling"><a class="markdownIt-Anchor" href="#2-feature-scaling"></a> 2. Feature Scaling</h4>
+<p>尽量保证不同特征的取值范围相近，也是为了保证相应的权重对于损失函数的微分影响相近，最终图像更近似于圆形，更容易进行参数更新。Scaling的方法有非常多种，选一个喜欢的，常用的是减去平均值后除以标准差。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/scaling.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="3数学基础"><a class="markdownIt-Anchor" href="#3数学基础"></a> 3.数学基础</h4>
+<p>泰勒级数展开，重点在于当x无限接近<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>时，只保留低阶项完成近似。所以学习率需要足够小以保证泰勒级数展开成立。另外，我们一般不会加入二次微分或更高阶的微分来增大学习率的恰当取值范围。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/mathbase.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="4五大常用优化方法"><a class="markdownIt-Anchor" href="#4五大常用优化方法"></a> 4.五大常用优化方法</h4>
+<p>关注off-line类型的方法。以下五个是同时（几乎所有时候）工程上用到的优化方法，后三个是adaptive类型，比如在比较平缓的地方可以自动大步走过去，所以收敛速度比较快，但通常收敛结果要弱一些。其它研究型优化方法有非常多，但尝试起来可能比较费力。</p>
+<ul>
+<li>SGD</li>
+<li>SGDM（with Momentum），计算当前参数更新值的时候考虑到过去的更新值。YOLO、ResNet模型训练时有使用。另外1983年提出了NAG方法针对动量进行了修改，look into the future，有一些数学计算保证无需维护两份参数，相当于把计算过程中的动量向前走了一个time step。这个思想用到Adam上就是Nadam方法。</li>
+</ul>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/SGDM.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<ul>
+<li>Adagrad，考虑当前梯度相对于历史梯度值的大小。</li>
+<li>RMSProp，是对Adagrad的改进，确保分母部分不会持续增大而导致出现计算结果过小的问题（没走几步就卡住了）。</li>
+<li>Adam，是将SGDM与RMSProp结合；BERT、ADAM、Tacotron、Big-GAN、MEMO等模型都是使用ADAM训练出来的。</li>
+</ul>
+<p>为什么实际应用比较强的模型大多是使用SGDM、Adam训练出来的呢？助教认为这是因为这两个模型先抢到了两个最极端的位置。Adam比较快而SGDM比较稳。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/vs.png" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>有人提出SWATS，即开始的时候追求是速度使用Adam，后面使用SGDM。关键问题在于什么时候进行切换，作者并没有证明为什么要在那个点进行切换。</p>
+<p>有一些研究旨在提升Adam，如何让Adam收敛得更稳。比如ICLR‘18论文AMSGrad，通过max操作记住过去最大时候的梯度值，降低影响较小的小梯度值带来的影响，其实有点像走回头路。ICLR’19发表AdaBound提出了两个人工定制的边界，限制动态调整的范围，但助教认为非常粗暴，有点像工程的解决方法。</p>
+<p>另一个方向是从SGDM这里提升，是否可以帮助SGDM找到最佳学习率，提升其收敛速度。比如WACV 17’提出Cyclical LR周期性改变学习率大小（锯齿状信号）。SGDR也类似，只是变了不同的波形。One-cycle LR则是只做一个周期，周期中首先提升而变小，最后再平缓变小。</p>
+<p><strong>Adam是否也需要warm-up？</strong>，答案是肯定的，这样会使它前面几次迭代结果不会太乱。工程上的wram-up经常是自己定义一个曲线。也有一些研究工作提出其它warm-up方法。ICLR’20 提出RAdam方法，开始的时候使用SGDM，后面用了改动后的Adam。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/radam.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>Geoffrey Hinton团队提出<strong>Lookahead方法</strong>，可以包装在现有各类优化算法外面，关键点是“K setp forward，1 step back”。这样做使梯度下降更稳定，better generalization，因为尽量保持在比较平坦的区域而不会进入太危险的区域。</p>
+<p>计算SGDM和Adam时需不需要考虑L2正则项的参数呢？有研究结果表明最好是在计算动量或历史加和的时候不要加入，而在计算更新值的时候加入，提出的算法名为<strong>AdamW和SGDW</strong>，与大部分优化算法不同，AdamW是真正被工业界使用过的。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/all.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>通常的适用情况如下，并没有一个通用万能的优化器。更换更恰当的优化器的作用只能是在模型训练起来以后，提升一些性能；如果模型训练不起来，那可能是数据或架构本身有问题，通过更换优化器并不能解决。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/env.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="5-优化技巧"><a class="markdownIt-Anchor" href="#5-优化技巧"></a> 5. 优化技巧</h4>
+<p>Shuffling、Dropout、Gradient noise（加入高斯噪声，随着时间标准差减小）</p>
+<p>Warm up（一开始学习率定比较小，慢慢稳定之后调大）、Curriculum Learning、Fine-tuning；这几个技巧的本质是先用简单的数据或任务训练模型，之后再慢慢增加难度。</p>
+<p>Normalization，Regularization，避免模型学到过于极端的参数。</p>
+<h3 id="二-正则化"><a class="markdownIt-Anchor" href="#二-正则化"></a> 二. 正则化</h3>
+<p>比较简单的model受不同数据分布的影响相对较小。如果模型的error主要来自于variance，则情况为overfitting（过拟合），需要增加训练集或加入正则项；如果主要来自bias，则情况为underfitting（欠拟合），需要重新设计模型，加入更多特征信息等。更直观的过拟合/欠拟合评价标准是观察模型在训练集和测试集上的误差表现。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/variance.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>L2正则会倾向得到更加平滑的函数。</p>
+<p>做正则化的时候并不需要考虑bias项。</p>
+<h3 id="三-验证集"><a class="markdownIt-Anchor" href="#三-验证集"></a> 三. 验证集</h3>
+<p>为什么要划分出validation set？ 因为这样的话，才没有在结果中考虑到public testing set的影响，从而可以更贴近模型在private testing set上的表现。一般进行N折交叉验证（N-fold cross Validation）选择模型。注意，模型选择后还要在整个训练集上重新训练一下。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/validation.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h2 id="分类问题"><a class="markdownIt-Anchor" href="#分类问题"></a> 分类问题</h2>
+<p>**为什么不可以用回归方法硬解分类问题？**比如结果大于0是一类，小于0是另一类。很大的问题你很难通过回归方法得到准确模型，比如下图右下角数据会对模型产生很大影响，最终会选择紫色线模型。而且使用回归方法解分类问题，在定义不同类别的时候，隐含着加入了大小关系。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/regress.jpg" srcset="/img/loading.gif" width="30%" height="30%" alt="oauth">
+</div>
+<h3 id="一-生成方法"><a class="markdownIt-Anchor" href="#一-生成方法"></a> 一. 生成方法</h3>
+<p>生成模型的关键三步，最初思想为贝叶斯公式。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/steps.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>假设服从<strong>高斯分布</strong>（不同情况下可以使用不同分布，比如伯努利等），关键参数为mean和covariance matrix，即均值和协方差矩阵。使用<strong>最大似然估计</strong>算这两个参数值，即从样本中估计出最可能的参数模型。</p>
+<p>通常不会给每个分类都有自己的mean和covariance matrix（大小与输入的属性个数成平方），一般会计算出<strong>统一的协方差矩阵</strong>，有效减少参数。而且这种情况下分类boundary变成了直线，模型也属于<strong>线性模型</strong>。数学推导如下，几经展开、消去等运算后，变成线性模型加一个sigmoid函数。另外，在高维空间，如果假设每个属性的分布是独立分布的，这就是<strong>朴素贝叶斯</strong>（Naive），这个假设还是比较强的。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/math1.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/math2.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>在生成模型中，我们直接计算出权重w和偏移b，而在目前比较流行的判别方法中，我们使用各种优化方法逐步寻找最优的w和b。</p>
+<h3 id="二-逻辑斯特回归"><a class="markdownIt-Anchor" href="#二-逻辑斯特回归"></a> 二. 逻辑斯特回归</h3>
+<p>损失函数使用<strong>伯努利分布交叉熵</strong>，而不直接像线性回归一样直接使用MSE，原因是这样的损失函数在逻辑斯特回归上过于平坦。详细来说，如果使用MSE做损失函数，求偏微分之后，由结果公式看到在距离目标很远的时候，微分值也很小，更新速度非常慢。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/cross.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>但求偏微分之后，逻辑斯特与线性回归的参数更新表达式是一样的。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/logistic.png" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>多分类情况</strong>下，用Softmax（二分类问题下就是sigmoid）。Softmax会对比较大的结果值进行强化，使最大值辨识度更高。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/softmax.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>逻辑斯特模型局限，其为线性模型，无法直接处理非线性问题（比如异或问题）。一种解决方法为Feature Transformation，但恰当的方法比较难找。我们希望让机器自动找到合适的方法，可以通过级联多个逻辑斯特模型实现。我们可以给它们一个新的名字，把每一个逻辑斯特模型叫做神经元，整个模型叫做神经网络，然后搞到层数多一些，就有了深度~</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/multi.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="三-生成方法-vs-判别方法"><a class="markdownIt-Anchor" href="#三-生成方法-vs-判别方法"></a> 三. 生成方法 vs 判别方法</h3>
+<p>模型公式相同，但我们极大可能找不到相同的w和b参数。因为两类方法有不同的假设。比如逻辑斯特回归对数据分布没有任何假设，是直接梯度下降找最优解；朴素贝叶斯则假设了独立同分布、高斯分布等等。</p>
+<div align="center">
+  <img src="/2020/12/14/ML-lhy/wb.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>常常在文献上有人讲，判别方法比生成方法效果好。但有些时候生成方法也是有优势的（因为此类方法加入了对数据分布的假设，相当于有了一些脑补），比如1）训练数据量很少的时候；2）有某些噪声；3）先验与类相关概率可以通过不同数据来源估计。</p>
+<h2 id="作业"><a class="markdownIt-Anchor" href="#作业"></a> 作业</h2>
+<h3 id="1hw2"><a class="markdownIt-Anchor" href="#1hw2"></a> 1.HW2</h3>
+<p>生成模型关于协方差矩阵求逆的部分，“Since covariance matrix may be nearly singular, np.linalg.inv() may give a large numerical error. Via SVD decomposition, one can get matrix inverse efficiently and accurately.”</p>
+<pre><code class="hljs python">u, s, v = np.linalg.svd(cov, full_matrices=<span class="hljs-literal">False</span>)
+inv = np.matmul(v.T * <span class="hljs-number">1</span> / s, u.T)</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/16/DL-lhy/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">李宏毅2020——深度学习【基础】</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/16/talk-1/">
+                        <span class="hidden-mobile">大规模图数据分析技术：挑战与机遇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

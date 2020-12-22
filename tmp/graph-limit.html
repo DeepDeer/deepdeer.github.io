@@ -17,10 +17,21 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>分类 - 知识梳理 - DeepDeer</title>
+  <title>图神经网络部分[CS224W] - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -137,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                分类 - 知识梳理
+                图神经网络部分[CS224W]
               
             </span>
 
@@ -161,22 +172,18 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 1 篇文章</p>
-  <hr>
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/2020/10/14/survey-dga/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">DGA检测相关工作梳理</span>
-      <span style="float: right;">10-14</span>
-    </a>
-  
+<div class="page-content">
+  <p>本文为斯坦福CS224W：Machine Learning with Graphs课程中有关GNN的部分。</p>
+<h2 id="graph-representation-learning"><a class="markdownIt-Anchor" href="#graph-representation-learning"></a> Graph Representation Learning</h2>
+<p>当前GNN应用广泛，比如节点分类[Kifp+ICLR’2017]，图分类[Ying+NeurIPS‘ 2018]以及链路预测[Zhang + NeurIPS’2018]。那么GNN有怎样的局限呢？</p>
+<h3 id="无法区分简单图结构"><a class="markdownIt-Anchor" href="#无法区分简单图结构"></a> 无法区分简单图结构</h3>
+<p>Graph Isomorphism Network [Xu + ICLR’2019], MLP + sum pooling，在图分类任务上效果更好</p>
+<p>multiset function</p>
+<p>injective</p>
+<h3 id="对噪声数据敏感"><a class="markdownIt-Anchor" href="#对噪声数据敏感"></a> 对噪声数据敏感</h3>
+<h3 id="未来方向"><a class="markdownIt-Anchor" href="#未来方向"></a> 未来方向</h3>
+
 </div>
-
-
 
               </div>
             </div>
@@ -264,6 +271,21 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
 
 
   <script  src="/js/local-search.js" ></script>
@@ -281,6 +303,13 @@
 
 
 
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
 
 
 
