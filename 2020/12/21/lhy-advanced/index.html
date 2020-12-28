@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      25 字
+      1.6k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      17
        分钟
     </span>
   
@@ -209,6 +209,83 @@
             
             <article class="markdown-body">
               <p>包括可解释性、对抗学习、网络压缩等深度学习相关其它方面。</p>
+<h2 id="可解释ai"><a class="markdownIt-Anchor" href="#可解释ai"></a> 可解释AI</h2>
+<p>目标在于看出机器学到了什么，其实人类也是黑盒，也许最终要ML会针对不同的人给出不同的解释（这个想法和在绿盟实习时好像？？）。关于可解释性、对抗方面的研究也会为进一步提升模型的性能提供方向。</p>
+<p>线性模型容易解释，但是能力太差。DNN虽然是黑盒，但能力非常强大，所以不要“削足适履”而是要加强DNN的可解释性。有没有一种既可以解释而且能力又强的呢？比如决策树、随机森林。但在某些复杂问题下，这些模型也非常难以解释。</p>
+<p>重点是要把这个领域放到网络安全方向！！！</p>
+<h3 id="一-saliency-map"><a class="markdownIt-Anchor" href="#一-saliency-map"></a> 一. Saliency Map</h3>
+<p>可解释性AI背后的观念其实很简单，即改动某些components，如果对结果造成了大的改动，那么这些components就是非常重要。实现方式可以通过比如灰色块遮挡、加入噪声扰动计算结果扰动的偏微分（画出<strong>Saliency Map</strong>，相关工作如Grad-CAM、SmoothGrad、Layer-wise Relevance Propagation、Guided Backpropagation）等。</p>
+<p>但这种基于梯度的方法可能会受限于gradient satruation问题，比如在某个范围内大象鼻子的长度对识别是否为大象的偏微分为0，但并不代表影响很小。解决这个问题的相关工作有Integrated gradient和DeepLIFT等。</p>
+<p>由local attribution转化为<strong>Global attribution</strong>的思想，关注输入和权重共同结果的作用。相关工作有Layer-wise relecance propagation（LRP），有点像自己写background。DeepLIFT提出了<strong>灵活的baseline</strong>（不是从0开始），另一种用灵活baseline的是Integrated gradient。</p>
+<p>目前有很多不同的<strong>归因方法（attribution method）</strong>。<strong>Sensitivity-n</strong>用于评估各种归因方法到底有多好。</p>
+<h3 id="二-攻击推断"><a class="markdownIt-Anchor" href="#二-攻击推断"></a> 二. 攻击推断</h3>
+<p>可以对机器的推断结果进行攻击，比如加入一些噪声，导致产生错误的推断。相关论文为，<a href="https://arxiv.org/abs/1710.10547" target="_blank" rel="noopener">https://arxiv.org/abs/1710.10547</a></p>
+<h3 id="三-生成器正则项"><a class="markdownIt-Anchor" href="#三-生成器正则项"></a> 三. 生成器正则项</h3>
+<p>在设计损失函数的时候加入一些正则项表某些限制，让得到的结果不是那么随机。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/regu.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>GAN、VAE等结构是通过Generator（某个神经网络）加入这些限制，比如要求输入是人可以看懂的图片。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/gan.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="四-解释其它模型"><a class="markdownIt-Anchor" href="#四-解释其它模型"></a> 四. 解释其它模型</h3>
+<p>用一个比较具有可解释性的模型来模仿另一个模型。比如使用线性模型模拟某个黑盒模型的局部（线性模型的能力无法完全模拟），<strong>LIME技术</strong>。LIME关键步骤：1）选择需要解释的数值点；2）采样其附近的点（如何定义附近，会带来不同的结果）3）训练一个线性模型或其它可解释性模型；4）解释这个线性模型。这个技术有很多参数可以调。</p>
+<p>使用决策树模仿，在训练原模型的时候，损失函数里就加入有关决策树复杂度的惩罚项。有工作训练了一个DNN用于计算决策树的复杂度，从而解决这个惩罚项不可微的问题。</p>
+<h3 id="五-选学部分"><a class="markdownIt-Anchor" href="#五-选学部分"></a> 五. 选学部分</h3>
+<p>使用Probing方法完成对Bert模型的解释。</p>
+<p>这个部分没有听懂。。。。。</p>
+<h2 id="ml模型攻击与防御"><a class="markdownIt-Anchor" href="#ml模型攻击与防御"></a> ML模型攻击与防御</h2>
+<h3 id="一-基础"><a class="markdownIt-Anchor" href="#一-基础"></a> 一. 基础</h3>
+<p>参数固定，找到使输出与理想结果差别最大的输入。计算constraint一般使用L2范数或L-infinity（取最大差异值）。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/attack.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>解决上述带限制的优化问题，需要一种改进的梯度下降方法。在限制范围内找与计算出的理想x最接近的一个。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/constraint.jpg" srcset="/img/loading.gif" width="20%" height="20%" alt="oauth">
+</div>
+<p>相关方法有很多很多，它们的不同之处主要是：1）不同的约束条件设置方法；2）不同的优化方法。</p>
+<ul>
+<li>FGSM (<a href="https://arxiv.org/abs/1412.6572" target="_blank" rel="noopener">https://arxiv.org/abs/1412.6572</a>) ，只在意方向，指定了一个挺大的学习率，只进行一步操作；</li>
+<li>Basic iterative method (<a href="https://arxiv.org/abs/1607.02533" target="_blank" rel="noopener">https://arxiv.org/abs/1607.02533</a>)</li>
+<li>L-BFGS (<a href="https://arxiv.org/abs/1312.6199" target="_blank" rel="noopener">https://arxiv.org/abs/1312.6199</a>)</li>
+<li>Deepfool (<a href="https://arxiv.org/abs/1511.04599" target="_blank" rel="noopener">https://arxiv.org/abs/1511.04599</a>)</li>
+<li>JSMA (<a href="https://arxiv.org/abs/1511.07528" target="_blank" rel="noopener">https://arxiv.org/abs/1511.07528</a>)</li>
+<li>C&amp;W (<a href="https://arxiv.org/abs/1608.04644" target="_blank" rel="noopener">https://arxiv.org/abs/1608.04644</a>)</li>
+<li>Elastic net attack (<a href="https://arxiv.org/abs/1709.04114" target="_blank" rel="noopener">https://arxiv.org/abs/1709.04114</a>)</li>
+<li>Spatially Transformed (<a href="https://arxiv.org/abs/1801.02612" target="_blank" rel="noopener">https://arxiv.org/abs/1801.02612</a>)</li>
+<li>One Pixel Attack (<a href="https://arxiv.org/abs/1710.08864" target="_blank" rel="noopener">https://arxiv.org/abs/1710.08864</a>)</li>
+</ul>
+<h4 id="1-图像攻击"><a class="markdownIt-Anchor" href="#1-图像攻击"></a> 1. 图像攻击</h4>
+<p><strong>One Pixel Attack</strong>，只修改样本图片上的某一个像素点。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/one.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>我们也不一定需要那个最好的像素点的值，只要攻击成功就好了。可以使用<strong>差分进化方法</strong>找到一个足够好的解就可以。差分演化方法的关键在于如何生成新的“孩子”，以及如何筛选。差分演化法（<a href="https://pablormier.github.io/2017/09/05/a-tutorial-on-differential-evolution-with-python/%EF%BC%89%E3%80%82%E5%BA%94%E7%94%A8%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E8%BE%93%E5%85%A5%E6%98%AF%EF%BC%88x" target="_blank" rel="noopener">https://pablormier.github.io/2017/09/05/a-tutorial-on-differential-evolution-with-python/）。应用的时候，输入是（x</a>, y, R, G,B）</p>
+<h4 id="2-语音攻击"><a class="markdownIt-Anchor" href="#2-语音攻击"></a> 2. 语音攻击</h4>
+<p>攻击ASR（auto speech recognition，语音转文字），方法可以和FGSM类似。</p>
+<p>攻击ASV（说话人识别），汉堡王广告实例。</p>
+<p>Hidden Voice Attack，人听不出来，但是ML模型可以，实现攻击。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/signal.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>Perturbation分为四种：Time Domain Inversion(TDI)、Random Phase Generation(RPG)、High Frequency Addition(HFA)和Time Scaling(TS)。</p>
+<div align="center">
+  <img src="/2020/12/21/lhy-advanced/tdi.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="二-黑盒白盒"><a class="markdownIt-Anchor" href="#二-黑盒白盒"></a> 二. 黑盒白盒</h3>
+<p>保护好<strong>网络参数</strong>，那么如何攻击嘞？这就是黑盒攻击。一般是要训练一个代理网络proxy network。所以就是还要保护好<strong>训练资料</strong>。但是如果是线上提供服务的，可以通过测试API积累出训练资料。</p>
+<p>Universal Adversarial Attack（<a href="https://arxiv.org/abs/1610.08401%EF%BC%89%E6%89%BE%E5%88%B0%E5%9C%A8%E6%89%80%E6%9C%89%E8%AE%AD%E7%BB%83%E8%B5%84%E6%96%99%E9%83%BD%E6%88%90%E5%8A%9F%E7%9A%84%E6%94%BB%E5%87%BB%E5%99%AA%E5%A3%B0%E3%80%82%E3%80%8AUniversal" target="_blank" rel="noopener">https://arxiv.org/abs/1610.08401）找到在所有训练资料都成功的攻击噪声。《Universal</a> adversarial perturbations》</p>
+<p>Adversarial Reprogramming，完全改掉了原有网络模型的功能。《Adversarial Reprogramming of Neural Networks》</p>
+<h3 id="三-防御手段"><a class="markdownIt-Anchor" href="#三-防御手段"></a> 三. 防御手段</h3>
+<p>被动防御手段，比如加入一个filter、feature squeeze（如果squeeze前后判断结果差很多，则判断可能已经被攻击过了）、加入随机缩放或padding操作（但是不要太过分，不然都训练不出来了）。</p>
+<p>主动防御方式，在训练过程中就找出漏洞并补起来。对抗学习（主动找出每个样本的对抗样本），增加样本集。但这类方法受限于防御者可以用到的攻击方法。</p>
+<p>防御目前仍然是一个尚待解决的问题。</p>
+<h2 id="网络压缩"><a class="markdownIt-Anchor" href="#网络压缩"></a> 网络压缩</h2>
+<h2 id="异常检测"><a class="markdownIt-Anchor" href="#异常检测"></a> 异常检测</h2>
+<h2 id="元学习"><a class="markdownIt-Anchor" href="#元学习"></a> 元学习</h2>
+<h2 id="终生学习"><a class="markdownIt-Anchor" href="#终生学习"></a> 终生学习</h2>
 
             </article>
             <hr>
@@ -250,7 +327,7 @@
                     
                     
                       <a href="/2020/12/16/pytorch-book/">
-                        <span class="hidden-mobile">Pytorch学习</span>
+                        <span class="hidden-mobile">Pytorch教程笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

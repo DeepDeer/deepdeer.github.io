@@ -166,6 +166,106 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/12/27/mit-null/" target="_self">
+          <img src="/img/computer.jpg" srcset="/img/loading.gif" alt="MIT《计算机科学“补漏”课》">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020/12/27/mit-null/">MIT《计算机科学“补漏”课》</a>
+
+      <a href="/2020/12/27/mit-null/" class="index-excerpt">
+        
+        
+          
+        
+        <div> 概述
+课程官网中文版（https://missing-semester-cn.github.io/），B站视频（https://www.bilibili.com/video/BV1aE41157q6）。官网中的材料已经非常详细了，这里只记录下收获比较大的部分（对于我这个技术渣渣可能各处都收获非常大）。
+课程包括11部分，每部分一小时左右，各部分基本独立。本课程的主旨在于让计算机学科学生精通工具，</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-12-27
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/12/22/limit-graph/" target="_self">
+          <img src="/img/graph.jpg" srcset="/img/loading.gif" alt="图神经网络的局限">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020/12/22/limit-graph/">图神经网络的局限</a>
+
+      <a href="/2020/12/22/limit-graph/" class="index-excerpt">
+        
+        
+          
+        
+        <div>后面计划进行有关图模型攻击方面的研究，学习斯坦福CS224W《图机器学习》a&gt;和大佬Stephan Günnemann教授MLGS课程中“Limitations of GNN”部分，记录如下。
+关键点：
+
+图同构判断问题：单射，max/mean/sum pooling，WL Test
+对抗攻击：Nettack，离散数据（无法直接梯度下降优化）、双层优化问题、如何对抗（certificatio</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-12-22
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+            
+              <a href="/tags/%E5%9B%BE%E6%A8%A1%E5%9E%8B/">图模型</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2020/12/22/lhy-semi/" target="_self">
           <img src="/img/lhy_ml.jpg" srcset="/img/loading.gif" alt="李宏毅2020——半监督、无监督">
         </a>
@@ -181,9 +281,9 @@
         
         <div> 半监督
 semi-supervised，有另外一组无标签数据集且数量远大于带标签集合。分为Transductive learning（使用了testing set的属性/信息）和Inductive learning（训练时不考虑testing set）。
-分为Transductive
- 无监督
-</div>
+ 一. 半监督生成模型
+在生成模型上的做法：1）初始化/随机化/估测参数值（均值、方差等）；2）计算几率；3）更新模型参数。
+理论上这个方法会</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -230,7 +330,9 @@ semi-supervised，有另外一组无标签数据集且数量远大于带标签�
           
         
         <div>包括可解释性、对抗学习、网络压缩等深度学习相关其它方面。
-</div>
+ 可解释AI
+目标在于看出机器学到了什么，其实人类也是黑盒，也许最终要ML会针对不同的人给出不同的解释（这个想法和在绿盟实习时好像？？）。关于可解释性、对抗方面的研究也会为进一步提升模型的性能提供方向。
+线性模型容易解释，但是能力太差。DNN虽然是黑盒，但能力非常强大，所以不要“削足适履”而是要加强DNN的可解释性。有没有一种既可以解释而且</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -264,19 +366,23 @@ semi-supervised，有另外一组无标签数据集且数量远大于带标签�
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2020/12/16/pytorch-book/" target="_self">
-          <img src="/img/lhy_ml.jpg" srcset="/img/loading.gif" alt="Pytorch学习">
+          <img src="/img/pytorch.jpg" srcset="/img/loading.gif" alt="Pytorch教程笔记">
         </a>
       </div>
     
     <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/12/16/pytorch-book/">Pytorch学习</a>
+      <a class="index-header" href="/2020/12/16/pytorch-book/">Pytorch教程笔记</a>
 
       <a href="/2020/12/16/pytorch-book/" class="index-excerpt">
         
         
           
         
-        <div></div>
+        <div>网上有很多可供学习的资料，尤其官网资料已经足够好了，60分钟入门（原版），中文版，以及Dive into deeplearning（Pytorch版）。
+ 基础
+ 一. 概念
+张量tensor，类似于Numpy的ndarrays
+</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -289,7 +395,7 @@ semi-supervised，有另外一组无标签数据集且数量远大于带标签�
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+              <a href="/categories/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/">工具教程</a>
             
           </div>
         
@@ -558,64 +664,19 @@ semi-supervised，有另外一组无标签数据集且数量远大于带标签�
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2020/05/30/baoxiao/" target="_self">
-          <img src="/img/thu.jpg" srcset="/img/loading.gif" alt="THU研究生国际会议出行准备流程">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/05/30/baoxiao/">THU研究生国际会议出行准备流程</a>
-
-      <a href="/2020/05/30/baoxiao/" class="index-excerpt">
-        
-        
-          
-        
-        <div>下文仅限清华大学网络科学与网络空间研究院研究生同学使用，包含护照、签证、报销等
-（邓峰基金部分持续更新….）
-
-提示：出国手续涉及部门较多，请尽早准备提前办理。如遇假期会有所调整，要关注邮件通知~
-
- 首先
-​		你要有个护照，如果没有，办理的时候把发票留好，可以报销。
- 前期准备
-注册会议并拿到邀请函
-预定机票和酒店（办签证使用）。目前携程等网站貌似不再支持付款前先打印行程单。
-
-机票时间，一般</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-05-30
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%8A%9E%E5%85%AC%E4%BA%8B%E5%8A%A1/">办公事务</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
 
 
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
