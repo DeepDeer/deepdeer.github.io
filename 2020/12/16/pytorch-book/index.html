@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>Pytorch教程笔记 - DeepDeer</title>
+  <title>Pytorch笔记 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                Pytorch教程笔记
+                Pytorch笔记
               
             </span>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      54 字
+      685 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      8
        分钟
     </span>
   
@@ -210,8 +210,37 @@
             <article class="markdown-body">
               <p>网上有很多可供学习的资料，尤其官网资料已经足够好了，<a href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html" target="_blank" rel="noopener">60分钟入门（原版）</a>，<a href="http://pytorch123.com/" target="_blank" rel="noopener">中文版</a>，以及<a href="https://tangshusen.me/Dive-into-DL-PyTorch/#/" target="_blank" rel="noopener">Dive into deeplearning（Pytorch版）</a>。</p>
 <h2 id="基础"><a class="markdownIt-Anchor" href="#基础"></a> 基础</h2>
-<h3 id="一-概念"><a class="markdownIt-Anchor" href="#一-概念"></a> 一. 概念</h3>
-<p>张量tensor，类似于Numpy的ndarrays</p>
+<h3 id="一-自动微分"><a class="markdownIt-Anchor" href="#一-自动微分"></a> 一. 自动微分</h3>
+<p>张量tensor，类似于Numpy的ndarrays，但它提供GPU计算和自动求梯度等功能。Tensor支持<strong>索引操作</strong>，但索引出来的结果与原数据共享内存，除了索引之外pytorch还提供了很多高级的选择函数。view() 改变张量形状，但<strong>与原有tensor共享数据</strong>，内存不变，只改变了观察角度。如果想要一个真正的副本，推荐使<strong>用clone创建</strong>，这样创建的副本还会被记录在计算图中。</p>
+<ul>
+<li><strong>autograd包</strong>是PyTorch中所有神经网络的核心，为Tensors上所有操作提供自动微分，是一个由运行定义的框架。关键操作如下：<br>
+.requires_grad设置为True，会开始跟踪针对tensor的所有操作；</li>
+<li>完成计算后，可以调用.backward（）自动计算所有梯度，结果将累积到.grad属性中；</li>
+<li>停止追踪可以调用.detach（），与计算记录分离，或者可以用with torch.no_grad（）把代码包装起来；</li>
+</ul>
+<p>另外PyTorch中支持一些线性函数，比如trace（对角线元素之和）、diag（对角线元素）、triu/tril（矩阵的上三角/下三角）、mm/bmm（矩阵乘法，batch的矩阵乘法）、转置、求逆、奇异值分解等等，<strong>注意看官网，避免重复造轮子。</strong></p>
+<h3 id="二-神经网络"><a class="markdownIt-Anchor" href="#二-神经网络"></a> 二. 神经网络</h3>
+<p>一个nn.Module包括层和一个方法forward(input)，它会返回输出output。</p>
+<p>可以通过调用net.parameters（）返回模型的可训练参数。</p>
+<p>优化器可以直接调用torch.optim包，关键在于.zero_grad（）和.step（）两步。</p>
+<h3 id="三-图像分类器"><a class="markdownIt-Anchor" href="#三-图像分类器"></a> 三. 图像分类器</h3>
+<p>处理图像、文本、语音或视频数据时，可以使用标准python包将数据加载成numpy格式，然后转换成torch.*Tensor。图像可以用Pillow，OpenCV，语音可以用scipy、librosa，文本可以直接用python或cpython，NLTK，SpaCy等。特别对于视觉，已经有torchvision的包，包含公共数据及加载及转换模块。</p>
+<p>计算每一类的测试准确率；将神经网络转移到GPU上，device = torch.device(“cuda:0”)   <a href="http://model.to" target="_blank" rel="noopener">model.to</a>(device)。</p>
+<h3 id="四-数据并行处理"><a class="markdownIt-Anchor" href="#四-数据并行处理"></a> 四. 数据并行处理</h3>
+<p>Pytorch上默认使用一个GPU，使用DataParallel可以让模型并行运行，<strong>model = nn.DataParallel(model)</strong>。数据并行自动拆分并发送到多个GPU上，每个模型完成任务后，DataParallel收集并合并这些结果，之后返回。</p>
+<pre><code class="hljs python">model = Model(input_size, output_size)
+<span class="hljs-keyword">if</span> torch.cuda.device_count() &gt; <span class="hljs-number">1</span>:
+  print(<span class="hljs-string">"Let's use"</span>, torch.cuda.device_count(), <span class="hljs-string">"GPUs!"</span>)
+  <span class="hljs-comment"># dim = 0 [30, xxx] -&gt; [10, ...], [10, ...], [10, ...] on 3 GPUs</span>
+  model = nn.DataParallel(model)
+
+model.to(device)
+
+<span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> rand_loader:
+    input = data.to(device)
+    output = model(input)
+    print(<span class="hljs-string">"Outside: input size"</span>, input.size(),
+          <span class="hljs-string">"output_size"</span>, output.size())</code></pre>
 
             </article>
             <hr>
