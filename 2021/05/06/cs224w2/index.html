@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>cs224w《图机器学习》2021（二）图神经网络 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>深鹿计划</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                cs224w《图机器学习》2021（二）图神经网络
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-05-06 21:07">
+      2021年5月6日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      56
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="相关论文"><a class="markdownIt-Anchor" href="#相关论文"></a> 相关论文</h2>
+<p>GCN《<a href="https://arxiv.org/abs/1609.02907" target="_blank" rel="noopener">Semi-supervised classification with graph convolutional networks</a>》</p>
+<p>GraphSAGE 《<a href="https://arxiv.org/abs/1706.02216" target="_blank" rel="noopener">Inductive representation learning on large graphs</a>》</p>
+<p>GAT《<a href="https://arxiv.org/abs/1710.10903" target="_blank" rel="noopener"><strong>Graph attention networks</strong></a>》</p>
+<p>GNN with skip connection_1 《<a href="https://arxiv.org/abs/1605.06431" target="_blank" rel="noopener"><strong>Residual networks behave like ensembles</strong> of <strong>relatively shallow networks</strong></a>》</p>
+<p>GNN with skip connection_2 《<a href="http://proceedings.mlr.press/v80/xu18c.html" target="_blank" rel="noopener">Representation learning on graphs with jumping knowledge networks</a>》</p>
+<p>DiffPool 《<a href="https://arxiv.org/abs/1806.08804" target="_blank" rel="noopener">Hierarchical graph representation learning with differentiable pooling</a>》</p>
+<p>GIN《<a href="https://arxiv.org/abs/1810.00826" target="_blank" rel="noopener">How powerful are graph neural networks?</a>》</p>
+<h2 id="信息传播与节点分类"><a class="markdownIt-Anchor" href="#信息传播与节点分类"></a> 信息传播与节点分类</h2>
+<p>半监督节点分类问题（<strong>semi-supervised</strong> node classification）</p>
+<p>消息传递框架（message passing framework），关键思想在于，<strong>同类/同标签的节点间倾向于有连接</strong>，也即correlations。</p>
+<p>集体分类（collective classification），节点根据其邻居的标签更新其自身标签。</p>
+<p>相关场景包括比如恶意网页检测、垃圾邮件、欺诈用户检测等等。</p>
+<h3 id="一-基础概念"><a class="markdownIt-Anchor" href="#一-基础概念"></a> 一. 基础概念</h3>
+<p>相关性（correlation）具体体现在以下两个方面：</p>
+<ul>
+<li>
+<p><strong>同构/同质性（Homophily）</strong>：以社交网络为例，具有相似特征的人倾向于相互联系（社会学同质性概念）。具体定义为“The tendency of individuals to associate and bond with similar others”。</p>
+</li>
+<li>
+<p>影响力（Influence）：以社交网络为例，社会关系会影响我们自己的特征或行为；</p>
+</li>
+</ul>
+<p>考虑节点的属性及其邻居节点的标签和属性，确定某节点v标签，方法可以表达为Guilt-by-association。</p>
+<p>可以使用概率框架，依照一阶<strong>马尔科夫假设（Markov Assumption）</strong>，即节点v的标签只取决于其邻居节点们的标签。这里的“一阶”表示我们只考虑当前节点的一跳邻居。</p>
+<p>集体迭代分类包括三个步骤：</p>
+<ul>
+<li>局部分类器（Local Classifier）：为节点<strong>分配初始标签</strong>；这是一个基于节点属性预测标签的标准分类器，与网络结构信息无关。</li>
+<li>关系分类器（Relational Classifier）：捕获节点时间的<strong>相互关系</strong>；此分类器应用到网络结构信息，基于邻居节点属性/标签预测当前节点标签。</li>
+<li>集体推理（Collective Inference）：在网络中<strong>传递相关性/信念（belief）</strong>，直到出现标签并收敛；迭代地将关系分类器应用于每个节点知道相邻节点间的预测结果趋向一致。</li>
+</ul>
+<h3 id="二-经典方法"><a class="markdownIt-Anchor" href="#二-经典方法"></a> 二. 经典方法</h3>
+<h4 id="1关系分类-relational-classification"><a class="markdownIt-Anchor" href="#1关系分类-relational-classification"></a> 1.关系分类 Relational Classification</h4>
+<p>基本思想：节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>的标签概率是其<strong>邻居节点</strong>概率的平均值/边权重加权。有标记节点使用其真实标签，未标记节点，标签初始化为0.5。以随机的顺序更新全部节点概率直到到达迭代最大次数或结果收敛。</p>
+<p>[ 这个方法没有应用到节点属性，也不保证收敛。 ]</p>
+<h4 id="2迭代分类-iterative-classification"><a class="markdownIt-Anchor" href="#2迭代分类-iterative-classification"></a> 2.迭代分类 Iterative Classification</h4>
+<p>基本思想：针对节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>，基于其属性和其节点集合的标签确定它的标签。</p>
+<p>组成：训练两个分类器：1）基础分类器，基于节点属性预测其标签；2）两个输入的分类器：基于节点属性和邻居节点标签（a label summary vector z）预测节点v标签。</p>
+<p>方法：1）训练阶段，完成上述两个分类器的训练；2）在测试集合（unlabeled nodes）中迭代直到收敛，首先使用基础分类器得到初始标签，计算出邻居向量z，使用分类器二得到预测结果；之后进入分类器二的迭代。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/iteration.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>[ 这个方法不保证收敛。]</p>
+<h4 id="3循环置信传播-loopy-belief-propagation"><a class="markdownIt-Anchor" href="#3循环置信传播-loopy-belief-propagation"></a> 3.循环置信传播 Loopy Belief propagation</h4>
+<p>Loopy表示其适用的图数据中可能有环（cycles）。核心在于potential function/matrix。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/notion.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>收集下游节点信息，然后结合自己的标签本性，决定其向节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>传递的信息。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/bp.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>即便图数据中有环（子图中的各节点不再独立，而是相互影响），我们也可以随意挑选起始节点，然后沿着边传递信息。</p>
+<p>但是有环的时候可能无法收敛，但是实践中效果依然很好，<strong>环不是问题</strong>。最糟糕的情况是下面这样，但在实际中不常见：</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/bpw.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>总结一下有关信念传播方法：</p>
+<ul>
+<li>容易代码实现，也容易并行化</li>
+<li>易于应用于各种图模型，可以基于各种潜在矩阵（potential matrix）不一定是上述的label-label矩阵；不只考虑了同构性而是加入了更复杂的关系</li>
+<li>这个方法也是不保证收敛的</li>
+<li>potential matrix需要一定的估算</li>
+<li>是一种非常强大、有效的半监督节点分类方法</li>
+</ul>
+<h2 id="gnn基础"><a class="markdownIt-Anchor" href="#gnn基础"></a> GNN基础</h2>
+<p>之前学习的浅层encoder-decoder节点嵌入方法的局限性在于：</p>
+<ul>
+<li>每个节点有自己的embedding向量，即需要训练<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V|)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span>个参数</li>
+<li>属于转导学习（transductive），无法应对在训练阶段未出现的节点</li>
+<li>没有考虑节点属性</li>
+</ul>
+<p>Deep Graph Encoders，encoders是基于图结构信息的多层非线性转换。这些编码器可以和之前学到的所有节点相似度计算方法结合。</p>
+<p>这些方法可以应用于节点分类、链路预测、社区发现、网络相似度计算等任务。</p>
+<h3 id="一-深度学习基础"><a class="markdownIt-Anchor" href="#一-深度学习基础"></a> 一. 深度学习基础</h3>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/sgd.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>常用优化器包括Adam、Adagrad、Adadelta、RMSprop等</p>
+<p>使用深度学习框架使得训练时的梯度计算变得十分容易！</p>
+<p><strong>批量归一化（Batch Normalization）</strong>，用于稳定模型训练过程。给定一批数据，通过变换将其移到均值为0，方差为1的情况。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/nor.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>Dropout</strong>，防止过拟合。在GNN中，dropout被应用于消息传递即message部分的线性层。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/dropout.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>激活函数</strong>，非线性化，常用ReLU、Sigmoid、Parametric ReLU（实际场景中基本效果比ReLU要好）等。</p>
+<h3 id="二-图的深度学习"><a class="markdownIt-Anchor" href="#二-图的深度学习"></a> 二. 图的深度学习</h3>
+<p>当图数据中没有节点属性时，一般会选择使用1）指示向量，即节点的one-hot编码或 2）全1向量。</p>
+<p>最简单的方案是直接将邻接矩阵和节点属性矩阵拼接起来，直接加入一个深度神经网络中，类似视为一张图片加入CNN中。但这样做的问题在于：</p>
+<ul>
+<li>需要训练的参数非常多</li>
+<li>无法使用与各种大小的图数据</li>
+<li>对节点次序信息敏感</li>
+</ul>
+<p>将CNN的思想扩展到GNN上，将图片上的邻域扩展成图数据中的<strong>节点邻居集合</strong>。GNN变为两个关键步骤：1）确定某个节点的计算（子）图；2）在其上进行信息传递。</p>
+<p>每个节点都会基于其邻居节点得到它的计算图。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/graph.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>模型可以有多层，每一层都会有节点的表征信息，第0层节点向量是其输入特征向量，第k层的嵌入向量中考虑了K跳之外的邻居节点信息。</p>
+<p>不同模型的邻居节点<strong>特征汇总方式</strong>会有所不同。注意，邻居聚合函数需要<strong>与节点次序无关</strong>。一般常用Average、sum等。重要的是该模型中所有的节点共享参数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi></mrow><annotation encoding="application/x-tex">W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/gnn.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>以上模型也可以写为矩阵分解的形式，最终的矩阵是比较稀疏的。[ 当聚合方式比较复杂时，这种GNN无法写为矩阵形式]</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/matrix.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/rewrite.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>可以基于节点标签进行有监督训练<strong>或者基于图结构信息进行无监督学习</strong>。无监督学习中关于节点相似性的定义可以使用之前介绍过的随机游走、矩阵分解等形式。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/unsupervised.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>使用GNN模型获取节点表征向量的总结：</p>
+<ul>
+<li>定义邻域聚合函数，确定当前节点邻居节点集合及聚合方式 [key distinctions are in how different approaches aggregate information across the layers]</li>
+<li>定义表征向量损失函数</li>
+<li>在一个集合上完成模型训练</li>
+<li>所有节点共享相同的聚合参数，所以模型参数规模与网络规模是<strong>次线性</strong>的（sublinear），而且模型<strong>具有归纳能力</strong>（inductive），可以扩展到训练集中未出现的节点上，所以可以应用到新的图数据或新发展出的节点上 [注意一下<strong>动态图模型</strong>的研究主题]。</li>
+</ul>
+<h2 id="gnn模型设计"><a class="markdownIt-Anchor" href="#gnn模型设计"></a> GNN模型设计</h2>
+<p>GNN层 = <strong>Message + Aggregation</strong>，如何定义（1）消息和（2）聚合时区分不同GNN模型的关键。另外还有（3）<strong>如何进行层堆叠、（4）如何确定计算图</strong>，以及（5）如何进行模型学习。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/framework.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="一-单层gnn"><a class="markdownIt-Anchor" href="#一-单层gnn"></a> 一. 单层GNN</h3>
+<p>首先进行“消息计算”，定义一个message function，生成的消息会传递给其它节点。</p>
+<p>之后是聚合，每个节点会聚合来自其邻居的消息，比如使用Sum、Mean、Max等，注意要与节点次序无关（order invariant）。将来自邻居的信息和来自上一层的节点自身的信息结合起来。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/single.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>最后一般加一个激活函数，比如ReLU，sigmoid等，用来提升表达能力。</p>
+<h4 id="1-gcn"><a class="markdownIt-Anchor" href="#1-gcn"></a> 1. GCN</h4>
+<p>节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>在第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>层的表征是其邻居节点表征的均值。按照message+aggregation的形式可以写成下面的样子：</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/GCN.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="2graphsage"><a class="markdownIt-Anchor" href="#2graphsage"></a> 2.GraphSAGE</h4>
+<p>扩展了GCN的聚合函数形式（比如Mean、Pooling、LSTM（需要特殊操作消除次序信息的影响）等），而且使用<strong>CONCAT</strong>的方式把自身消息和邻居消息结合起来。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/graphsage.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>另外，GraphSAGE在每一层都<strong>加入了L2归一化</strong>，如果没有的话节点向量取值范围不同，加入L2归一化可以提升效果。</p>
+<h4 id="3-gat"><a class="markdownIt-Anchor" href="#3-gat"></a> 3. GAT</h4>
+<p>对于每个邻居加入一个权重，体现针对当前节点，其不同邻居的不同重要性。</p>
+<p>GCN和GraphSage直接使用了平均即权重为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>N</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1/N(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>，即每个邻居节点都同样重要。</p>
+<p><strong>Attention</strong>是受认知注意力启发而来，注意力系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>α</mi><mrow><mi>v</mi><mi>u</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\alpha_{vu}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mord mathdefault mtight">u</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>强调输入数据中重要的部分而忽略其他内容。在模型训练过程中学习到哪部分数据是重要的。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/GAT.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>注意力机制</strong></p>
+<p>在节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u,v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>之间计算注意力系数（attention coefficients <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mrow><mi>u</mi><mi>v</mi></mrow></msub></mrow><annotation encoding="application/x-tex">e_{uv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>），表示来自节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">u</span></span></span></span>的信息对节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>的重要程度。之后对<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mrow><mi>u</mi><mi>v</mi></mrow></msub></mrow><annotation encoding="application/x-tex">e_{uv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>进行归一化（比如softmax）得到最终的权重系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mrow><mi>u</mi><mi>v</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a_{uv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。最终这个参数和其它参数如权重矩阵W一起训练，模型是一个端到端的效果。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/attention.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>加入注意力机制后的模型可能很难训练，很难收敛。通过使用多头注意力机制（multi-head attention）稳定其学习过程。本质思想是设计多个注意力函数，聚合之后一起计算，增加模型鲁棒性。每一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mrow><mi>u</mi><mi>v</mi></mrow></msub></mrow><annotation encoding="application/x-tex">a_{uv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>使用不同的函数预测，而且每个函数都随机其初始值。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/multi.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>加入注意力机制的好处：</p>
+<ul>
+<li>区分了不同邻居节点对当前节点的重要程度</li>
+<li>计算高效，参数的计算可以并行。注意力系数可以按不同边并行；聚合操作可以在节点间并行</li>
+<li>存储高效，稀疏矩阵运算符，参数数目固定（与图大小无关）</li>
+<li>局部化，只关注局部网络邻居信息</li>
+<li>可扩展，具有归纳能力，是一种shared edge-wise机制，不依赖全局图结构</li>
+</ul>
+<h3 id="二-gnn堆叠"><a class="markdownIt-Anchor" href="#二-gnn堆叠"></a> 二. GNN堆叠</h3>
+<h4 id="1-经典方式"><a class="markdownIt-Anchor" href="#1-经典方式"></a> 1. 经典方式</h4>
+<p>直接将GNN层sequentially叠加起来。</p>
+<p>GNN的深度表示我们在得到某一节点表征的时候考虑了它的几跳邻居，而GNN模型的表达能力/复杂度是取决于单层GNN层的设计。</p>
+<p>直接堆叠起来会带来<strong>over-smoothing</strong>的问题，无法构造比较深层的GNN模型。到达一定深度，所有节点的表征向量会收敛到一起。</p>
+<p>可以通过<strong>Receptive field</strong>（感受野）解释这个问题，GNN中可定义为为获取某节点表征向量而需要考虑的节点集合。在一个K层GNN模型中，每个节点的感受野就是它的K跳（以内的）邻居。</p>
+<p>堆叠多层GNN层 ——&gt; 各节点的感受野重合程度过大 ——&gt; 得到的节点表征向量过于近似  ——&gt; 造成过平滑问题</p>
+<p>最直接的解决办法是在构造模型是注意堆叠的GNN层数。首先分析解决任务必要的感受野（比如<strong>首先计算一下图数据的半径</strong>），GNN的层数可以比这个感受野稍大一些。</p>
+<p><strong>如何让浅层GNN模型更具表达力？</strong></p>
+<p><strong>解决方法1，提升每层GNN的表达能力</strong>；之前介绍的模型中每层里的聚合或变换都只使用了线性层，我们可以改成使用深度学习网络，比如换成3层MLP。[ 这里也可以看出，GNN中的层概念和DNN中有所不同 ]</p>
+<p><strong>解决方法2，添加不进行消息传递的层</strong>；GNN模型中不一定只包含GNN层，在GNN层之前/之后都可以加入MLP层进行预处理或后处理。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/MLP.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="2-skip-connection"><a class="markdownIt-Anchor" href="#2-skip-connection"></a> 2. Skip connection</h4>
+<p>如何构建深层GNN模型？可以在GNN层之间加入一些跳过连接（skip connection）。</p>
+<p>研究发现有时候比较前面的GNN层得到的节点表征结果更有利于区分节点，所以可以在最终结果中提升这些层的重要性。skip connection可以构建mixture of models，即上一层和当前层信息的加权组合。由此我们得到了一个深度GNN模型和一些浅层GNN模型（如果有N个跳过连接，会得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^N-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.924661em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个浅层模型）的混合模型。</p>
+<p>跳过的操作可以如下图所示，也可以直接跳到最后一层（如ICML 2018中写到的），有很多种方式。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/skip.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="三-图征增强-graph-augmentation"><a class="markdownIt-Anchor" href="#三-图征增强-graph-augmentation"></a> 三. 图征增强 Graph Augmentation</h3>
+<p>很多情况下原始的图数据不适合直接作为计算图数据，而是需要一些改进。</p>
+<h4 id="1特征增强"><a class="markdownIt-Anchor" href="#1特征增强"></a> 1.特征增强</h4>
+<p>原始的图数据可能缺少某些特征信息  ——&gt; feature augmentation</p>
+<p><strong>问题1，输入图数据中不含有节点特征</strong></p>
+<p>方法1：直接赋予常量值作为特征</p>
+<p>方法2：给每个节点赋予独特的ID，并且进行独热编码；但这个方法问题在于无法很好地扩展到其它图数据上</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/aug.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>问题2，有些结构对于GNN来说很难学</strong></p>
+<p>比如，如下图所示，节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>处于某个环形结构中，GNN很难学习到这个结构的周长，区分这两个结构。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/feature.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>方法，可以把这个结构信息编辑到节点特征中去，比如左图中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">v_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的独热编码在第三位（处于周长为3的环形中），右图中的在第四位。</p>
+<p>其它方法还包括使用节点度、聚合系数、PageRank、中心度等之前介绍过的特征。</p>
+<h4 id="2结构增强"><a class="markdownIt-Anchor" href="#2结构增强"></a> 2.结构增强</h4>
+<p>原始图数据结构可能：</p>
+<ul>
+<li>过于稀疏，影响消息传递   ——&gt; 添加虚拟节点或边</li>
+<li>过于密集，消息传递花费过大 ——&gt; 消息传递时进行邻居采样，降低计算成本</li>
+<li>图太大，无法装载如显存 ——&gt; 计算时进行子图采样</li>
+</ul>
+<p><strong>添加虚拟边</strong></p>
+<p>使用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>+</mo><msup><mi>A</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A + A^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>进行计算，而非单独使用邻接矩阵A表示图，这样我们给2-hop的邻居加入了虚拟边。</p>
+<p>比如在author-paper的二部图中，使用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>A</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">A^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>就构造了一个共同作者网络。</p>
+<p><strong>添加虚拟节点</strong></p>
+<p>给稀疏图中加入一个节点，这个虚拟节点与图中所有的节点都相连。</p>
+<p><strong>节点采样</strong></p>
+<p>可以采样当前节点的邻居节点进行消息聚合，而非考虑其所有邻居的消息。</p>
+<p>如何选取邻居子集呢？是一个可以优化研究的问题</p>
+<h2 id="gnn模型训练"><a class="markdownIt-Anchor" href="#gnn模型训练"></a> GNN模型训练</h2>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/GNNt.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="一-预测任务"><a class="markdownIt-Anchor" href="#一-预测任务"></a> 一. 预测任务</h3>
+<h4 id="1node-level-prediction"><a class="markdownIt-Anchor" href="#1node-level-prediction"></a> 1.Node-level prediction</h4>
+<p>直接把GNN得到的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span>维表征向量映射到为K类标签向量。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/node.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="2-edge-level-prediction"><a class="markdownIt-Anchor" href="#2-edge-level-prediction"></a> 2. Edge-level prediction</h4>
+<p>以节点对表征向量为输入映射到K类标签向量。</p>
+<p>处理节点对向量常用方法有两类：1）Concat + Linear（GAT中使用过）；</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/2d.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>2）向量内积，一般会得到一个标量结果，如果想做成K向预测，可以使用类似多头注意力机制的处理方法。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/kway.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="3-graph-level-prediction"><a class="markdownIt-Anchor" href="#3-graph-level-prediction"></a> 3. Graph-level prediction</h4>
+<p>需要将节点的表征向量聚合来得到表示整个图的向量。可以使用很多pooling方法，比如Mean、Max、Sum等。</p>
+<p>但有时候简单的全局池化会损失太多信息，尤其当图规模比较大的时候。</p>
+<p>改善这个问题可以使用<strong>分层池化</strong>（hierarchical global pooling）。可以加入聚类方法确定每层中可以聚合的节点集合。这里的两个GNN模型是独立的，每层的模型可以并行训练。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/diffpool.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="二-预测和标签"><a class="markdownIt-Anchor" href="#二-预测和标签"></a> 二. 预测和标签</h3>
+<p>图上的监督学习：标签来自外部；图上的无监督学习：标签来自图数据自己，比如链路预测问题。但实际上二者之间的界限比较模糊。</p>
+<p>在无监督学习中，可以使用图数据自身产生的标签信息：</p>
+<ul>
+<li>Node-level，使用节点统计数据，比如聚类系数、PageRank等</li>
+<li>Edge-level，比如在链路预测任务中隐藏两节点间的边</li>
+<li>Graph-level，使用图特征，比如是否两个图是同构的</li>
+</ul>
+<h3 id="三-损失函数与评估"><a class="markdownIt-Anchor" href="#三-损失函数与评估"></a> 三. 损失函数与评估</h3>
+<p>GNN可以进行分类任务，也支持回归任务（标签<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>具有连续值）</p>
+<p>分类问题中常用交叉熵，重点强调了K向预测时的交叉熵。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/entropy.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>回归问题一般使用MSE，K向回归计算如下：</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/kreg.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>评估GNN时一般也是使用sklearn中的常规指标。评估回归问题的时候常用RMSE、MAE等。</p>
+<h3 id="四-数据切分"><a class="markdownIt-Anchor" href="#四-数据切分"></a> 四. 数据切分</h3>
+<p>图数据中有的时候无法明确区分出测试集，因为图中的节点是相互连接的，彼此之间不独立。</p>
+<p>方案1：transductive setting，只根据标签区分，训练阶段可以看到所有数据，我们只需要区分不同节点的标签</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/tran.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>方案2：inductive setting, 将图数据中的某些边截断，区分成多个子图</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/ind.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>两个方法的区别主要在于：</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/vs.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>在各类任务中注意一下inductive setting的<strong>链路预测任务</strong>，一般说起链路预测的话是transductive setting的任务。</p>
+<p><strong>链路预测任务</strong>中，训练时可以看到message edge而supervision edge不喂入GNN模型。</p>
+<p>inductive setting设置如下：</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/indl.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>transductive setting为：</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/tranl.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>【注意，以上是教授提出的认为正确的区分方法，不同论文中的划分方法有所不同】</p>
+<h2 id="gnn表达能力"><a class="markdownIt-Anchor" href="#gnn表达能力"></a> GNN表达能力</h2>
+<p>目前已经有很多GNN模型被提出来，大家的区分点主要是在消息处理和聚合时使用的网络不同。</p>
+<p>例如GCN使用element-wise mean pooling+ Linear + ReLU。GraphSAGE使用MLP + max-pool。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/model.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>GNN模型的表达能力主要体现在它的计算图（或叫做subtree rooted around each node）上，如下图所示，GNN得到的映射要尽可能做到<strong>单射（injective）</strong>。如果每层GNN上的聚合都是单射的，那么这个GNN模型就可以完全区分不同的子树模型。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/emb.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>GCN和GraphSAGE并不是单射的，这部分内容在《图神经网络的局限》博文中有总结和介绍。</p>
+<p>由此比较，SUM pooling具有较强表达/判别能力，其次是Mean pooling，再次是Max pooling。</p>
+<h3 id="一-设计具有强表达能力的gnn模型"><a class="markdownIt-Anchor" href="#一-设计具有强表达能力的gnn模型"></a> 一. 设计具有强表达能力的GNN模型</h3>
+<p>通过设计单射的邻居聚合方法构建具有最佳表达能力的基于消息传递的GNN模型。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/inject.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>根据“含有一层足够多神经元隐藏层的MLP可以拟合任意函数”的定力，作者使用MLP设计<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ϕ</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>。实验表明，大概用100~500个神经元，可以训练出很好的单射函数。由此作者提出GIN模型。</p>
+<p>[ GIN is the most expressive GNN n the class of message-passing GNNs! ]</p>
+<p>[ The key is to use element-wise sum pooling. ]</p>
+<h3 id="二-使用wl测试解释gin模型"><a class="markdownIt-Anchor" href="#二-使用wl测试解释gin模型"></a> 二. 使用WL测试解释GIN模型</h3>
+<p>WL测试中可以使用color refine算法，如果两个图模型拥有相同颜色集合，则表示它们同构。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/color.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>GIN模型使用MLP模仿color refine算法中的单射哈希方法.</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/gin.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>两种方法的对比如下，<strong>两模型的表达能力相当</strong>。GIN的优势在于：1）它可以得到低阶表征向量；2）方程的参数训练可以利用到下游任务中的信息。WL已于1992年被证实可以区分大多数实际图模型。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/com.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="三-当前挑战"><a class="markdownIt-Anchor" href="#三-当前挑战"></a> 三. 当前挑战</h3>
+<p>目前还有一些GNN无法区分的基础图结构，比如之前提到的不同节点数的环形。</p>
+<p>已有工作在这方面开始努力。 [You et al. AAAI 2021, Li et al. NeurIPS 2020]</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E6%A8%A1%E5%9E%8B/">图模型</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/07/fair-havard/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">哈佛《正义课》笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/06/GNN-paper/">
+                        <span class="hidden-mobile">图神经网络经典论文</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
