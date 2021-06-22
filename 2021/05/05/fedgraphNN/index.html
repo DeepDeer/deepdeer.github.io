@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      355 字
+      3.4k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      38
        分钟
     </span>
   
@@ -211,20 +211,192 @@
               <p>目前的论文课题需要用到图模型联邦学习技术，将调研结果总结为本文。</p>
 <p>文章主要包括联邦学习内容梳理（依据FedML论文、谷歌的巨长综述等）、图模型联邦学习相关论文介绍、联邦学习框架、FedGraphNN代码等部分。</p>
 <h2 id="联邦学习"><a class="markdownIt-Anchor" href="#联邦学习"></a> 联邦学习</h2>
-<p>自2016年由谷歌提出以来，联邦学习已成为一个比较火热的研究方向。联邦学习（FL）是一种分布式学习框架，许多客户端（如移动设备、组织）在中央服务器（如服务提供商）的协调下<strong>共同训练模型</strong>，同时保持训练数据的<strong>去中心化及分散性</strong>。</p>
-<p>大量工作试图使用中央服务器在<strong>保护隐私的同时从本地数据中学习</strong>。目前没有任何一项工作可以直接解决FL定义下的全部挑战。“联邦学习”这个词为这一系列特征，约束和挑战<strong>提供了便捷的简写</strong>，这些约束和挑战通常在隐私至关重要的机器学习问题中同时出现。</p>
+<p>传统学习方法为<strong>集中式学习</strong>，将数据收集至服务端进行训练和预测，结果发送至客户端，但这会造成延时高、浪费终端设备资源、数据隐私风险大等问题。而如果将模型放到<strong>端侧</strong>，终端根据本地数据完成模型训练和预测又存在数据量少且无法利用其它用户数据信息的问题。故2016年由谷歌提出联邦学习。联邦学习（FL）是一种分布式学习框架，许多客户端（如移动设备、组织）在中央服务器（如服务提供商）的协调下<strong>共同训练模型</strong>，同时保护<strong>本地数据隐私</strong>。广泛来讲，联邦学习是为了解决<strong>数据孤岛</strong>问题。</p>
+<p>目前联邦学习已成为一个比较热门的研究方向。作为一个研究方向，“联邦学习”概念很宽泛，经过这几年的研究其边界得到极大扩大。比如学习过程中的数据不均衡、数据非独立同分布（non-I.I.D）、设备不可靠、有限通信带宽等挑战。</p>
+<p>联邦学习和一般<strong>分布式学习</strong>的主要区别？[ 主要还是数据的问题 ]</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>分布式训练</strong></th>
+<th><strong>联邦学习</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据分布</td>
+<td>集中存储，但可以任意打乱、平衡地分配给所有客户端</td>
+<td>分布式存储，数据无法互通、可能存在数据的Non-IID</td>
+</tr>
+<tr>
+<td>节点数量</td>
+<td>1~1000</td>
+<td>1~10^10</td>
+</tr>
+<tr>
+<td>节点状态</td>
+<td>所有节点稳定运行</td>
+<td>节点可能不在线</td>
+</tr>
+</tbody>
+</table>
+<p>联邦学习理论研究主要集中于针对优化算法的收敛性问题。</p>
+<p>下表为FedML作者何朝阳总结的FL领域相关研究方向：</p>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/challenge.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="1-fedavg"><a class="markdownIt-Anchor" href="#1-fedavg"></a> 1. FedAvg</h4>
+<p>Server端将client端传送过来的模型（参数）进行加权求平均，之后发送会client端，反复迭代，直到模型收敛（已经证明）。如下图划线部分所示，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">n_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>代表第K个客户端所拥有的样本数量。</p>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/fedavg.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="2-fedopt"><a class="markdownIt-Anchor" href="#2-fedopt"></a> 2. FedOPT</h4>
+<p>FedOPT将本地的优化器和服务器端的优化器加以区分，两个优化器互相配合。</p>
+<p>可作为一个通用框架理解FL中的一些挑战（针对下图框架中<strong>各个参数进行更现实的优化</strong>）：</p>
+<ul>
+<li>根据每个client端的计算能力设置其不同的迭代次数K</li>
+<li>在Server可以将梯度视为伪梯度进行优化</li>
+<li>每个client端的数据是异构的如何解决（这是区分于distributed learning的最大的点）</li>
+<li>如何在端侧训练大模型</li>
+<li>每一轮采样client的策略，传统使用uniform sampling，没有区分用户之间信息重要程度的差异</li>
+<li>服务端聚合算法研究</li>
+</ul>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/fedopt.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="二-non-iid问题"><a class="markdownIt-Anchor" href="#二-non-iid问题"></a> 二. Non-IID问题</h3>
+<p>各客户端之间数据分布的不一致性，包括特征、标签、数量等方面的分布偏差，甚至还有<strong>概念漂移</strong>问题。</p>
+<p>非独立同分布主要有三个方面：</p>
+<ul>
+<li><strong>不同客户端数据分布不同</strong>
+<ul>
+<li>特征分布倾斜：P(x)不同；比如不同人的笔迹不同</li>
+<li>标签分布倾斜：P(y)不同；比如企鹅在南极、北极熊在北极</li>
+<li>标签相同特征不同：P(x|y)不同；概念飘移</li>
+<li>特征相同标签不同：P(y|x)不同；比如点头表示yes / no?</li>
+<li>数量不平衡</li>
+</ul>
+</li>
+<li><strong>数据偏移</strong>：训练集测试集不同分布；比如以狗在草地上奔跑的照片训练，但使用狗在海里游泳的照片测试识别能力</li>
+<li><strong>非独立</strong>：可用节点大多在附近的时区，图数据</li>
+</ul>
+<p>文章<a href="https://arxiv.org/pdf/1806.00582.pdf" target="_blank" rel="noopener">《Federated Learning with Non-IID Data》</a>重点研究了这个现象，定义了Weight divergence指标观察全局模型与本地模型之间的差异，发现FedAvg聚合策略下有non-IID的数据集的Global和Local模型间差异很大。</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>d</mi><mi>i</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>=</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><msup><mi>W</mi><mrow><mi>F</mi><mi>e</mi><mi>d</mi></mrow></msup><mo>−</mo><msup><mi>W</mi><mrow><mi>S</mi><mi>G</mi><mi>D</mi></mrow></msup><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><msup><mi>W</mi><mrow><mi>S</mi><mi>G</mi><mi>D</mi></mrow></msup><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">Weight divergence = ||W^{Fed} - W^{SGD}||/||W^{SGD}||
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.149108em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">d</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1413309999999999em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span><span class="mord mathdefault mtight">G</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord">∣</span><span class="mord">/</span><span class="mord">∣</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span><span class="mord mathdefault mtight">G</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord">∣</span></span></span></span></span></p>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/wd.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>后续后很多方法致力于改进此类问题，一般有三种思路：1）修改现有算法；2）创建一个可全局共享的小数据集；3）为不同客户端提供不同模型。</p>
+<p><a href="https://arxiv.org/pdf/2102.02079.pdf" target="_blank" rel="noopener">Federated Learning on Non-IID Data Silos: An Experimental Study》</a>和<a href="https://arxiv.org/abs/2102.09743" target="_blank" rel="noopener">《Personalized Federated Learning: A Unified Framework and Universal Optimization Techniques》</a>均有所总结。</p>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/non.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="1-fedprox"><a class="markdownIt-Anchor" href="#1-fedprox"></a> 1. FedProx</h4>
+<p>FedAvg中固定时间内没有完成E轮迭代的客户端会被drop掉，而实际中有些设备的计算/通信性能较差，这会严重影响模型效果。</p>
+<p>针对**用户间数据异构（non-IID）和系统异构（设备间通信和计算能力差异）**两大挑战。</p>
+<p>修改Client端损失函数，通过加入<strong>proximal term修正项</strong>，确保本地更新不要太够远离初始的global模型，即如下图所示，客户端损失函数由<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>k</mi></msub><mo stretchy="false">(</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F_k(*)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>变为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>k</mi></msub><mo stretchy="false">(</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h_k(*)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>。</p>
+<p>定义<strong>inexact solution项</strong><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>y</mi><mi>k</mi><mi>t</mi></msubsup></mrow><annotation encoding="application/x-tex">y_k^t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0766639999999998em;vertical-align:-0.2831079999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7935559999999999em;"><span style="top:-2.4168920000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831079999999999em;"><span></span></span></span></span></span></span></span></span></span>，通过对本地模型的非精确求解，动态调整本地迭代次数，弥合系统中不同client端的性能差异性。</p>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/prox.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="2-skewscout"><a class="markdownIt-Anchor" href="#2-skewscout"></a> 2. SkewScout</h4>
 <h2 id="图模型联邦学习"><a class="markdownIt-Anchor" href="#图模型联邦学习"></a> 图模型联邦学习</h2>
+<h3 id="fedgnn"><a class="markdownIt-Anchor" href="#fedgnn"></a> 《FedGNN》</h3>
+<p>使用元学习解决non-IID数据问题</p>
+<h3 id="fedgraphnna-federated-learning-system-and-benchmark-for-graph-neural-networks"><a class="markdownIt-Anchor" href="#fedgraphnna-federated-learning-system-and-benchmark-for-graph-neural-networks"></a> 《FedGraphNN：A Federated Learning System and Benchmark for Graph Neural Networks》</h3>
+<p>文章没有相关算法创新，偏重于工程，是基于FedML框架的针对GNN算法的实现，针对Graph-level FL，即每个客户端有自己的图模型。</p>
+<p>实验结果表明：</p>
+<ul>
+<li>直接将现有方法应用于GNN无法达到良好效果，基本相对于集中式学习都有所折扣ROC-AUC下降大概0.05~0.1。</li>
+<li>可能由于non-IID影响，集中式表现更好的模型在联邦模式中比一定表现最好，比如文中实验里GAT效果下降明显</li>
+</ul>
+<p>主要是看看里面的代码实现。</p>
+<h3 id="fedglfederated-graph-learning-framework-with-global-self-supervision"><a class="markdownIt-Anchor" href="#fedglfederated-graph-learning-framework-with-global-self-supervision"></a> 《FedGL：Federated Graph Learning Framework with Global Self-Supervision》</h3>
+<p>定义了<strong>在图数据上</strong>进行联邦学习会面临的两大问题：<strong>heterogeneity和complementarity</strong>。如下图所示，<strong>异构性</strong>即每个客户端的图数据上节点数、边数和标签情况分布不同；<strong>互补性</strong>即每个客户端上的节点以及边的情况可能有重合/补充，比如client A这里节点5和节点7之间没有边，但client B这边是有边的。</p>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/ques.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>针对这两个问题，作者在传统FL步骤基础上加入了对于<strong>client端预测结果和节点表征结果</strong>传送和处理的步骤，在server端形成<strong>全局伪标签（non-IID问题）<strong>和</strong>全局伪图（互补性问题）</strong>。</p>
+<h4 id="1-全局伪标签"><a class="markdownIt-Anchor" href="#1-全局伪标签"></a> 1. 全局伪标签</h4>
+<p>处理各client端的预测结果，加权组合形成全部节点的预测结果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mi mathvariant="normal">，</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>P</mi><mi>K</mi></msub></mrow><annotation encoding="application/x-tex">P_1，...,P_K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord cjk_fallback">，</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。在每个预测结果中选取概率值较高的维度作为标签。</p>
+<p>Server端将这些伪标签数据下放，提升client端模型训练效果。</p>
+<h4 id="2全局伪图"><a class="markdownIt-Anchor" href="#2全局伪图"></a> 2.全局伪图</h4>
+<p>处理各client端的节点表征结果，加权组合形成全局节点表征<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>H</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">H_1,...,H_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, 即矩阵<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>H</mi><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\dot H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9201900000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9201900000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.08333000000000002em;">˙</span></span></span></span></span></span></span></span></span>, 将此矩阵乘以其转置得到整个图的伪邻接矩阵，下放至client端提升模型效果。</p>
+<p>client接收到server端的信息由三种：模型信息、伪标签信息和伪全图信息。伪全图信息被直接用来完善当前client上的图结构（补全边但是不增加节点），伪标签则被用来构建自监督学习（在损失函数中加入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>L</mi><mrow><mi>S</mi><mi>S</mi><mi>L</mi></mrow></msub></mrow><annotation encoding="application/x-tex">L_{SSL}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span><span class="mord mathdefault mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>项）。</p>
+<p><strong>【问题就在于，这些也把client端的信息暴露的差不多了啊…】</strong></p>
+<p>以上操作需要server知道每个client上到底有哪些节点且每个节点有单独索引的基础上，这样才能处理client上传的预测值和表征向量。这样联邦学习只保护了节点的属性、图结构信息以及本身的标签，但是暴露了节点信息（可能某些情况下不重要？）</p>
 <h2 id="联邦学习框架"><a class="markdownIt-Anchor" href="#联邦学习框架"></a> 联邦学习框架</h2>
-<h3 id="一-fedml"><a class="markdownIt-Anchor" href="#一-fedml"></a> 一. FedML</h3>
-<p>以科研为主要导向</p>
+<p>当前常见的联邦学习框架包括Tendorflow Federated（Google），LEAF benchmark（CMU），FedML以及工业界提供过的PySyft和FATE。做科研一般不会选择使用工业界框架，而是直接单机模拟。</p>
+<p>之前有博客总结了以下几个框架：</p>
+<ul>
+<li>TensorFlow Federated专门针对研究用例，提供大规模模拟功能以及灵活的编排来控制采样。</li>
+<li>PySyft 是用于安全的私有深度学习Python库。 PySyft使用PyTorch中的联邦学习，差分隐私和多方计算（MPC）将私人数据与模型训练分离。</li>
+<li>Leaf 提供了多个数据集以及模拟和评估功能。</li>
+<li>FATE（Federated AI Technology Enabler）是一个开源项目，旨在提供安全的计算框架来支持联邦AI生态系统。</li>
+<li>PaddleFL 是基于PaddlePaddle 的开源联邦学习框架。在PaddleFL中，通过应用程序演示提供了几种联邦学习策略和训练策略。</li>
+<li>Clara培训框架包括基于服务器客户端方法和数据隐私保护的跨孤岛联邦学习的支持</li>
+</ul>
+<p>本文主要介绍<strong>FedML框架</strong></p>
+<h3 id="一-背景介绍"><a class="markdownIt-Anchor" href="#一-背景介绍"></a> 一. 背景介绍</h3>
+<p>一些工业界主推的框架比较偏重分布式，对科研人员的学习成本较高；而另一些框架使用单机模拟，串行模拟不同client端的训练，耗时长，FedML希望弥补这里的gap。FedML是一个<strong>以科研为主要导向</strong>的开源框架，目前包括FedML-IoT、FedNLP、FedCV等部分，完整细节介绍可以参看其官网（<a href="https://fedml.ai/%EF%BC%89%E5%92%8C%E8%AE%BA%E6%96%87%E3%80%8AFedML:" target="_blank" rel="noopener">https://fedml.ai/）和论文《FedML:</a> A Research Library and Benchmark for Federated Machine Learning》。</p>
+<p>FedML基于Pytorch，目前支持单机、分布式和边缘计算模式，并且方便自己的代码、数据集快速嵌入框架。FedML自身实现了不同FL场景下的很多种算法，如FedAvg、FedOPT、FedNAS等，另外其中包含了多种benchmark数据集。</p>
+<p>FedML有如下几个<strong>值得注意的重要功能</strong>：</p>
+<ul>
+<li>WorkerManager中使用预定义的API：<code>register_message_receive_handler</code>和<code>send_message</code>可以定义任何类型可传送的数据，比如除梯度之外的一些辅助信息（auxiliary information）。</li>
+<li><code>TopologyManager</code>可以支持多种联邦学习架构，比如常见的集中式，分布式（无server节点）、层次式、纵向联邦（VFL，又名特征分割FL）、Split Learning、FedNAS、Turbo-Aggregate等。</li>
+</ul>
+<div align="center">
+  <img src="/2021/05/05/fedgraphNN/topo.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<ul>
+<li>在底层API即<code>FL-core</code>中包含有关FL的安全性保障机制，如secret sharing，key agreement，digital signature等。同时也包含了最新的鲁棒性聚合方法，如DP，RFA，KRUM等。</li>
+<li>相较于使用standalone的一些框架如PySyft、LEAF、TTF等（串行模拟），支持分布式训练（多GPU，以及同一个GPU上的多进程），速度更快。比如作者在CIFAR-10上训练ResNet时，是在8块GPU上模拟了112个worker。</li>
+</ul>
+<p>建议<strong>从FedAvg入手</strong>本框架。</p>
+<h3 id="二-源代码分析"><a class="markdownIt-Anchor" href="#二-源代码分析"></a> 二. 源代码分析</h3>
+<p><strong><a href="http://FedAvgAPI.py" target="_blank" rel="noopener">FedAvgAPI.py</a></strong>文件中封装了FedAvg算法。</p>
+<p><code>process_id</code>参数仿照MPI架构实现（对应其区分不同进程的rank_id），取值为0时表示为server端，其他值为client端。Server端创建Aggregator、ServerManager（aggregator会作为它的一个参数）；client端创建Trainer和ClientManager。</p>
+<p>整个模型的统领过程由ServerManager完成</p>
+<ul>
+<li>ServerManager中提供的register_message_receive_handler用于接收client端传来的参数并callback其中handle_message_receive_model_from_client函数，其中的aggregator会记录客户端发送过来的参数以及客户端的ID，当所有客户端发送完毕后（异步调用）会启动aggregate，结束后会进行下一轮客户端采样，将合并后的模型发送回客户端。</li>
+<li>send_message_init_config，初始化需要发送的消息</li>
+<li>send_message_sync_model_to_client，服务器发送消息到客户端</li>
+<li>在Aggregator中完成测试任务</li>
+</ul>
+<p>客户端这边要接收到服务器端的两种消息：</p>
+<ul>
+<li>初始化消息与合并后的模型消息</li>
+<li>模型更新（handle_message_receive_model_from_server，update_model），round次数更新（达到设定值后销毁进程）</li>
+<li>__train，模型更新</li>
+</ul>
+<p>注意其中实现<strong>采样的机制</strong>是通过换数据的方式进行的，为了尽力模拟现实中大量用户的情况。</p>
+<p><code>Message_define.py</code>中可以自定义需要传递的消息。</p>
+<h3 id="三-环境配置与调试"><a class="markdownIt-Anchor" href="#三-环境配置与调试"></a> 三. 环境配置与调试</h3>
+<p>两种配置方式，一种参考CI流程（用于线上验证），另一种是参考FedML博文（<a href="http://doc.fedml.ai/#/installation-distributed-computing%EF%BC%89%E4%B8%AD%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%8C%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%E5%89%8D%E4%B8%80%E7%A7%8D%E3%80%82" target="_blank" rel="noopener">http://doc.fedml.ai/#/installation-distributed-computing）中的分布式环境搭建，推荐使用前一种。</a></p>
+<p>分布式实验环境中NFS可以方便管理。</p>
+<p>CI-install.sh中pyflakes检查脚本是否有误，使用miniconda加快CI速度。</p>
+<p>standalone单机版适合小数据集下的浅层模型，规模变大后推荐distributed模式。</p>
+<p>FedML_mobile，采用Flask+Pytorch+RabbitMQ实现，对科研人员的学习成本较低。首先架设FedML服务器…这一部分没有仔细看，后续如果用到的话可以参考B站视频。</p>
 <h2 id="fedgraphnn"><a class="markdownIt-Anchor" href="#fedgraphnn"></a> FedGraphNN</h2>
 <p>以FedML为基础打造</p>
 <h2 id="参考材料"><a class="markdownIt-Anchor" href="#参考材料"></a> 参考材料</h2>
 <ul>
+<li>《Advances and Open Problems in Federated Learning》Google主导综述</li>
 <li>《FedML: A Research Library and Benchmark for Federated Machine Learning》</li>
 <li>《FedGraphNN: A Federated Learning System and Benchmark for Graph Neural Networks》</li>
+<li>FedAvg：《Communication-Efficient Learning of Deep Networks from Decentralized Data》</li>
+<li>FedOPT（ICML 2020）:《Adaptive federated optimization》</li>
+<li>FedProx：《[Federated Optimization in Heterogeneous Networks》</li>
+<li>non-IID：《Federated Learning with Non-IID Data》</li>
+<li>non-IID：《Federated Learning on Non-IID Data Silos: An Experimental Study》</li>
+<li>non-IID：《Personalized Federated Learning: A Unified Framework and Universal Optimization Techniques》</li>
+<li>non-IID：《Survey of Personalization Techniques for Federated Learning》</li>
 <li><a href="https://fedml.ai/" target="_blank" rel="noopener">https://fedml.ai/</a></li>
 <li><a href="https://github.com/chaoyanghe/Awesome-Federated-Learning" target="_blank" rel="noopener">https://github.com/chaoyanghe/Awesome-Federated-Learning</a></li>
+<li>B站视频，FedML联邦机器学习框架视频教学全集</li>
+<li>B站视频，联邦学习综述FAQ</li>
+<li>B站视频，联邦学习FATE课程系列</li>
+<li>知乎专栏：《联邦学习论文分享》</li>
 </ul>
 
             </article>
@@ -258,9 +430,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2021/05/06/GNN-paper/">
+                      <a href="/2021/05/06/cs224w2/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">图神经网络经典论文</span>
+                        <span class="hidden-mobile">cs224w《图机器学习》2021（二）图神经网络</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

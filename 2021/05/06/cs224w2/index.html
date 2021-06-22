@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      5.4k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      56
+      59
        分钟
     </span>
   
@@ -344,7 +344,10 @@
 <div align="center">
   <img src="/2021/05/06/cs224w2/single.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
 </div>
-<p>最后一般加一个激活函数，比如ReLU，sigmoid等，用来提升表达能力。</p>
+最后一般加一个激活函数，比如ReLU，sigmoid等，用来提升（针对节点属性的）表达能力。
+<div align="center">
+  <img src="/2021/05/06/cs224w2/gcn_layer.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
 <h4 id="1-gcn"><a class="markdownIt-Anchor" href="#1-gcn"></a> 1. GCN</h4>
 <p>节点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>在第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>层的表征是其邻居节点表征的均值。按照message+aggregation的形式可以写成下面的样子：</p>
 <div align="center">
@@ -537,9 +540,28 @@
 <div align="center">
   <img src="/2021/05/06/cs224w2/com.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
 </div>
-<h3 id="三-当前挑战"><a class="markdownIt-Anchor" href="#三-当前挑战"></a> 三. 当前挑战</h3>
+### 三. 当前挑战
 <p>目前还有一些GNN无法区分的基础图结构，比如之前提到的不同节点数的环形。</p>
 <p>已有工作在这方面开始努力。 [You et al. AAAI 2021, Li et al. NeurIPS 2020]</p>
+<h2 id="异构图"><a class="markdownIt-Anchor" href="#异构图"></a> 异构图</h2>
+<h3 id="一-关系型gcnrgcn"><a class="markdownIt-Anchor" href="#一-关系型gcnrgcn"></a> 一. 关系型GCN（RGCN）</h3>
+<p>加入不同类型连接下的消息转换机制。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/rGCN.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>可扩展性问题</strong>：随着关系类型数量的增多，RGCN的参数量上涨非常快，可能导致过拟合。可以采用以下两种技术减少模型参数量：</p>
+<p><strong>方法一，块对角矩阵</strong></p>
+<p>我们希望消息传递矩阵W是稀疏的，可以使用它的块对角矩阵，但这也造成只有相邻的节点间可以彼此传递信息，所以整个GCN模型可能要更深一些。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/wGCN.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>方法二，基准/词典学习</strong></p>
+<p>在不同类型的连接之间共享参数，所有的消息传递矩阵W都表示成不同基础矩阵V的组合。</p>
+<div align="center">
+  <img src="/2021/05/06/cs224w2/bGCN.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>之后介绍了在RGCN下的节点分类与链路预测（重点介绍）问题。</p>
+<p>基于RGCN的思想，可以很方便地得出RGraphSAGE、RGAT等。</p>
 
             </article>
             <hr>
@@ -580,8 +602,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/05/06/GNN-paper/">
-                        <span class="hidden-mobile">图神经网络经典论文</span>
+                      <a href="/2021/05/05/fedgraphNN/">
+                        <span class="hidden-mobile">联邦图模型论文与开源框架</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
