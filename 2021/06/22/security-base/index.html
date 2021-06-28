@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>网络安全基础 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>深鹿计划</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                网络安全基础
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-22 13:13">
+      2021年6月22日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      10.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      107
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="网络安全应用技术与工程实践"><a class="markdownIt-Anchor" href="#网络安全应用技术与工程实践"></a> 网络安全——应用技术与工程实践</h1>
+<p>北京理工大学闫怀志老师的在线课程（<a href="https://www.xuetangx.com/course/bit08091002817/5884048?channel=learn_title%EF%BC%89%E3%80%82" target="_blank" rel="noopener">https://www.xuetangx.com/course/bit08091002817/5884048?channel=learn_title）。</a></p>
+<h2 id="一背景"><a class="markdownIt-Anchor" href="#一背景"></a> 一.背景</h2>
+<p>信息是用来消除不确定性的东西（香农），是人们在适应外部世界并使这种适应反作用于外部世界的过程中同外部世界进行互相交换的内容和名称（控制论创始人维纳）。现代科学认为信息是对世界各种事物的运动状态和变化的反映。</p>
+<p>信息具有可识别性、可传载性、可共享性和可度量性。</p>
+<p>信息系统的<strong>计算模式</strong>，从集中计算模式、分布式计算模式再到云计算模式，计算架构包括单机、C/S、B/S、C/S和B/S混合、P2P、多层、SOA架构、微服务架构等。</p>
+<p><strong>安全领域CIKW模型</strong>，底层为安全相关数据（实体环境采集的原始素材），到安全相关信息（加工处理后的逻辑数据），进一步到安全相关知识（提炼信息之间的关联），最后到智能（前瞻性预测与决策支撑）。</p>
+<p>网络空间（ITU，国际电信联盟）定义，是由计算机、计算机系统网络及其软件支持、计算机数据、内容数据、流量数据以及用户等上述全部或部分要素创建或组成的物理或非物理领域。是陆海空天之后的第五维空间。</p>
+<p>以<strong>安全属性</strong>的不变应信息系统形态、处理技术和<strong>安全技术</strong>的万变。</p>
+<p>信息安全属性包括：保密性（C）、完整性（I）和可用性（A）。扩展的安全属性还包括，不可否认性（non-repudiation）、可控性（Controllability）、可追溯性等。</p>
+<p>网络空间安全领域牵涉到自然科学（数学、通信、信息、计算机等）和社会科学（法律、心理学、教育和管理等）两个方面。</p>
+<p>关于网络空间安全的八个基本观点：相对安全、适度安全、木桶理论、安全困境（保密性vs可用性）、墨菲定律、蝴蝶效应、冰山原理和剃刀定律。</p>
+<h2 id="二-安全技术体系"><a class="markdownIt-Anchor" href="#二-安全技术体系"></a> 二. 安全技术体系</h2>
+<p>内部是信息系统的安全构建，包括网络、应用系统及实现，外部包括防火墙、入侵检测、态势感知等。</p>
+<p>网络安全滑动标尺模型，由基础架构安全能力、被动防御能力、主动防御能力、智能分析能力到攻击反制能力。</p>
+<p>安全三要素包括，资产（识别）、脆弱性（利用）和威胁（应对）。</p>
+<h3 id="1-基本思想"><a class="markdownIt-Anchor" href="#1-基本思想"></a> 1. 基本思想</h3>
+<p>基本思想，<strong>网络安全系统是一个复杂系统，需要采用系统工程方法</strong>。复杂性主要体现在层次性、不确定性、开放性、非线性、系统规模、主动性、智能性以及动态性等。当前发展体现在由<strong>基元性转向组织性</strong>（考虑相互的组织与协同）、线性转向非线性（关注关联、交互、涌现等问题）、简单性转向复杂性。</p>
+<p>网络安全系统是一种复杂系统，网络安全风险是一种客观存在，需要采用系统思想来考察，涉及系统论、信息论、控制论、耗散结构理论、协同论与突变论等。系统工程方法包括霍尔三维（时间维、逻辑维、知识维）结构方法论、切克兰德方法论、从定性到定量的系统综合方法、基于模型的系统工程、体系工程等。</p>
+<p>经典系统科学理论（老三论）包括系统论、信息论和控制论。系统论可以从宏观、中观、微观三个层面指导网络空间安全体系的构建。信息论的应用可包括密码学、信息隐藏、隐私保护等。控制论则可以指导安全控制、攻防对抗、防御构建等。</p>
+<p>新兴系统科学理论包括耗散结构理论、协同论和突变论。耗散结构理论主要解释复杂系统的自组织运动规律，比如大规模网络故障预测与控制，舆情管理等；协同论研究相互协调、共同作用，构建度量信息安全技术、管理各因素（子系统）之间协同程度的评价指标和评价模型；突变论是对量化和质变规律的深化，如网络安全突发事件的机理分析及应对等。</p>
+<h3 id="2-滑动标尺模型"><a class="markdownIt-Anchor" href="#2-滑动标尺模型"></a> 2. 滑动标尺模型</h3>
+<p>对于网络安全防御体系，国内提出P2DR、OODA、PDCA等动态循环模型。美国SNAS提出网络安全滑动标尺模型获得广泛应用。此模型将安全防御分为逻辑递进的五个阶段：基础架构安全、被动防御、主动防御、智能分析以及反制攻击。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/slide.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="3-法律法规"><a class="markdownIt-Anchor" href="#3-法律法规"></a> 3. 法律法规</h3>
+<div align="center">
+  <img src="/2021/06/22/security-base/law.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h2 id="三-基础架构安全概述"><a class="markdownIt-Anchor" href="#三-基础架构安全概述"></a> 三. 基础架构安全概述</h2>
+<p>网络结构需要有合理的安全域划分，软件采用合理架构和技术体系。信息系统的实现可能会引入缺陷和漏洞，在基础实现层面应该尽力避免。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/base.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="1-物理与环境安全"><a class="markdownIt-Anchor" href="#1-物理与环境安全"></a> 1. 物理与环境安全</h3>
+<p>物理位置选择，物理访问控制，防盗窃和防破坏，防雷击，防火，防水和防潮，防静电，温湿度控制，电力供应和电磁防护。</p>
+<p><strong>扩展要求</strong>：针对云计算安全、移动互联安全、物联网安全、工业控制系统安全等网络空间信息系统新形态新应用有特殊保护要求。</p>
+<p>云计算安全，保证云计算基础设施、云服务客户数据、用户个人信息等存储于中国境内；</p>
+<p>移动互联安全，选择合理位置，避免过度覆盖和电磁干扰；</p>
+<p>物联网安全，感知节点设备物理环境不对其造成物理损害，能正确反映环境状态，不对其正常工作造成影响。关键网关节点、感知节点有可供长时间工作的电力供应。</p>
+<p>工业控制安全，室外防火、透风、防盗、防雨、散热；远离强电磁干扰，远离强热源等；</p>
+<h3 id="2-网络与主机安全"><a class="markdownIt-Anchor" href="#2-网络与主机安全"></a> 2. 网络与主机安全</h3>
+<p><strong>网络安全</strong>重点是针对通信网络的安全控制，对象是广域网、城域网和局域网等，涉及网络设备的业务处理能力、网络带宽、网络区域划分及通信线路等。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/device.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>第一，合理选用网络组建设备。</p>
+<p>第二，合理划分网络区域，实施不同安全策略。</p>
+<p>第三，规划IP地址分配策略、路由、交换策略，可根据情况选用静态分配地址、动态分配地址、NAT措施等。</p>
+<p>第四，实现网络线路和设备的冗余配置，确保系统可用性。</p>
+<p>第五，网络边界部署安全设备，规划具体位置和部署措施，部署网络安全审计系统。</p>
+<p>第六，设计远程安全访问系统，部署IPsec安全通信设备，部署SSL，VPN安全设备</p>
+<p>扩展要求：</p>
+<p>云计算要实现客户虚拟网络的隔离，为客户提供定制、自主式的安全能力。</p>
+<p>工业控制系统内部根据业务特点划分为不同安全域并采取隔离，涉及<strong>实时</strong>传输和数据传输的，应独立组网并与其它网络实现物理安全隔离。</p>
+<p><strong>主机安全</strong>主要是操作系统安全和数据库安全。</p>
+<p>操作系统安全涉及自身安全机制、安全配置及安全使用等。考虑三个方面：1）资源利用、数据传输和客体重用；2）密码支持、安全功能保护、访问控制、身份鉴别、审计、数据完整性等；3）安全管理、生存周期支持、配置管理、脆弱性（漏洞）管理等。</p>
+<p>数据库安全包括自身安全和数据安全。保护数据库系统、服务器和数据库中的数据、应用、存储以及相关网络连接。防止数据库系统及数据遭到泄露、篡改或破坏。</p>
+<h3 id="3-加密认证技术"><a class="markdownIt-Anchor" href="#3-加密认证技术"></a> 3. 加密认证技术</h3>
+<h4 id="基础"><a class="markdownIt-Anchor" href="#基础"></a> 基础</h4>
+<p>涉及密码编码学与密码分析学。</p>
+<p>古代加密方法阶段，人工方式加密，比如“藏头诗”。</p>
+<p>古典密码阶段，纯机械或者电子机械方式加密，比如单标代替密码、多表代替密码、转轮密码等。</p>
+<p>近现代密码阶段，采用计算机等先进计算手段作为加密工具。1949年香农发表《保密系统通信原理》，1976年发表《密码学的新方向》。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/encrypted.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/clas.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>主要用到数学（概率论、统计、数论、有限域理论）、信息论（自信息、条件自信息、互信息、熵、条件熵、联合熵）、计算复杂性理论（时间复杂性、空间复杂性、复杂性渐进表示、NP难、NPC等）等。</p>
+<p>设计准则包括，计算安全性（原理上可通过计算破解）、可证明安全性（理论证明算法安全性）、无条件安全性（原理上不可破译，基本只有一次一密能达到）。</p>
+<p>良好的密码系统有三个条件：1）给定加密算法、明文、秘钥，容易得到密文，反之亦然；2）解密算法、解密秘钥未知，不能推明文；3）密文不应使别人看起来异样。</p>
+<p>柯克霍夫斯密码设计原则：1）易于计算；2）难于破解；3）一切秘密寓于秘钥；4）整体安全原则。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/save.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="对称密码-vs-非对称密码"><a class="markdownIt-Anchor" href="#对称密码-vs-非对称密码"></a> 对称密码 VS 非对称密码</h4>
+<p>对称，即加密解密秘钥相同，或者二者可以简单推算导出。</p>
+<p>对称密码中，秘钥的保密程度决定了体制的安全性。密钥管理的高难度和复杂性。</p>
+<p>对称密码包括<strong>序列密码（流密码）<strong>和</strong>分组密码（块密码）</strong>。</p>
+<p>序列密码起源于香农证明的绝对安全的一次一密，对明文逐字符或逐位加密，加密变换随时间而变。算法要素包括明文、密文、密钥（种子密钥与密钥流）、密钥流字母表、加密算法、解密算法。典型算法有RC4（字节流方式）和A5（密钥流位）。</p>
+<p>优点在于处理速度快、误差传播少，缺点在于扩散（扰乱及混淆）不足，对插入及修改不敏感。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/seq.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>分组密码采用软件加密，避免了对硬件的依赖。一次加密明文中的一个组（通常为64或128），加密输出的每一位数字与一组长为m的明文数字有关。算法要素包括明文、密文、密钥、加密算法、解密算法。分组密码包括DES（传统换位和置换方法，64位）、3DES（提升安全性做了扩展，但效率极低）和<strong>AES（代换和混淆方法，安全性高、计算效率高、实现性好、灵活性强，是目前常用的对称加密算法）</strong>。</p>
+<p>优点在于扩散性好、对插入敏感，缺点是处理速度慢、误差易传播。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/group.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/work.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>非对称密码体制包括公钥和私钥，也叫作公钥密钥体制，起源于1976年《密码学新方向》。公钥加密的数据只有私钥可解，反之亦然。极大方便了密钥管理。常用算法分为大整数分解类（RSA）、离散对数问题类（Diffie-Hellman）和椭圆曲线类（ElGamal）。</p>
+<p>通过<strong>单项函数、单向陷门函数</strong>两类正向易于计算，反向难以计算的函数实现公钥密码构造。</p>
+<blockquote>
+<p>单向函数：难以根据输出推算输入，即正向计算容易但求逆计算不可行。</p>
+<p>单向陷门函数：如果给定某些额外数据（陷门）容易计算单向函数的逆函数，陷门为解密秘钥。</p>
+</blockquote>
+<p>日常对称密码和非对称密码会<strong>组合使用</strong>，实现加密强度、运算效率和密钥分配管理的平衡。一般采用对称密码进行数据加密，<strong>用非对称密码对对称密码的加密秘钥加密</strong>。核心、关键的机密数据依然用非对称加密。</p>
+<h4 id="摘要算法"><a class="markdownIt-Anchor" href="#摘要算法"></a> 摘要算法</h4>
+<p>将任意长的输入消息串变换为唯一的固定长度的输出，实现<strong>唯一认证标识</strong>，也称为无秘钥加密算法、哈希算法。经常与对称密码、非对称密码组合使用，构成完整的加密认证体系。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/hash.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>常用MD系列、SHA系列。</p>
+<p>MD5概要：输入是任意长度输出128位哈希。2004年王小云找出了碰撞，网上有MD5密文与明文的对照库，几乎已经淘汰。</p>
+<p>SHA算法：安全哈希算法，已经逐步替代MD5，2004年王小云找到了SHA-1的碰撞，现在建议安全级别高的选择SHA-2。</p>
+<p>在认证领域的具体应用有<strong>数字签名</strong>。附加在数据单元的一些数据，或者是对数据单元的密码变换，用于鉴定签名人身份及数据内容认可，防止源点或重点抵赖或欺骗。常用哈希算法和非对称加密。</p>
+<ul>
+<li>使用哈希算法，首先计算发送文件的哈希值，用私钥对该摘要进行签名，形成发送方数字签名。</li>
+<li>使用非对称加密算法，首先将明文用自己的私钥加密得到数字签名，再将其和验证原文一起发送。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/digit.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/digit_p.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="密钥管理"><a class="markdownIt-Anchor" href="#密钥管理"></a> 密钥管理</h4>
+<div align="center">
+  <img src="/2021/06/22/security-base/mima.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>公钥安全基础设施（PKI）</strong>，利用公钥技术实施和提供安全服务的普适性安全基础设施，是管理密钥和证书的系统或平台，在开放环境中为开放性业务提供公钥加密或数字签名。组成部分包括：公钥密码系统、数字证书、认证中心（CA）以及相关公钥的安全策略。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/pki.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<ul>
+<li>认证中心：核心执行机构，具有权威性（国家批准）、可信任性（高度安全）、公正性（第三方机构），负责所有证书的签发、注销以及证书注销列表的签发等。</li>
+<li>注册中心：证书注册审批机构，负责证书申请者的信息录入、审核以及证书发放等。发放的证书可以存储在U盘、硬盘中。</li>
+<li>密钥管理中心：CA密钥是整个PKI的核心机密，也管理由客户机生成的用户密钥。</li>
+<li>在线证书状态查询服务：发布用户证书和相关黑名单的信息。</li>
+</ul>
+<p>数字证书用于保证公钥的真实性和有效性，是经过CA数字签名的包含公钥拥有者信息以及公钥的权威性电子文档。由权威公正的第三方CA签发，具有一定有效期，证明某个实体身份及其公钥的匹配绑定关系和合法性。当前常用X.509标准，包括基础版和扩展版。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/ca.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>PKI中以分层结构信任即严格层次模型最为常用。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/liang.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/china.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+### 4. 协议安全与安全协议
+<p>TCP/IP协议族面临的安全威胁举例：</p>
+<p>1）明文传输；2）网络窥探；3）IP地址欺骗；4）路由攻击；5）IP隧道攻击；6）网络控制报文协议攻击；7）IP层拒绝服务型攻击；8）IP栈攻击；9）IP地址鉴别攻击；10）TCP序列号攻击。</p>
+<p>网络安全协议基于密码学，用于保障信息安全，作用于TCP/IP下的安全协议或套件。以OSI网络层次及TCP/IP协议族为基础，通过加密、认证及相关协议进行密码学安全加固。</p>
+<p>常用的网络安全协议举例（八种）：</p>
+<p>1）L2TP，链路层扩展；2）IPsec，IP层安全；3）SSL/TLS，传输层安全；4）SSH，会话安全；5）Socks，代理安全；6）Kerberos，认证协议；7）PGP，应用安全；8）HTTPS，应用安全。</p>
+<h4 id="l2tp链路层扩展第二层隧道协议"><a class="markdownIt-Anchor" href="#l2tp链路层扩展第二层隧道协议"></a> L2TP（链路层扩展）第二层隧道协议</h4>
+<p>虚拟隧道协议，常用于VPN，支持IP、ATM、帧中继等网络类型。不提供加密和可靠性验证，通常需要与安全协议（特别是IPSec）搭配使用，实现数据加密传输。</p>
+<h4 id="ipsecip层安全"><a class="markdownIt-Anchor" href="#ipsecip层安全"></a> IPsec（IP层安全）</h4>
+<p>对IP协议的分组进行加密和认证，包括认证头（AH）、封装安全载荷（ESP）、安全关联（SA），提供不可否认性、数据完整性以及不可否认性等。</p>
+<h4 id="ssltls传输层安全"><a class="markdownIt-Anchor" href="#ssltls传输层安全"></a> SSL/TLS（传输层安全）</h4>
+<p>SSL协议位于TCP/IP协议与各种应用层之间，为高层协议提供数据封装、压缩、加密等基本功能，提供保密性和数据完整性。</p>
+<h4 id="ssh协议会话安全"><a class="markdownIt-Anchor" href="#ssh协议会话安全"></a> SSH协议（会话安全）</h4>
+<p>安全外壳协议，建立在应用层基础上，提供基于口令和基于密钥的两种安全验证。</p>
+<h4 id="socks代理安全"><a class="markdownIt-Anchor" href="#socks代理安全"></a> Socks（代理安全）</h4>
+<p>工作在会话层，使用UDP传输数据，提供一个通用框架使FTP、Telnet、SMTP等协议安全透明地穿过防火墙。只是简单地传递数据包，不关心是何种应用协议。</p>
+<h4 id="kerberos认证协议"><a class="markdownIt-Anchor" href="#kerberos认证协议"></a> Kerberos（认证协议）</h4>
+<p>通过密钥系统为客户机，服务器应用程序提供认证服务。基于可信第三方密钥分配中心，由两个独立的逻辑部分组成，即Kerberos认证服务器（AS）和票据授权服务器（TGS）。</p>
+<h4 id="pgp应用安全"><a class="markdownIt-Anchor" href="#pgp应用安全"></a> PGP（应用安全）</h4>
+<p>优良保密协议（Pretty Good Privacy），用于消息加密、验证的应用程序，采用RSA加密、IDEA散列算法验证，由一系列散列、数据压缩、对称秘钥加密，以及公钥加密的算法组成，常用于电子邮件加密，提供数据加密和数字签名服务。</p>
+<h4 id="https应用安全"><a class="markdownIt-Anchor" href="#https应用安全"></a> HTTPS（应用安全）</h4>
+<p>HTTP + 加密 + 认证 + 完整性保护 = HTTPS。</p>
+<p>是HTTP先和SSL协议通信，SSL再和TCP通信，可解决明文传输、认证以及数据完整性问题。</p>
+<h3 id="5-应用软件安全实现"><a class="markdownIt-Anchor" href="#5-应用软件安全实现"></a> 5. 应用软件安全实现</h3>
+<p>应用软件安全需求获取；</p>
+<p>应用软件安全设计：MVC、微内核架构、管道-过滤器架构、SOA架构、巨石型架构、微服务架构等；</p>
+<p>应用软件安全编码：安全编码八大原则、安全编码标准与指南；</p>
+<p>应用软件安全测试：安全功能测试、安全漏洞测试；正向测试（静态分析、基于模型、模糊测试、基于风险、基于故障树、渗透测试、故障注入等）、逆向测试（依据已知软件缺陷空间，建立威胁模型，寻找潜在入侵点进行测试）；</p>
+<h3 id="6-备份与灾难恢复技术"><a class="markdownIt-Anchor" href="#6-备份与灾难恢复技术"></a> 6. 备份与灾难恢复技术</h3>
+<p>数据量爆炸式增长，访问方式和访问时间要求高，异构数据（结构化、半结构化、非结构化）大量存在，云计算、物联网、移动通信、工业互联网等领域新问题。</p>
+<p>直接连接存储（DAS）、网络接入存储（NAS）、存储区域网络（SAN）。</p>
+<p>虚拟化存储，包括带内虚拟化、带外虚拟化；主机虚拟化、子系统虚拟化、网络级虚拟化。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/vistual.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>数据备份策略：完全备份、差异备份、增量备份。实现方式包括Host-based、LAN-based、SAN LAN-Free、SAN Server-Free。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/drp.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h2 id="四-被动防御技术体系"><a class="markdownIt-Anchor" href="#四-被动防御技术体系"></a> 四. 被动防御技术体系</h2>
+<p>依赖于专家经验，通过预先设计的规则对已知攻击手段和威胁方式进行防御。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/negative.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>技术局限性：1）取决于威胁特征，包括来源、特征、途径、行为等先验特征的精确表达；2）非对称和不确定背景下，攻击行为感知困难。</p>
+<h3 id="1防火墙技术"><a class="markdownIt-Anchor" href="#1防火墙技术"></a> 1.防火墙技术</h3>
+<p>防火墙是网络访问控制机制的一种具体实现，部署在不同网络或不同安全域之间，实现不同信任域之间的安全隔离。</p>
+<p><strong>传统防火墙</strong>基本假设：部署于被保护信息系统边界的唯一信息交互通道，通过的信息需要防护策略明确授权，软硬件实现具有高安全性和高可靠性。视内网为可信区，外网为不可信区域，中间为隔离区。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/shixian.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>1）过滤机制：</p>
+<p><strong>包过滤机制</strong>，作用于IP层和传输层，与应用层无关，主要检查IP地址、端口、协议类型、IP选项、TCP选项以及数据包流向等；具体规则包括拒绝/允许与某主机或某网段的所有连接、指定端口的连接等。优点为易于实现与部署、处理速度快、效率高，尤其适合小规模网络应用。缺点是无法过滤数据包内容，不支持用户认证、大规模网络的规则过滤表配置困难。</p>
+<p><strong>应用代理过滤机制</strong>，代理设备Proxy实现外网和内网的隔离，应用于应用层，类似一个中间人。支持用户级身份认证、日志记录功能强大。但额外增加的连接处理易导致性能瓶颈、应用层协议总量受限、无法改进底层协议安全性。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/app.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>状态检测过滤机制</strong>，基于会话机制，将属于同一连接的所有包视为一个整体。其检测规则包括多种连接状态信息，并结合通信数据、状态信息及关联、安全策略、应用识别知识等。工作于链路层和网络层之间，从底层捕获信息从高层分析，层次高于传统包过滤但低于应用代理。所以网络层和传输层的控制能力强，应用协议适用性强、配置方便、效率高，但无法彻底识别数据包中的恶意内容等。</p>
+<p>2）软硬件实现方式：</p>
+<p><strong>软件防火墙</strong>，运行于操作系统之上而不依赖于硬件。扩充空间大、配置灵活，但需要占用驻留主机资源，存在性能的双向影响。多用于安全性要求不高的单机系统。</p>
+<p><strong>软硬件结合实现</strong>，安装在专作防火墙的主机之上。</p>
+<p><strong>硬件实现</strong>，软件运算硬件化，将主要的运算程序通过X86、专用集成电路、网络处理器、可编程门阵列等专用硬件架构来实现。采用专用硬件加速，是中高端防火墙的首选。功能完善、效率高、性能稳定，但配置专业性强，价格比较高。</p>
+<p><strong>虚拟防火墙</strong>，将物理实体防火墙划分为多个防火墙，每个虚拟防火墙有独立系统资源、安全策略，可以部署于核心交换机和主要服务器群处、物理网络和虚拟网络之间或两个虚拟网络之间。</p>
+<p>防火墙性能指标主要分为四大类：吞吐量、时延、新建连接速率和并发连接数。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/firewall.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<ol start="3">
+<li>部署方式：</li>
+</ol>
+<p>需要考虑具体网络应用环境和性能指标的综合平衡。</p>
+<p><strong>网络式防火墙</strong>，双穴主机（一个主机具有两个地址）网关型部署、单穴堡垒主机型部署(屏蔽主机网关型)、双穴堡垒主机型、屏蔽子网型。</p>
+<p><strong>分布式防火墙</strong>，整体安全策略由安全策略管理服务器负责定义，并由分布于网络中的各防火墙断点执行。分为实体部署方式和虚拟化部署方式。</p>
+<h4 id="web应用防火墙waf技术"><a class="markdownIt-Anchor" href="#web应用防火墙waf技术"></a> <strong>Web应用防火墙（WAF）技术</strong></h4>
+<p>主要应对Web2.0架构中的HTTP/HTTPS应用的安全威胁，比如XSS（跨站脚本攻击）、SQL注入、DDos、Cookie篡改、网页挂马、网页篡改、敏感信息泄露等。</p>
+<p>部署在Web服务器和客户端之间，采用在线（串行部署，采用透明代理、反向代理、路由代理等模式）或离线模式（旁路部署，仅检测而无法阻断），此外还有云WAF。</p>
+<h4 id="工业防火墙"><a class="markdownIt-Anchor" href="#工业防火墙"></a> 工业防火墙</h4>
+<p>特殊要求：机械侵入防护能力、气候适应、电磁兼容；工业通信协议的脆弱性及其解析与过滤，比如工业Ethernet、RS232/422/485、IEC104、OPC等；实时性（硬件加速）与可靠性（软件旁路保护、双机热备、电源冗余）保障。</p>
+<h4 id="攻击与防范技术"><a class="markdownIt-Anchor" href="#攻击与防范技术"></a> 攻击与防范技术</h4>
+<p>通常采用多层次安全性机制保护防火墙，硬件层面包括ASIC、FPGA、NP或多核架构；软件层面采用分权分域的权限管理，采用最小特权策略，细粒度访问控制等；系统层面，优先使用非Windows系统，对外仅提供电源、数据及管理等接口，弱化启发服务功能。</p>
+<p>针对防火墙的<strong>探测</strong>工具常用NMAP、Firewalk以及shodan等，为防范上述工具，要尽量减少端口开放，关闭不必要的服务，并获取扫描服务器IP，添加到防火墙黑名单。</p>
+<p>绕过防火墙方法主要有，协议隧道攻击（防御措施包括，最小开放、合理的策略、白名单机制等），分片绕过防火墙认证攻击（分析分片报文的统计数据）、IP地址欺骗攻击（阻止有风险IP、数据进站过滤、反向路径转发等，对于普通木马要合理配置强化IP包过滤规则，对于反弹木马要监测非法连接，关闭相关端口）等。</p>
+<h3 id="2脆弱性与漏洞检测与防范"><a class="markdownIt-Anchor" href="#2脆弱性与漏洞检测与防范"></a> 2.脆弱性与漏洞检测与防范</h3>
+<p>Vulnerability，脆弱性，源自信息系统在硬件、软件、协议等设计和实现中的先天缺陷，安全策略配置不当或者系统使用失误。脆弱性是信息系统的客观存在。</p>
+<p>威胁来源通过<strong>攻击向量</strong>作用于信息系统的安全弱点，通过安全控制实现对信息系统资产或功能的技术影响，最终实现对系统的业务功能产生影响。攻击向量（AV）指攻击者用来攻击信息系统的一种手段，即可资网络渗透攻击利用的各种维度，比如恶意代码、恶意邮件、网页、社会工程攻击法等。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/vul.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="漏洞分类"><a class="markdownIt-Anchor" href="#漏洞分类"></a> 漏洞分类</h4>
+<p>漏洞是脆弱性之一，是存在于信息系统之中的、作用于一定环境的、可能被利用且会对系统中的组成、运行和数据造成损害的一切因素。国际漏洞库如CVE、CWE，国内有CNNVD、CNVD。</p>
+<p>漏洞分级包括访问路径（远程、邻接和本地），漏洞被利用的复杂程度（简单、复杂），影响程度（完全、部分、轻微和无影响），综合判断（超危、高危、中危和低危）。</p>
+<p>脆弱性扫描/漏洞扫描，扫描主要是逐个发现单个脆弱性，分析是度量网络系统整体脆弱性。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/lou.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/loug.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="漏洞分析"><a class="markdownIt-Anchor" href="#漏洞分析"></a> 漏洞分析</h4>
+<p><strong>常用的脆弱性分析方法包括图论分析法、攻击树分析法、可生存性分析法</strong>:</p>
+<ul>
+<li>图论分析法，将常见脆弱性利用方法、利用步骤、网络拓扑数据、系统基础参数等作为基础输入信息，选取图的节点和路径进行分析。</li>
+<li>攻击树分析法，将外部攻击步骤映射为决策树，对信息系统的脆弱性进行量化处理，以概率描述各脆弱性被利用的可能。</li>
+<li>可生存性分析法，在规范的网络系统中设置脆弱性和攻击事件，运用贝叶斯定理等概率计算来图形化描述和揭示安全脆弱性被利用的影响程度。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/live.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>漏洞检测和分析的新需求和技术<strong>发展趋势</strong></p>
+<div align="center">
+  <img src="/2021/06/22/security-base/new.png" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="防范技术"><a class="markdownIt-Anchor" href="#防范技术"></a> 防范技术</h4>
+<p>OWASP Top10，开放式Web应用程序安全项目，按照严重程度分别给出十大Web应用安全脆弱性和漏洞，并提供一些防范措施。</p>
+<p>注入攻击、身份认证失效、敏感数据泄露、XML外部实体（XXE）、访问控制失效、安全配置错误、跨站脚本攻击（XSS）、不安全反序列化、使用含有已知漏洞的组件、日志记录和监控的欠缺。</p>
+<h3 id="3-恶意代码检测及防范技术"><a class="markdownIt-Anchor" href="#3-恶意代码检测及防范技术"></a> 3. 恶意代码检测及防范技术</h3>
+<p>恶意代码不仅自身有安全危害，更能够借助信息系统的脆弱性来实现传播和破坏。</p>
+<h4 id="基本分类"><a class="markdownIt-Anchor" href="#基本分类"></a> 基本分类</h4>
+<p>恶意代码有很多形式，比如病毒、蠕虫、木马、间谍软件、僵尸程序、恶意脚本、流氓软件、逻辑炸弹、后门、网络钓鱼工具等。恶意代码在<strong>代码独立性</strong>和<strong>自我复制性</strong>方面各有区别，其分类界限并不明显。</p>
+<p><strong>病毒</strong>，可自我复制的一组代码，具有传染性、非授权可执行性、隐蔽性、潜伏性、可触发性以及破坏性等特征。</p>
+<p><strong>蠕虫</strong>，消耗宿主资源，能够传播，自我复制、独立运行、消耗系统资源；分为传播、隐藏及目的功能模块。</p>
+<p><strong>木马</strong>，隐藏在正常程序中的一段后门程序，伪装自身吸引用户下载执行，安置“后门”以便实施攻击，没有自我复制功能。</p>
+<p><strong>间谍软件</strong>，在用户不知情或未经用户准许的情况下搜集、使用、并散播用户的个人数据或敏感信息。</p>
+<p><strong>僵尸程序</strong>，具有恶意控制功能，形成一对多的控制网络。</p>
+<p><strong>恶意脚本</strong>，利用脚本形式/纯文本形式保存。</p>
+<p><strong>流氓软件</strong>，未明确提示用户或未经允许情况下强行安装，抵制卸载，浏览器劫持，恶意捆绑等。</p>
+<p><strong>逻辑炸弹</strong>，隐含在正常功能中，因一定条件的触发而具有破坏性。</p>
+<p><strong>后门</strong>，绕过安全控制而获取对程序或系统访问权的方法，以便于再次秘密进入或控制系统。</p>
+<p><strong>网络钓鱼</strong>，利用欺骗性电子邮件和伪造的Web站点进行诈骗活动。</p>
+<h4 id="分析检测技术"><a class="markdownIt-Anchor" href="#分析检测技术"></a> 分析检测技术</h4>
+<p>特征主要有<strong>特征码</strong>（恶意代码的结构自身）和<strong>特征行为</strong>（需要动态运行），基于特征码校验的恶意代码检测为静态检测，而基于特征行为的恶意代码检测为动态检测。</p>
+<p>特征码字符串多为恶意代码文件里对应代码或汇编指令的地址，也可以直接采用入口点的代码段来生成特征码。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/tezheng.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>各类恶意软件的特征码会被写入代码特征库中，包括特征起始地址、特征长度、具体特征等，之后进行匹配检测。准确度高、简单快捷，但一定会出现滞后问题。</p>
+<p>使用静态手段检测<strong>多态性恶意代码</strong>（Chameleon，Casper）有一定难度，因为它每次复制时都会更改其自身，变形方式包括采用不固定密钥或随机数加密病毒程序代码、病毒运行过程中改变代码、通过一系列模糊变换、等价指令替换、加壳、花指令、混淆等变换实现多态。同一种恶意代码的多个实例样本的代码都不相同。</p>
+<p><strong>恶意行为</strong>指代码运行时执行的若干互不重复的内置恶意动作以及一系列扩展的时序恶意动作。孤立行为往往难以成为恶意行为特征，而且要厘清需要关注的重点行为。主要采用动态污点跟踪或状态机模型方法。</p>
+<p>另外还有一种使用校验和的检测方法。优势在于考察程序代码完整性，不依赖外部信息，既可检测已知恶意代码，又可检测未知。缺点在于无法识别恶意代码种类和具体版本，程序自身变化导致<strong>误报率高</strong>。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/sum.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="防范与治理"><a class="markdownIt-Anchor" href="#防范与治理"></a> 防范与治理</h4>
+<div align="center">
+  <img src="/2021/06/22/security-base/fang.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>恶意代码清除，代码附着于宿主系统之上，只要正确恢复了文件头就可以实现清除病毒的目的。</p>
+<p>恶意代码删除，对于无需宿主系统的代码。</p>
+<p>恶意代码隔离，采用加密或者修改文件后缀名的方式。</p>
+<p>当前面临的挑战：</p>
+<ol>
+<li>病毒采用自身加密和压缩（如加壳）</li>
+<li>僵尸网络采用C&amp;C加密、通信采用快通量DNS</li>
+<li>虚拟分析的虚拟机逃逸</li>
+<li>需要提升对恶意代码的容忍和沙箱分析手段</li>
+</ol>
+<h3 id="4-入侵检测技术"><a class="markdownIt-Anchor" href="#4-入侵检测技术"></a> 4. 入侵检测技术</h3>
+<p>防火墙之后的有一道防线，通用架构如下，其中目录服务组件，负责实现组件定位、数据传输控制及认证、密钥发布和管理。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/in.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/ids.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>IDS核心模块主要是安全数据采集、入侵分析和入侵告警。</p>
+<h4 id="基础架构模块"><a class="markdownIt-Anchor" href="#基础架构模块"></a> 基础架构模块</h4>
+<p>安全数据包括主机数据（系统日志、状态、服务、事件等）、网络数据、其它特定网络组件分析处理后的抽象或结论数据。</p>
+<p><strong>主机数据</strong>包括如下几类：</p>
+<ul>
+<li>内核信息：在操作系统内核获取入侵信息；</li>
+<li>审计记录：系统身份认证无法确认的身份、访问安全等级不相符的数据、对系统运行产生重要影响的动作、其它与安全相关的动作等。使用审计探测器，记录审计产生并检查按时序排列的系统事件记录过程；</li>
+<li>日志信息：系统程序按照每次一行写成的文本文件，反映了不同系统事件和设置。使用日志探测器，包括系统日志、安全日志、应用日志等。</li>
+<li>系统资源信息：使用系统资源监视器，包括系统参数如CPU占用、内存利用率、I/O、网络连接数等。</li>
+<li>应用程序信息：应用程序事件日志和内部数据。</li>
+</ul>
+<p><strong>网络数据</strong>包括特定协议/地址/端口的报文和字节流量的采集，反映受保护网段网路攻击或异常行为的网络包数据。使用共享式网络安全数据采集器，交换式网络安全数据采集器（增加总线式集线器、SPAN端口、TAP等）。</p>
+<p><strong>其它数据</strong>主要由防火墙（报警）、交换机、路由器数据组成。</p>
+<p>入侵分析是基于采集到的安全数据进行统计、模式匹配、协议解析、数据关联等，发现违反安全策略的行为或潜在的入侵行为。</p>
+<p><strong>异常检测</strong>：假设入侵行为和网络正常行为存在较大差异。无需对规则库进行不断更新维护，可以根据异常现象发现未知攻击方式的入侵。但是批处理导致检测实时性不强，统计分析无法反映攻击事件时间相关性特征，难以确定具体的攻击方式。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/ano.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>误用检测</strong>，假设已知攻击行为可以采用特定模型或规则来表示。包括协议解析、模式匹配、关联分析等技术。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/wuyong.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<ul>
+<li>协议解析，利用网络协议的高度规则性，实现入侵行为的快速检测。可处理数据包、帧和链接等元素。检测速度快、准确率高、资源消耗少，可具体针对IPv4/v6以及工控协议等，但是协议树动态构建困难，高速网络下协议识别性能受限。</li>
+<li>模式匹配，将入侵场景抽象为特征组合，与已知的攻击方法抽象得到的模式知识库进行匹配。检测速度快、准确率高、资源消耗少，可具体针对IPv4/v6以及工控协议等，但攻击模式抽取、枚举与更新工作量大，检测准确度依赖于知识库，难以检测已知攻击变种以及未知攻击。</li>
+<li>关联分析，基于探测到的数据信息构建规则集并进行分类匹配，通过相似度对比来抖索关联规则库，采用该规则库进行规则匹配。可以分析隐含性、未知性、异常性的特征，能够实现时间、事件等关联。但是相似度定义和匹配判定比较困难，智能化要求高。</li>
+</ul>
+<p>总结来看，异常检测通用性强，对于未知模式的新攻击有一定检测能力，但无法准确判别攻击类型。而误用检测需要实现构建并维护较为完备的入侵检测特征知识库，检测能力依赖于特征知识库的完备性，对未知模式的新攻击检测能力不足。</p>
+<p>入侵响应包括报警、预警和攻击阻断。</p>
+<h4 id="性能指标与应用部署"><a class="markdownIt-Anchor" href="#性能指标与应用部署"></a> 性能指标与应用部署</h4>
+<p>准确性（检测率、误报率、漏报率等）、效率（最大处理能力、每秒并发会话数、系统延迟时间、负荷能力等）、可用性（稳定性、可持续性、易用性）以及自身安全性（体系结构、软件实现、安全管理）等。</p>
+<p>部署时需要考虑整体安全策略、应用环境和已有安全机制、IDS性能等。基本部署在防火墙之内/外，骨干网络及关键子网上，待监测目标主机之上等。</p>
+<h2 id="五-网络安全主动防御"><a class="markdownIt-Anchor" href="#五-网络安全主动防御"></a> 五. 网络安全主动防御</h2>
+<p>攻防不对称性，威胁不确定性。被动防御是主动防御的基础，主动防御是被动防御的延伸。</p>
+<p>主动功能包括：1）攻击或者安全破坏发生之前，实现及时、准确识别和预警；2）主动规避、转移、降低或消除网络空间所面临的安全风险。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/active.png" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="1-入侵防御容忍技术"><a class="markdownIt-Anchor" href="#1-入侵防御容忍技术"></a> 1. 入侵防御/容忍技术</h3>
+<div align="center">
+  <img src="/2021/06/22/security-base/fy.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>入侵防御技术（IPS），基于入侵检测的深度防御安全机制，通过主动响应方式，实时阻断入侵行为，降低或减缓网络异常状况处理的资源消耗，以保护网络空间信息系统免受更多侵害。技术体现在智能检测、深层防御和主动响应。</p>
+<ul>
+<li><strong>智能检测</strong>主要是高效检测和联动，作用基础是相对完备的恶意代码特征知识库和入侵攻击特征知识库。实现智能协议识别与解析、数据报文的深层检测等。将基于特征的检测和基于统计的检测方法智能结合。</li>
+<li><strong>深层防御</strong>，主要作用于恶意代码和应用层数据解析，应对多种威胁如恶意代码、通用网关接口、跨站脚本攻击、注入攻击、信息泄露等，可进行应用层攻击载荷防护，需要检测报文应用层内容和数据流重组分析和检测等。</li>
+<li><strong>主动响应</strong>，自动执行或用户驱动来阻断、延缓入侵进程或改变受攻击信息系统环境配置，融合恶意代码检测、脆弱性评估、防火墙等进行安全联动。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/method.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>入侵容忍技术</strong>是为了提升系统自身的免疫力，包括可生存技术、容错技术。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/basen.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>容错技术在网络攻防对抗环境下适用性不强。因为容错技术并非针对恶意入侵/攻击而设计，而且并非所有攻击/入侵均表现为信息和系统的破坏进而呈现显示错误。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/wrong.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>入侵容忍技术（ITS）提出的原因是IDS、IPS无法完全检测所有的入侵行为，一旦有入侵发生，可以继续保障机密性、完整性、真实性和安全性。核心目标是实现系统权限的分立以及单点失效的技术防范，确保任何少数设备、局部网络以及单一场点均不可能拥有特权或对系统整体运行构成威胁。主要分为<strong>攻击响应（重新分配资源，实现系统重构）<strong>和</strong>攻击遮蔽技术（适度冗余配置，实现高生存性）</strong>。</p>
+<p>系统资源调整方式：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/adjust.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>攻击遮蔽中的冗余技术无需再系统遭受入侵或失效时重构，系统操作以及连接可以继续保持。</p>
+<h3 id="2-蜜罐密网技术"><a class="markdownIt-Anchor" href="#2-蜜罐密网技术"></a> 2. 蜜罐/密网技术</h3>
+<p>&quot;欺骗型&quot;主动防御的关键技术之一，专门设置特定的脆弱系统来诱捕攻击。蜜罐技术采用单台主机构建诱骗环境，密网技术采用网络系统构建诱骗环境。</p>
+<p>部署具有脆弱性或漏洞的相应主机、网络服务或信息作为诱饵，引诱攻击者发起攻击，为防御者提供安全威胁提示，最后通过技术和管理手段提升系统安全防御能力。</p>
+<p>蜜罐中不进行传统目的的网络活动，即不运行其它进程、服务和后台程序。蜜罐系统中的所有交互行为，都视为恶意活动的嫌疑对象，有利于攻击活动的检测与识别。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/honey.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>低交互蜜罐，仅让攻击者有限访问系统；静态欺骗环境（仅模拟存在漏洞的真实操作系统的某个部分）、部署简便、诱骗能力有限。</p>
+<p>高交互蜜罐，完整服务栈，部署复杂，安全风险较大。</p>
+<h3 id="3-沙箱技术"><a class="markdownIt-Anchor" href="#3-沙箱技术"></a> 3. 沙箱技术</h3>
+<h3 id="4-可信计算与可信平台"><a class="markdownIt-Anchor" href="#4-可信计算与可信平台"></a> 4. 可信计算与可信平台</h3>
+<h3 id="5-移动目标防御与拟态防御技术"><a class="markdownIt-Anchor" href="#5-移动目标防御与拟态防御技术"></a> 5. 移动目标防御与拟态防御技术</h3>
+<h2 id="六-网络安全智能分析与反制技术"><a class="markdownIt-Anchor" href="#六-网络安全智能分析与反制技术"></a> 六. 网络安全智能分析与反制技术</h2>
+<h2 id="七-网络安全度量-分析与测评技术"><a class="markdownIt-Anchor" href="#七-网络安全度量-分析与测评技术"></a> 七. 网络安全度量、分析与测评技术</h2>
+<h2 id="八-新应用安全技术"><a class="markdownIt-Anchor" href="#八-新应用安全技术"></a> 八. 新应用安全技术</h2>
+<h1 id="相关资料"><a class="markdownIt-Anchor" href="#相关资料"></a> 相关资料</h1>
+<p>要不要考个证噻？<a href="http://zhuanlan.zhihu.com/p/101574681" target="_blank" rel="noopener">http://zhuanlan.zhihu.com/p/101574681</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/22/math/">
+                        <span class="hidden-mobile">数学基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

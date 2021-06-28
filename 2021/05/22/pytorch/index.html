@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      53 字
+      424 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      5
        分钟
     </span>
   
@@ -210,6 +210,50 @@
             <article class="markdown-body">
               <p>感觉相较于Tensorflow，Pytorch更适合科研人员使用，这边是一些关于Pytorch学习的资源与笔记。</p>
 <h2 id="五小时官网教程"><a class="markdownIt-Anchor" href="#五小时官网教程"></a> 五小时官网教程</h2>
+<p>教程中从numpy开始一步步自动化至调用pytorch模型的教学方式非常好。</p>
+<p>B站资源，<a href="https://www.bilibili.com/video/BV1MU4y1p74U" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1MU4y1p74U</a></p>
+<p>名词解释：epoch、batch、iteration</p>
+<p>如何构造数据集，Dataset、DataLoader，可以直接分batch，直接shuffle，可以设置n_workers提升速度。</p>
+<p>Transformers，ToTensor、MulTransform，__call__函数</p>
+<p>Pytorch中的CrossEntropy层已经加入了softmax，接受的输入，Y是标签而非one-hot编码，预测值是logits而不是softmax之后的。</p>
+<p>BCELoss函数，需要自己在神经网络设计中加入sigmoid层。</p>
+<p>激活函数：step function、Sigmoid（常用于二分类最后一层）、TanH、ReLU（常用于隐藏层）、Leaky ReLU（尝试解决梯度消失问题）、softmax（常用于多分类最后一层）。</p>
+<p>迁移学习，只在新任务数据上微调最后几层。pretrained = True</p>
+<pre><code class="hljs python">model = models.resnet18(pretrained = <span class="hljs-literal">True</span>)
+num_frs = model.fc.in_features
+model.fc = nn.Linear(num_frs, <span class="hljs-number">2</span>)
+model.to(device)
+<span class="hljs-comment"># scheduler</span>
+step_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size =<span class="hljs-number">7</span>, gamma=<span class="hljs-number">0.1</span>)
+model = train_model(model, criterion, optimizer, scheduler, num_epoches=<span class="hljs-number">20</span>)
+<span class="hljs-comment">#for epoch in range(100):</span>
+<span class="hljs-comment">#    train()</span>
+<span class="hljs-comment">#    evaluate()</span>
+<span class="hljs-comment">#    scheduler.step()</span>
+
+<span class="hljs-comment"># freeze all the previous parameters</span>
+model = models.resnet18(pretrained = <span class="hljs-literal">True</span>)
+<span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> model.parameters():
+    param.requires_grad = <span class="hljs-literal">False</span></code></pre>
+<p>TensorBoard，可以支持pytorch，使用torch.utils.tensorboard中的SummaryWriter即可，官方材料有（<a href="https://pytorch.org/docs/stable/tensorboard.html%EF%BC%89%E3%80%82" target="_blank" rel="noopener">https://pytorch.org/docs/stable/tensorboard.html）。</a></p>
+<p>保存和加载模型推荐使用下面的方式：</p>
+<pre><code class="hljs python">FILE = <span class="hljs-string">'model.pth'</span>
+torch.save(model.state_dict(), FILE)
+loaded_model = Model(n_input_features = <span class="hljs-number">6</span>)
+loaded_model.load_state_dict(torch.load(FILE))
+loaded_model.eval()
+
+<span class="hljs-comment">#checkpoint</span>
+checkpoint = &#123;
+    <span class="hljs-string">"epoch"</span>:<span class="hljs-number">90</span>,
+    <span class="hljs-string">"model_state"</span>:model.state_dict(),
+    <span class="hljs-string">"optim_state"</span>:optimizer.state_dict()
+&#125;
+torch.save(checkpoint, <span class="hljs-string">'checkpoint.pth'</span>)
+
+loaded_checkpoint = torch.load(<span class="hljs-string">'checkpoint.pth'</span>)
+epoch = loaded_checkpoint[<span class="hljs-string">'epoch'</span>]</code></pre>
+<p>将GPU上训练的模型加载到CPU上需要进行一点调整，写map_location参数。</p>
 <h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
 <p>官网教程：</p>
 <p>《Dive into deeplearning》pytorch版本：</p>
