@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>网络安全基础 - DeepDeer</title>
+  <title>网络安全——应用技术与工程实践 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                网络安全基础
+                网络安全——应用技术与工程实践
               
             </span>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.5k 字
+      14.1k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      107
+      144
        分钟
     </span>
   
@@ -208,8 +208,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="网络安全应用技术与工程实践"><a class="markdownIt-Anchor" href="#网络安全应用技术与工程实践"></a> 网络安全——应用技术与工程实践</h1>
-<p>北京理工大学闫怀志老师的在线课程（<a href="https://www.xuetangx.com/course/bit08091002817/5884048?channel=learn_title%EF%BC%89%E3%80%82" target="_blank" rel="noopener">https://www.xuetangx.com/course/bit08091002817/5884048?channel=learn_title）。</a></p>
+              <p>北京理工大学闫怀志老师的在线课程（<a href="https://www.xuetangx.com/course/bit08091002817/5884048?channel=learn_title%EF%BC%89%E3%80%82" target="_blank" rel="noopener">https://www.xuetangx.com/course/bit08091002817/5884048?channel=learn_title）。</a></p>
+<p>比较笼统浅显，对于入门和掌握全局概念来说非常推荐。</p>
 <h2 id="一背景"><a class="markdownIt-Anchor" href="#一背景"></a> 一.背景</h2>
 <p>信息是用来消除不确定性的东西（香农），是人们在适应外部世界并使这种适应反作用于外部世界的过程中同外部世界进行互相交换的内容和名称（控制论创始人维纳）。现代科学认为信息是对世界各种事物的运动状态和变化的反映。</p>
 <p>信息具有可识别性、可传载性、可共享性和可度量性。</p>
@@ -586,21 +586,378 @@
 <h3 id="2-蜜罐密网技术"><a class="markdownIt-Anchor" href="#2-蜜罐密网技术"></a> 2. 蜜罐/密网技术</h3>
 <p>&quot;欺骗型&quot;主动防御的关键技术之一，专门设置特定的脆弱系统来诱捕攻击。蜜罐技术采用单台主机构建诱骗环境，密网技术采用网络系统构建诱骗环境。</p>
 <p>部署具有脆弱性或漏洞的相应主机、网络服务或信息作为诱饵，引诱攻击者发起攻击，为防御者提供安全威胁提示，最后通过技术和管理手段提升系统安全防御能力。</p>
-<p>蜜罐中不进行传统目的的网络活动，即不运行其它进程、服务和后台程序。蜜罐系统中的所有交互行为，都视为恶意活动的嫌疑对象，有利于攻击活动的检测与识别。</p>
+<p><strong>蜜罐</strong>中不进行传统目的的网络活动，即不运行其它进程、服务和后台程序。蜜罐系统中的所有交互行为，都视为恶意活动的嫌疑对象，有利于攻击活动的检测与识别。</p>
 <div align="center">
   <img src="/2021/06/22/security-base/honey.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
 </div>
 <p>低交互蜜罐，仅让攻击者有限访问系统；静态欺骗环境（仅模拟存在漏洞的真实操作系统的某个部分）、部署简便、诱骗能力有限。</p>
-<p>高交互蜜罐，完整服务栈，部署复杂，安全风险较大。</p>
+<p>高交互蜜罐，完整服务栈，部署复杂，安全风险较大（被攻破可能会作为跳板）。</p>
+<p>详细攻击信息获取选用高交互方式，而简单的恶意样本获取可以用低交互方式。</p>
+<p>蜜罐系统局限性：</p>
+<ul>
+<li>只能对其内部情况进行监视分析，无法监控整个网络；</li>
+<li>适度的安全平衡难以把控</li>
+<li>如果攻击活动位于IPsec、SSH、SSL等加密通道，蜜罐系统难以分析处理。</li>
+</ul>
+<p>将蜜罐有机组合成网络分布式结构模拟整个网络，形成<strong>密网</strong>。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/honeynet.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>低交互密网，模拟一个生产环境，仅提供有限信息，未给攻击者提供一个可用操作系统。</p>
+<p>高交互密网，为攻击者提供真实的支撑操作系统，设置全功能要素应用环境。</p>
+<p>部署时采用重定向技术、虚拟密网技术和密网应用技术（蠕虫病毒防范、网络钓鱼识别和僵尸网络捕获）。</p>
+<ul>
+<li>重定向技术实现关键主机或服务器的隐蔽，可以捕获攻击者的全部攻击流程，实现了硬件资源的节省以及蜜罐管理的方便；</li>
+<li>部署成本下降，管理方便，但安全风险比较大</li>
+</ul>
+<p>密网技术的可移植性不强，需要提高跨平台部署与运行能力；交互性和风险控制的平衡；信息控制和记录功能有待提升。</p>
 <h3 id="3-沙箱技术"><a class="markdownIt-Anchor" href="#3-沙箱技术"></a> 3. 沙箱技术</h3>
+<p>沙箱测试、安全沙箱、虚拟化沙箱。发现可疑行为后让程序继续运行，充分暴露恶意行为特征属性。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/sandbox.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>基于虚拟化的沙箱</strong>，系统虚拟化沙箱（为不可资源提供完整的操作环境，常用VMware、VirtualBox等，硬件和目的操作环境之间增加操作层）、容器虚拟化沙箱（提供不完整的操作环境，轻量级虚拟化技术实现，操作系统和应用程序之间增加虚拟化层）。</p>
+<p><strong>基于规则的沙箱</strong>，不需要系统资源的复制，使用访问控制规则实现特定控制，通常包括访问控制规则引擎、程序监控器等。</p>
+<p>系统级应用场景，比如安卓沙箱；应用级场景，比如浏览器沙箱。</p>
+<p>不足在于：1）实践中产生完全相同的结果非常困难；2）高度依赖于恶意行为的展现；3）高度依赖于对恶意威胁的有效检测，难以应对虚拟机检测、时间炸弹、调试循环、鼠标点击、系统重启等逃逸行为。</p>
 <h3 id="4-可信计算与可信平台"><a class="markdownIt-Anchor" href="#4-可信计算与可信平台"></a> 4. 可信计算与可信平台</h3>
+<p>可信性出现了“Dependability”、“Trustworthiness”以及“High Confidence”等不同叫法。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/trust.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="信任模型"><a class="markdownIt-Anchor" href="#信任模型"></a> 信任模型</h4>
+<p>信任属性包括主客观二重性、不完全对称性、可度量性、可传递性以及动态性等。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/model.png" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>信任模型是不同的主客体之间的相互信任关系的组织方式，分为基于信任度表征的不确定性描述，基于结构，基于信任管理方式三种。</p>
+<p>基于结构的信任模型划分，包括星型结构（唯一公共授权节点）、分层结构（以公共根授权节点为核心）和点对点结构（自组网直接信任关系集合）。</p>
+<h4 id="可信计算"><a class="markdownIt-Anchor" href="#可信计算"></a> 可信计算</h4>
+<p>2003年成立可信计算组（TCG）。</p>
+<p>可信计算是计算运算与安全防护同步进行的计算新模式，计算过程可测可控、不受干扰，具有身份识别、状态度量、保密存储等功能，使得计算结果总是符合预期。</p>
+<ul>
+<li>理论基础包括可信计算模型、度量理论、信任理论与信任链以及可信软件理论；</li>
+<li>应用范围包括从硬件到软件、从芯片到网络、从基础软件到应用程序、从设计环节到运行环境；</li>
+<li>关键技术有软硬件结构、可信计算平台、密码技术、信任链技术、可信软件和可信网络等；</li>
+</ul>
+<h4 id="可信平台"><a class="markdownIt-Anchor" href="#可信平台"></a> 可信平台</h4>
+<div align="center">
+  <img src="/2021/06/22/security-base/trusts.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>信任根是系统的可信基点</strong>，假定可被无条件信任，并不是客观的绝对可信任，而是“被信任”。工程实践中，信任根的可信性通常由物理安全、技术安全以及管理安全等综合措施共同保障。采用<strong>可信度量存储报告机制</strong>，分为可信度量根（负责完整性度量），可信存储根（存储度量的可信性）和可信报告根（向访问客体提供报告）。</p>
+<p>信任链是基于信任根构建信任度量模型的实施技术方案。<strong>可信根之外的所有模块或组件在未经度量前均不可信</strong>。实施可信度量并与预期相符的才纳入可信边界，逐步扩大可信边界直到涵盖整个信息系统。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/chain.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>可信度量报告存储机制，是可信计算系统和普通计算系统在安全机制上的核心区别</strong>。常见可信平台包括可信PC机、服务器、移动终端、网络和可信云。</p>
+<p><strong>可信平台模块</strong>和<strong>可信软件协议栈</strong>最重要。</p>
+<ul>
+<li>可信平台模块（TPM）:有密码运算部件和存储部件的小型片上系统，作为密钥生成器和密钥管理器，完成计算平台的可靠性认证、用户身份认证和数字签名等功能。</li>
+<li>可信软件栈（TSS）：在TPM之上、应用程序之下的一种用以支撑可信计算平台的软件中间件，提供TPM接口，实现TPM管理，常用结构中分为内核层、系统服务层和用户程序层。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/tpm.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>可信网络连接架构包括可信网络连接（TNC，由TCG提出本质上为二元架构，仅涉及访问请求者和网络接入方）和可信连接架构（TCA，中国提出，采用三元、三层、对等、集中管理）。</p>
+<p>TNC架构如下图所示，包括完整性度量层（搜集访问请求者的完整性信息并验证）、完整性评估层（根据给定范文策略实现AR完整性评估）和网络访问层（从属于传统网络互联和安全层，支持VPN和802.1X等）。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/tnc.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>TCA架构则在完整性度量层加入了访问控制器，可信评估层加入可信网络连接接入点，网络访问层实现终端连接到网络的可信网络连接。</p>
 <h3 id="5-移动目标防御与拟态防御技术"><a class="markdownIt-Anchor" href="#5-移动目标防御与拟态防御技术"></a> 5. 移动目标防御与拟态防御技术</h3>
+<p>通过系统自身和攻击面动态变化来增大攻击难度。</p>
+<h4 id="移动目标防御技术mtd"><a class="markdownIt-Anchor" href="#移动目标防御技术mtd"></a> 移动目标防御技术（MTD）</h4>
+<p>构建一种动态、异构、不确定的网络，增大试试成功攻击的代价和复杂度，降低成功概率，实现攻防对称平衡。</p>
+<blockquote>
+<p>攻击面，可暴露在攻击者面前的系统资源（软硬件、通信协议/端口号及系统各组件的脆弱性等）以及已被侵害的可用于系统渗透的网络资源集合。</p>
+<p>主要包括：物理环境、网络通信、区域边界、计算环境；数据、软件、运行环境、平台、网络</p>
+</blockquote>
+<p>在系统方面不会为攻击者提供一成不变的基础设施和攻击面；安全体系方面不会将防火墙、IDS/IPS、恶意代码查杀等逐一部署；检测防护方面无需依赖脆弱性、威胁以及攻击等知识及特征库。</p>
+<p>MTD主要<strong>实现策略</strong>是变化系统配置，使其生命周期缩短，增强系统弹性。可实现参数可变性（IP地址、端口、通道数、路由、IPsec信道等）和主机随机性（网络/主机身份、执行代码、地址空间、指令集以及数据等）。</p>
+<p>MTD的攻击面变换技术主要包括，扰乱（SDN架构）、多样化（软件/虚拟服务器/底层）、冗余（自保护/容灾网络）等。</p>
+<p>攻击面变换策略中要保持<strong>安全性-可靠性-开销</strong>之间的平衡，考虑变换时机（时间或事件驱动）、频率。</p>
+<h4 id="拟态防御技术cmd"><a class="markdownIt-Anchor" href="#拟态防御技术cmd"></a> 拟态防御技术（CMD）</h4>
+<p>中国科学家提出，基于属性特征和行为形态实现外界防御。构建外界无法掌握规律、无法破解结构的安全防御体系，避免恶意攻击。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/mimc.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/cmd.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>常用的拟态防御设备组件有，拟态域名服务器/路由器、拟态Web服务器/Web虚拟机、拟态文件和存储系统、拟态工业控制处理器、拟态防火墙。</p>
+<h4 id="mtd与cmd异同点总结"><a class="markdownIt-Anchor" href="#mtd与cmd异同点总结"></a> MTD与CMD异同点总结</h4>
+<p>共同点为，均为动态化、多样化、随机化的主动防御，旨在破解“易守难攻”的不对称局面；均以通过实施己方可控的变化来迷惑攻击者，增加攻击难度和代价。</p>
+<p>差异在于：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/diff.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
 <h2 id="六-网络安全智能分析与反制技术"><a class="markdownIt-Anchor" href="#六-网络安全智能分析与反制技术"></a> 六. 网络安全智能分析与反制技术</h2>
+<p>智能分析的目标是全天候全方位感知网络安全态势、增强网络安全防御能力。通过智能化处理过程得到安全情报、形成智能知识和能力。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/qing.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>以情报驱动防御，以威胁为中心，进行敌我分析，主要包括风险评估、态势感知和威胁情报等关键技术。</p>
+<h3 id="1-风险评估"><a class="markdownIt-Anchor" href="#1-风险评估"></a> 1. 风险评估</h3>
+<p>风险要素识别、分析、计算与判定。使防御方准确定位管控的策略、实践和工具，聚焦于重要问题。</p>
+<p>针对以下要素进行识别与赋值。安全就是可接受的风险程度。绝对安全既无可能也无必要。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/eva.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/security.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/value.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="2-态势感知"><a class="markdownIt-Anchor" href="#2-态势感知"></a> 2. 态势感知</h3>
+<p>识别安全威胁，动态研判安全风险，输出威胁情报。包括安全态势认知、要素提取、态势理解、态势预测以及可视化展现等。</p>
+<p>网络空间既有和现有的状态以及未来发展趋势。</p>
+<p>以安全大数据为基础，从全局视角提升对安全威胁的发现识别、理解分析及响应处理能力。包括三个原则：</p>
+<ul>
+<li>环境性，范围较大有一定规模的网络</li>
+<li>动态性，态势随时间而变，涵盖过去和当前的状态以及对未来趋势的预测</li>
+<li>整体性，各要素关系符合整体性原理，不可割裂</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/taishi.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>网络安全态势感知需要持续监控能力、分析及可视化能力和安全预警能力。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/ke.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>关键技术包括，态势认知和要素提取（系统庞大且灵活性强）、态势理解（多方融合，完成从数据到信息，从信息到情报的转化）、态势预测（预测未来趋势）以及可视化展现。</p>
+<p>要素提取：时间维度（实时或准实时数据、更长时间的数据发现多阶段攻击）和数据维（网络数据、安全数据、网络流量、内容载荷、终端行为）；</p>
+<ul>
+<li>态势理解：对多种安全要素数据进行融合处理、综合分析，并跟踪分析；</li>
+<li>态势预测：从已知威胁推测未知威胁；</li>
+<li>可视化：数据转化、图像映射和视图转变；</li>
+</ul>
+<h3 id="3-威胁情报"><a class="markdownIt-Anchor" href="#3-威胁情报"></a> 3. 威胁情报</h3>
+<p>生成并输出，为其它环节应用。</p>
+<p>情报是某种基于证据的网络安全知识，包括环境上下文、机制、指标、影响和可行性建议等信息，用于描述现有的或可能出现的威胁。</p>
+<p>分为战略威胁情报（高层决策）、运营威胁情报（预测何时何地发生）、战术威胁情报（响应）、技术威胁情报（应用最广泛）。</p>
+<p>分为安全集成、应急响应和资产管理三个方面。</p>
+<p>生成过程分为五步，即明确需求和目标、采集、分析、传播共享、评估和反馈。</p>
+<p>威胁情报来源有内部（系统的各类数据和信息）和外部（厂商威胁数据、网站论坛公开信息、暗网地下论坛等）。</p>
+<p><strong>常用威胁情报分析模型</strong>分为三类：</p>
+<ul>
+<li>网络杀伤链，侦查、武器化、交付、利用、部署、命令与控制、目标达成7个阶段；</li>
+<li>钻石模型，将科学原理用于入侵分析，可衡量、可测试、可重复。可对攻击活动进行记录合成、关联。</li>
+<li>ATT&amp;CK，将已知攻击者行为转化为结构化列表，汇总成12种战术和244种技术，全面呈现网络攻击行为。</li>
+</ul>
+<p>情报标准格式分为国际常用标准（STIX、TAXII、OpenIOC）和中国常用标准（《网络安全威胁信息格式规范》GB/T36643，八个组件、三个域）。</p>
+<h2 id="七-攻击与反制技术"><a class="markdownIt-Anchor" href="#七-攻击与反制技术"></a> 七. 攻击与反制技术</h2>
+<div align="center">
+  <img src="/2021/06/22/security-base/attack.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/defence.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>攻击向量/矢量，攻击者到达并接触任意给定的漏洞代码的过程，比如通过恶意软件、垃圾邮件等；</p>
+<p>攻击面（攻击表面、层面），可被各类用户利用、遭受攻击的系统资源集合，攻击者可通过攻击面实施攻击。</p>
+<p><strong>攻击溯源</strong>是找到攻击者具体位置包括攻击源IP、攻击类型（手段）、攻击目标、攻击路径、攻击时间等跟攻击相关的核心要素。溯源分为攻击主机溯源（定位直接实施攻击的主机）、攻击控制主机溯源和攻击者及组织机构溯源。</p>
+<p>攻击主机溯源又称为IP追踪，包括主动追踪（基于日志存储查询、基于概率数据包标记、基于确定数据包标记）和反应追踪（路由器输入调试、基于ICMP拥塞追踪）。</p>
+<p>攻击控制主机溯源，抓住幕后黑手，包括反射、跳板、非标准化软件、僵尸溯源、物理等溯源方法。</p>
 <h2 id="七-网络安全度量-分析与测评技术"><a class="markdownIt-Anchor" href="#七-网络安全度量-分析与测评技术"></a> 七. 网络安全度量、分析与测评技术</h2>
+<div align="center">
+  <img src="/2021/06/22/security-base/framework.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="0-指标体系"><a class="markdownIt-Anchor" href="#0-指标体系"></a> 0. 指标体系</h3>
+<p>若干个反映信息系统安全性总体数量特征的、相对独立又相互联系的统计指标所组成的有机整体。</p>
+<p>安全指标复杂性体现在如下四个方面：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/zhibiao7.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>遵循如下六条原则：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/six.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>基于安全性要求</strong>的指标体系，直观易理解，适用面广泛，但指标关联性强、构建比较复杂。</p>
+<p><strong>基于安全域划分</strong>的指标体系，如下图所示的IP网络、工控网络。直观容易理解，适用于安全域边界清晰，但依赖于安全域的合理划分，聚合权值确定困难。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/ip.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/kong.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p><strong>基于合规性要求</strong>的指标体系，符合我国网络安全等级保护2.0标准规范。操作性较强，适用面广，但依赖于合规的合理性，聚合权值确定困难。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/deng.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth" < div>
+<p>基于防御环节组成的指标体系，与防御环节（滑动标尺模型）适配，安全能力生成过程清晰，相对较为抽象，仅适用于大型复杂信息系统。</p>
+<h3 id="1-安全度量"><a class="markdownIt-Anchor" href="#1-安全度量"></a> 1. 安全度量</h3>
+<p>理论基础，获取安全基础数据。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/archite.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>基于控制论的系统共轭理论，安全能力生成和安全状态观测度量的<strong>共轭机制</strong>。</p>
+<p>测度选择六原则：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/sixrule.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth" < div>
+<p>安全数据采集需要遵循体系化原则、成本效益原则、合规性原则、质量平衡原则和非破坏性采集原则。</p>
+<p>常见采集对象分为：网络基础设施（网络交换机、路由器和网关）、网络安全设备组件（恶意代码防范工具、防火墙/入侵检测系统、网闸）、网络安全系统（集中授权系统、身份认证系统、安全管理中心等）、通用应用系统（数据库系统、中间件系统、邮件系统等）、具体业务系统（ERP系统、SCADA系统、DCS系统等）。</p>
+<h3 id="2-安全分析"><a class="markdownIt-Anchor" href="#2-安全分析"></a> 2. 安全分析</h3>
+<p>方法支撑</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/any.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>安全定性分析，样本不足导致代表性受限，因果关系推断导致存在较大不确定性。常用逻辑分析法（不涉及/缺乏数据）和德尔菲法（基于定量分析的更高层次定性分析）。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/derfi.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>安全定量分析，容易忽视人的主观判断，受限于数据质量和分析方法。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/tree.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>一般使用定性与定量形结合，如下：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/combine.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="3-安全测评"><a class="markdownIt-Anchor" href="#3-安全测评"></a> 3. 安全测评</h3>
+<p>工程实施，分为信息安全模块、信息安全系统和产品三个模块。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/cep.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>主要包括验证技术、测试技术和评估技术。</p>
+<ul>
+<li>验证技术，证实网络安全性质或采集安全度量数据。针对网络安全产品和网络信息系统。</li>
+<li>测试技术，获得反映安全产品或系统安全性能度量指标值，分为真实场景测试和仿真场景测试。</li>
+<li>评估技术，客观公正地评价由验证和测试结果所反映的网络安全性能。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/test.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>常用的等保测评是一种合规测评，流程包括确定测评对象（范围、标准、步骤）、核心流程（单向、整体）和结果分析。</p>
+<p>常用测评工具分类如下：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/tools.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
 <h2 id="八-新应用安全技术"><a class="markdownIt-Anchor" href="#八-新应用安全技术"></a> 八. 新应用安全技术</h2>
+<h4 id><a class="markdownIt-Anchor" href="#"></a> </h4>
+<h3 id="1-云安全"><a class="markdownIt-Anchor" href="#1-云安全"></a> 1. 云安全</h3>
+<p>资源配置动态化、需求服务自主化、网络访问便捷化、服务可计量化、资源虚拟化。</p>
+<p>主要安全威胁：数据泄露、配置错误和变更控制不足、缺乏云安全架构和策略、身份访问和密钥管理不力、账户劫持、内部威胁、不安全的接口和API、控制平台薄弱、元结构和应用程序结构故障、云计算使用情况有限可见性、滥用和恶意使用云计算服务。</p>
+<p>其存在的传统安全威胁主要在合规、数据和安全管理层面，特有安全风险在云计算平台、用户访问和管理方面。</p>
+<p>云计算安全技术主要涉及云计算基础设施（物理安全、边界安全、虚拟化安全）、云应用（应用软件安全、虚拟桌面安全、云终端安全）、云数据（加密、备份与容灾、隐私保护）、云密钥管理、云身份管理和访问控制、云安全服务与评估几个方面。</p>
+<p>安全功能的服务化，包括防火墙、IDS等安全防御服务；风险评估、安全测评等云安全服务；系统备份、故障诊断与灾难恢复等运维服务。</p>
+<p>云计算在网络安全中的应用。许多信息安全活动都以云计算模式的服务呈现，利用云计算系统的超强存储、网络和计算能力，可以提升威胁情报分析、智能检测、加密通信等安全防御能力。比如基于云和客户端的恶意代码查杀，基于复杂运算并行化的并行漏洞挖掘，基于存储资源调度备份策略的网络安全存储与备份。</p>
+<h3 id="2-移动互联网安全"><a class="markdownIt-Anchor" href="#2-移动互联网安全"></a> 2. 移动互联网安全</h3>
+<p>移动互联是采用无线通信技术将移动终端接入有线网络的过程。</p>
+<p>移动互联网（WMI），是互联网技术、平台、商业模式和应用与移动通信技术结合并实践的活动的总称。</p>
+<p>移动互联系统主要包括移动终端、移动应用和无线网络。移动互联特点体现在终端移动性、业务私密性、能力局限性和系统关联性。</p>
+<p>无线网络主要接入类型有无线个域网（WPAN，蓝牙、IEEE 802.15、UWB、Zig-Bee等）、无线局域网（WLAN）、无线城域网（WMAN）、移动通信网（WWAN）。</p>
+<p>移动互联网安全体现在传统安全（合规、数据、安全管理）和特有安全（平台、终端软硬件、管理）两个方面，分为移动终端、APP和无线网络三层次威胁。</p>
+<ul>
+<li>移动终端风险：网络窃听、物理访问、恶意应用和网络攻击</li>
+<li>移动应用：安全漏洞、恶意应用、仿冒威胁</li>
+<li>无线网络：被动窃听和流量分析、消息拦截和篡改、伪装欺诈钓鱼攻击、拒绝服务攻击</li>
+</ul>
+<p>安全体系和相关技术，在终端实现通信保护、存储保护、配置授权和鉴别，完整性等；移动应用部分进行恶意行为防范；无线网络部分进行安全隔离、通信安全、双因素认证、合规检查、权限控制、仿冒行为管控等。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/devicep.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/appp.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/netp1.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/netp2.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="3-物联网安全"><a class="markdownIt-Anchor" href="#3-物联网安全"></a> 3.  物联网安全</h3>
+<p>物联网（IoT），通过感知设备，按照约定协议，连接物、人、系统和信息资源，实现对物理和虚拟世界的信息处理并作出反应的智能服务系统。</p>
+<p>物联网三层架构包括感知层、网络层（传输信息）和应用层（智能处理）。实现包括物联网终端、物联网网关、云平台、Web和/或移动客户端。</p>
+<p>物联网主要特点：</p>
+<ul>
+<li>全面感知，利用RFID（无线射频识别）、传感器、定位器和二维码等手段随时随地采集和获取物体信息；</li>
+<li>可靠传递，融合电信网和因特网；</li>
+<li>智能处理，接收海量数据进行智能计算分析；</li>
+</ul>
+<p>安全威胁层面：</p>
+<ul>
+<li>感知层，资产暴露、物联网设备脆弱性；</li>
+<li>网络层，与传统网络安全类似，部分通信协议有区别；</li>
+<li>应用层，与传统网络安全类似，涉及基础架构、验证、授权和加密；</li>
+<li>系统整体，各层脆弱性相互连接、传播，攻击相互渗透</li>
+</ul>
+<p>OWASP IoT Top 10 包括：</p>
+<p>1）弱密码、可猜测密码或硬编码密码；2）不安全的网络服务；3）不安全的生态接口；4）缺乏安全的更新机制；5）使用不安全或已弃用的组件；6）隐私保护不充分；7）不安全的数据传输和存储；8）缺乏设备管理；9）不安全的默认设置；10）缺乏物理加固措施。</p>
+<p>重点是物联网设备的安全风险，包括弱口令、硬件接口暴露、信息泄露、未授权访问。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/iot.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="4工控网安全"><a class="markdownIt-Anchor" href="#4工控网安全"></a> 4.工控网安全</h3>
+<p>工控系统是传统工业控制系统不断向信息化、网络化方向演进而得到的结果。是数据采集与监视控制系统（SCADA）、分布式控制系统（DCS）、编程逻辑控制器（PLC）等工业场景控制系统总称。</p>
+<p>工业互联网是互联网创新发展与工业4.0持续交汇，将工业领域人、机器、物体全面互联。其功能体系分为三个部分，即网络功能体系（企业内网、外网IP化）、平台功能体系（IIP）和安全功能体系。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/indus.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>工业互联网与外界连接，打破了工控系统和工控网络的封闭性，称为黑客的重要攻击目标，而其特殊通信协议和系统更面临严重威胁。传统安全防御难以奏效，工业互联网可用性保障困难，控制设备“重功能，轻安全”的现象普遍，工控网络的单向通信存在安全风险。</p>
+<p>工业现场控制系统（涉及现场控制层和工业现场设备）脆弱性：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/now.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>工控安全技术体系，包括设备与控制安全、网络安全（内外网络隔离、内网安全区划分及访问控制、工业防火墙、工业IDS、介质安全、工业协议安全和身份鉴别与认证）、应用安全（工业应用软件、微服务和容错设计）和数据安全（采集、传输、存储和处理）。</p>
+<h3 id="5-大数据安全技术"><a class="markdownIt-Anchor" href="#5-大数据安全技术"></a> 5. 大数据安全技术</h3>
+<p>大数据：在可承受时间范围内无法用常规软件工具提取、存储、搜索、共享、分析和处理的海量复杂数据集合。概括为5V特点，容量、种类、速度（增长、处理与时效性）、价值（密度低）、真实性（质量）。大数据核心是发现数据价值。</p>
+<p>思维变革：</p>
+<ul>
+<li>由随机抽样到全数据模式</li>
+<li>由追求精确思维到接收混杂现实</li>
+<li>由探究因果关系到揭示相关关系</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/bigdata.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>大数据自身安全包括：采集、存储（云安全）、计算（隐私保护）方面。将大数据技术应用于安全则包括态势感知、舆情监控、情报分析等。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/frame.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>面临的安全威胁，传统层面（保密性、完整性和可用性）和特有部分（异常流量攻击、隐私泄露、传输和存储风险）。</p>
+<ul>
+<li>异常流量，分布式存储（数据量大且路径视图相对清晰）、认证问题（终端用户多）、APT、攻击目标变化（干预分析结果）等；</li>
+<li>信息和隐私泄露，用户隐私数据，数据量持续快速增大，复杂性高；</li>
+<li>传输安全，生命周期安全（逐步失真）、基础设施安全、个人隐私安全；</li>
+<li>存储管理，数据量增长快，数据类型多，多种应用进程并发。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/22/security-base/chall.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>大数据安全包括平台及运行安全（基础设施、传输、存储、计算、平台），数据安全（分类、隔离、溯源、加密）和隐私安全（去标识、匿名化）：</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/bases.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/datas.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/pris.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>大数据技术在网络安全场景中的应用，以OODA循环为例。</p>
+<h3 id="6-人工智能与网络安全"><a class="markdownIt-Anchor" href="#6-人工智能与网络安全"></a> 6. 人工智能与网络安全</h3>
+<p>包括人工智能技术滥用，比如筛选钓鱼目标，构造恶意代码，绕过验证码等，侵犯隐私，如数据采集中、云计算中和知识抽取中等问题。</p>
+<p>人工智能自身安全问题，比如软件实现漏洞（深度学习框架中）、恶意样本生成（对抗学习）和训练数据污染（伪造脏/假数据）等。会带来驱动系统混乱、漏判或误判、系统崩溃、智能设备变僵尸等问题。</p>
+<p>在网络安全领域的应用，优势在于技术先进（大数据分析识别威胁、关联性安全态势分析、自学习应急响应防御）、场景丰富（IDS、恶意软件检测、用户行为分析、欺诈检测、评分风险等），但存在算法实现欠缺（持续学习、数据饥饿、可解释性差等问题）、数据过度依赖、算力需求高等问题。</p>
+<h3 id="7-量子通信安全"><a class="markdownIt-Anchor" href="#7-量子通信安全"></a> 7. 量子通信安全</h3>
+<p>传统加密通信技术存在很多安全隐患，量子通信为绝对安全提供了可能。</p>
+<ul>
+<li>传统加密算法安全问题，依赖计算复杂度，一旦算力具备都可以破解。RSA算法基于大数因子分解，通过因式分解破解，2019年谷歌使用量子计算机在8小时破解2048位密钥；哈希算法基于抗碰撞性和不可逆性，王小云给出了摘要算法碰撞攻击理论。</li>
+<li>传统通信方式安全问题，保证传输介质和系统加密实现安全，但有线通信存在网络监听、传输数据篡改、密码破解、欺骗攻击、中间人攻击、缓冲区溢出等风险；无线通信存在窃听窃取、恶意操作、破坏及信息泄露、数据篡改、数据欺骗、隐私侵犯等问题</li>
+</ul>
+<p>量子通信安全基于<strong>量子的制备和测量特性</strong>（不可克隆原理和海森堡不确定性原理）以及<strong>量子纠缠特性</strong>（产生影响）。</p>
+<div align="center">
+  <img src="/2021/06/22/security-base/clone.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/22/security-base/certain.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>量子密钥分发（QKD），量子通信一旦被窃听会改变，保证“一次一密”，实用化的协议是未利用纠缠态的BB84协议，以光子为量子，以偏振态传递信息。信息还是通过传统方式加密，如果遭到窃听就重新协商密钥。</p>
+<p>量子态隐形传输（QT），利用跨越空间的量子纠缠把一个量子比特无损地从一个地点传到另一个地点。并不移动量子态的物理载体本身。</p>
+<h3 id="8-区块链安全"><a class="markdownIt-Anchor" href="#8-区块链安全"></a> 8. 区块链安全</h3>
+<p>课件出现错误。</p>
 <h1 id="相关资料"><a class="markdownIt-Anchor" href="#相关资料"></a> 相关资料</h1>
 <p>要不要考个证噻？<a href="http://zhuanlan.zhihu.com/p/101574681" target="_blank" rel="noopener">http://zhuanlan.zhihu.com/p/101574681</a></p>
-
+</div></div>
             </article>
             <hr>
             <div>
@@ -629,6 +986,12 @@
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
+                    
+                      <a href="/2021/06/29/lhy-hw/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">lhy_hw</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </div>
                   <div class="post-next col-6">
