@@ -17,10 +17,21 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>分类 - 课程笔记 - DeepDeer</title>
+  <title>lhy_hw - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -137,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                分类 - 课程笔记
+                lhy_hw
               
             </span>
 
@@ -161,43 +172,9 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 12 篇文章</p>
-  <hr>
-  
-    
-      
-      <p class="h5">2021</p>
-    
-    <a href="/2021/05/05/cs224w/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">cs224w《图机器学习》2021（一）经典方法</span>
-      <span style="float: right;">05-05</span>
-    </a>
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/2020/12/22/limit-graph/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">图神经网络的局限</span>
-      <span style="float: right;">12-22</span>
-    </a>
+<div class="page-content">
   
 </div>
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
-
-
 
               </div>
             </div>
@@ -284,6 +261,21 @@
 
 
 
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
 
 
 
