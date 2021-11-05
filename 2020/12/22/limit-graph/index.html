@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>图神经网络的局限 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>日言寺青</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                图神经网络的局限
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-12-22 19:07">
+      2020年12月22日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>后面计划进行有关图模型攻击方面的研究，学习斯坦福<a href="http://web.stanford.edu/class/cs224w/" target="_blank" rel="noopener">CS224W《图机器学习》</a>a&gt;和大佬Stephan Günnemann教授<a href="https://www.in.tum.de/daml/teaching/mlgs/ " target="_blank" rel="noopener">MLGS课程</a>中“Limitations of GNN”部分，记录如下。</p>
+<p>关键点：</p>
+<ul>
+<li>图同构判断问题：单射，max/mean/sum pooling，WL Test</li>
+<li>对抗攻击：Nettack，离散数据（无法直接梯度下降优化）、双层优化问题、如何对抗（certification）</li>
+<li>Robutness and certification部分</li>
+</ul>
+<h2 id="mlgs"><a class="markdownIt-Anchor" href="#mlgs"></a> MLGS</h2>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/summary.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="一-表达能力"><a class="markdownIt-Anchor" href="#一-表达能力"></a> 一. 表达能力</h3>
+<h4 id="1-图同构问题"><a class="markdownIt-Anchor" href="#1-图同构问题"></a> 1. 图同构问题</h4>
+<p>如何判断两个图是否在结构上相同？此问题最优解最差时间复杂度呈指数形式。</p>
+<p><strong>WL test</strong>（Weisfeiler-Lehman Test），只能得出“两个图同构或可能同构”的结论。</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/wl.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>在这个问题上GNN无法做到比WL test更好，尤其是它使用了非单射的聚合操作的时候更是无法区分图同构问题。</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/increase.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h4 id="2-过平滑问题"><a class="markdownIt-Anchor" href="#2-过平滑问题"></a> 2. 过平滑问题</h4>
+<p>随着层数增加GNN的预测结果过于平滑。无穷多层的GNN会导致所有的</p>
+<p>节点得到同样的表征向量，这个向量表达了整个图的结构信息（和PageRank类似）而无法区分局部信息。</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/limit.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>关注一下<strong>PageRank</strong>。在PageRank里我们使用teleport vector进行信息局部化（关注邻居），同理可以应用到GCN场景中，相关工作为<strong>PPNP</strong>（Personalized Propagation of Neural Predictions，2018，建议阅读原文）。将转换与传播操作分开，并加入personalized teleportation，最终将迭代公式修改为：</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/shizi.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<p>PPNP在防止过平滑、计算效率、扩展性等方面有如下优势：</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/ppnp.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="二-鲁棒性"><a class="markdownIt-Anchor" href="#二-鲁棒性"></a> 二. 鲁棒性</h3>
+<p>有关图数据的对抗可以发生在<strong>节点属性</strong>和图<strong>结构信息</strong>两方面（后者在现实世界中更普遍），进行针对某些节点的<strong>有目标攻击</strong>或进行针对整个图的<strong>全局攻击</strong>。</p>
+<p>图对抗攻击的<strong>挑战</strong>：</p>
+<ul>
+<li>针对离散变量的优化问题；通过非凸的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>L</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">L_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>范数计算扰动；</li>
+<li>样本节点间相互关联，不可以单独计算；</li>
+<li>如何定义“难以察觉”的扰动？</li>
+<li>现实中多抽象为投毒攻击（影响训练数据集），抽象为一个双层优化问题。</li>
+</ul>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/gongshi.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+最早的攻击为Nettack‘2018，目标是影响single node's prediction。关键操作在于首先将分类器线性化（为简化模型去掉了激活函数ReLU），之后通过贪心算法迭代找到最优扰动。
+<p>如何提升鲁棒性：</p>
+<p>1）启发式防御方法：adjacency low-rank approximaition via truncated Singular Value Decomposition （Entezari 2020）; filtering of malicious edges via attribute similarity（Wu 2019）等，但这些方法在CNN领域已被证明无法应对最差情况的扰动。</p>
+<p>2）鲁棒的训练方法，如 via Projected Gradient Descent（Xu et al，2019，但目前这种通过生成其它图样本的方法效果不是特别好）或者propose with a certification technique（low up bound，这个方面教授发表了很多论文）</p>
+<ul>
+<li>《Certifiable Robustness and Robust Training for Graph Convolutional Networks》</li>
+<li>《[Certifiable robustness of graph convolutional networks under structure perturbations](javascript:void(0))》</li>
+<li>《Certifiable Robustness to Graph Perturbations》</li>
+</ul>
+<p>3）随机平滑（randomized smoothing），如何在离散的图结构信息上加入高斯噪声？将邻接矩阵上的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>个边视为伯努利随机变量，但由于实际中的网络大多比较稀疏，很难找到一个合适的概率参数p。所以我们需要进行sparsity-aware random sampling。（这部分需要更详细得看一下）《Efficient robustness certificates for discrete data: Sparsity-aware randomized smoothing for graphs, images and more》‘ICML 2020</p>
+<p>这方面的问题依然大有可为！（GNN robustness/certification is a highly active research area）</p>
+<h3 id="三-扩展性"><a class="markdownIt-Anchor" href="#三-扩展性"></a> 三. 扩展性</h3>
+<p>消息传递机制下需要同时处理整个网络，节点数据非独立同分布，动态增删节点/边会造成较大影响。</p>
+<h2 id="cs-224w"><a class="markdownIt-Anchor" href="#cs-224w"></a> CS 224W</h2>
+<h3 id="一-capture-graph-structure"><a class="markdownIt-Anchor" href="#一-capture-graph-structure"></a> 一. Capture graph structure</h3>
+<p>Graph Isomorphism（图同构问题），邻居节点聚合函数（mean，max）并不单射。提出GIN（Graph Isomorphism Network），使用sum pooling。GIN可以更好地把握图结构信息，对于图分类问题表现更优秀，尤其是当网络中没有节点属性信息时。</p>
+<p>GIN的思想与WL测试法近似。WL可以解决实际中的绝大多数图同构判断问题，但有一些例外，比如下面的例子：</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/except.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<h3 id="二-vulnerability-of-gnns-to-noise-in-graph-data"><a class="markdownIt-Anchor" href="#二-vulnerability-of-gnns-to-noise-in-graph-data"></a> 二. Vulnerability of GNNs to noise in graph data</h3>
+<p>以图上半监督节点分类问题为例，重点介绍了KDD18上Stephan Günnemann的工作，第一次提出该问题的数学模型并解答。解如下优化问题有两个难点：1）离散数据难以使用梯度下降；2）该问题为双层优化问题，如果使用迭代求解，每一步重新训练GNN非常耗时。作者为了保证高效，使用了很多启发式近似方法，比如贪心地一步步进行图修改，删除GCN中的ReLU激活函数进行简化等。（更多细节可以直接看论文，Adversarial Attacks on Neural Networks for Graph Data，PPT也做的很赞）。</p>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/attack.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2020/12/22/limit-graph/math.jpg" srcset="/img/loading.gif" width="30%" height="30%" alt="oauth">
+</div>
+<h3 id="三-challenges-and-future"><a class="markdownIt-Anchor" href="#三-challenges-and-future"></a> 三. Challenges and Future</h3>
+<p>带标签数据集不容易获得（这是整个ML领域的问题），数据集不足又比较容易出现过拟合问题。为解决这个问题，提出Pre-training GNNs [Hu+ 2019]，先在某些相关数据集上训练之后，遇到真实任务再进行finetune。</p>
+<p>如何防御上述类型对抗攻击？</p>
+<p>攻击过程中如何在离散数据上找到最优解？</p>
+<p>如何在准确性和鲁棒性之间找到最佳平衡？</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E6%A8%A1%E5%9E%8B/">图模型</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/05/cs224w/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">cs224w《图机器学习》2021（一）经典方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/16/talk-1/">
+                        <span class="hidden-mobile">大规模图数据分析技术：挑战与机遇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

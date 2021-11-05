@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>李宏毅《机器/深度学习》2021作业 - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>日言寺青</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                李宏毅《机器/深度学习》2021作业
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="page-content">
+  <h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
+<h4 id="colab简介"><a class="markdownIt-Anchor" href="#colab简介"></a> Colab简介</h4>
+<p>在jupyter notebook中感叹号“！”会开启一个shell，执行命令后kill掉，百分号则执行IPython的魔术命令。</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive
+drive.mount(<span class="hljs-string">'/content/drive'</span>, force_remount=<span class="hljs-literal">True</span>)
+%cd /content/drive/MyDrive
+!gdown --id <span class="hljs-string">'1duQU7xqXRsOSPYeOR0zLiSA8g_LCFzoV'</span> --output Minori.jpg</code></pre>
+<h4 id="pytorch简介"><a class="markdownIt-Anchor" href="#pytorch简介"></a> Pytorch简介</h4>
+<div align="center">
+  <img src="/tmp/1.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>Pytorch还包含很多针对特定领域应用的模块如torchaudio，torchtext，torchvision，**skorch（sklearn+pytorch）**等。</p>
+<p>经常使用的三个模块torch.nn（神经网络），torch.optim（优化器）和torch.utils.data（数据集以及数据加载模块）。</p>
+<p>经常出现的问题：</p>
+<ul>
+<li>Tensor on different device to model，将数据和模型都放到GPU上去，使用to方法；</li>
+<li>Mismatched Dimension</li>
+<li>Mismatched tensor type</li>
+<li>Cuda out of memory，数据没法一次性全部放入GPU，减小batch大小</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-comment"># tensor类型错误举例</span>
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+L = nn.CrossEntropyLoss()
+outs = torch.randn(<span class="hljs-number">5</span>,<span class="hljs-number">5</span>)
+labels = torch.Tensor([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">0</span>])
+labels = labels.long()  <span class="hljs-comment"># 需要进行转化</span>
+lossval = L(outs,labels)</code></pre>
+<p>常用操作如：多种方式创建tensor</p>
+<pre><code class="hljs python">X = torch.zeros([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])
+X = X.squeeze(<span class="hljs-number">0</span>)
+X.shape
+X = X.unsqueeze(<span class="hljs-number">1</span>)
+X = X.transpose(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)
+W = torch.cat([x,y,z], dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># dim in torch means axis in numpy</span></code></pre>
+<div align="center">
+  <img src="/tmp/2.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>计算梯度常见流程：</p>
+<pre><code class="hljs python">x = torch.tensor([[<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>],[<span class="hljs-number">-1.</span>,<span class="hljs-number">-1.</span>]], requires_grad=<span class="hljs-literal">True</span>)
+z = x.pow(<span class="hljs-number">2</span>).sum()
+z.backward()
+x.grad</code></pre>
+<div align="center">
+  <img src="/tmp/3.jpg" srcset="/img/loading.gif" width="30%" height="30%" alt="oauth">
+</div>
+<p>有关数据加载部分常见架构如下：</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset, DataLoader
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDataset</span><span class="hljs-params">(Dataset)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, file)</span>:</span>    <span class="hljs-comment"># Read data &amp; preprocess</span>
+        self.data = xxx
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span><span class="hljs-params">(self,index)</span>:</span>  <span class="hljs-comment"># Return one sample at a time</span>
+        <span class="hljs-keyword">return</span> self.data[index]
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span><span class="hljs-params">(self)</span>:</span>             <span class="hljs-comment"># Return the size of the dataset</span>
+        <span class="hljs-keyword">return</span> len(self.data)
+    
+dataset = MyDataset(file)
+dataloader = DataLoader(dataset, batch_size, shuffle=<span class="hljs-literal">True</span>) <span class="hljs-comment"># 对训练集要shuffle，测试集不用</span>
+
+<span class="hljs-comment"># 操作举例</span>
+<span class="hljs-keyword">import</span> torch.utils.data 
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExampleDataset</span><span class="hljs-params">(torch.utils.data.Dataset)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+    	self.data = <span class="hljs-string">"abcdefghijklmnopqrstuvwxyz"</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span><span class="hljs-params">(self,idx)</span>:</span>
+        <span class="hljs-keyword">if</span> idx &gt;= len(self.data): <span class="hljs-comment"># if the index &gt;= 26, return upper case letter</span>
+      		<span class="hljs-keyword">return</span> self.data[idx%<span class="hljs-number">26</span>].upper()
+    	<span class="hljs-keyword">else</span>: <span class="hljs-comment"># if the index &lt; 26, return lower case, return lower case letter</span>
+      		<span class="hljs-keyword">return</span> self.data[idx]
+  
+  	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span><span class="hljs-params">(self)</span>:</span> <span class="hljs-comment"># What is the length of the dataset</span>
+    	<span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * len(self.data) <span class="hljs-comment"># The length is now twice as large</span>
+
+dataset1 = ExampleDataset() <span class="hljs-comment"># create the dataset</span>
+dataloader = torch.utils.data.DataLoader(dataset = dataset1,shuffle = <span class="hljs-literal">True</span>,batch_size = <span class="hljs-number">1</span>)
+<span class="hljs-keyword">for</span> datapoint <span class="hljs-keyword">in</span> dataloader:
+    print(datapoint)</code></pre>
+<p>常用模型：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 全连接，Linear layer</span>
+layer = torch.nn.Linear(<span class="hljs-number">32</span>, <span class="hljs-number">64</span>)
+layer.weight.shape
+layer.bias.shape
+<span class="hljs-comment"># 激活函数</span>
+nn.Sigmoid()
+nn.ReLU()
+<span class="hljs-comment"># 损失函数</span>
+nn.MSELoss()  <span class="hljs-comment"># for linear regression</span>
+nn.CrossEntropyLoss() <span class="hljs-comment"># for classification</span>
+<span class="hljs-comment"># 优化器</span>
+torch.optim.SGD(params, lr, momentum=<span class="hljs-number">0</span>)
+
+<span class="hljs-comment"># 构建模型</span>
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyModel</span><span class="hljs-params">(nn.Moudle)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>       <span class="hljs-comment"># 初始化模型，定义每一层</span>
+        super(MyModel, self).__init__()
+        self.net = nn.Sequential(
+        	nn.Linear(<span class="hljs-number">10</span>,<span class="hljs-number">32</span>),
+            nn.Sigmoid(),
+            nn.Linear(<span class="hljs-number">32</span>,<span class="hljs-number">1</span>)
+        )
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span>    <span class="hljs-comment"># 计算模型输出</span>
+        <span class="hljs-keyword">return</span> self.net(x)
+
+<span class="hljs-comment"># 模型训练</span>
+dataset = MyDataset(file)
+tr_set = DataLoader(dataset, <span class="hljs-number">16</span>, shuffle=<span class="hljs-literal">True</span>)
+model = MyModel().to(device)
+criterion = nn.MSELoss()
+optimizer = torch.optim.SGD(model.parameters(), <span class="hljs-number">0.1</span>)
+<span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(n_epochs):
+    model.train()       <span class="hljs-comment"># set model to train mode</span>
+    <span class="hljs-keyword">for</span> x,y <span class="hljs-keyword">in</span> tr_set:
+        optimizer.zero_grad()
+        x, y = x.to(device), y.to(device)
+        pred = model(x)
+        loss = criterion(pred, y)
+        loss.backward()
+        optimizer.step()
+<span class="hljs-comment"># 模型验证</span>
+model.eval()
+total_loss = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> x,y <span class="hljs-keyword">in</span> dv_set:
+    x, y = x.to(device), y.to(device)
+    <span class="hljs-keyword">with</span> torch.no_grad():
+        pred = model(x)
+        loss = criterion(pred, y)
+    total_loss += loss.cpu().item * len(x)
+    avg_loss = total_loss / len(dv_set.dataset)
+<span class="hljs-comment"># 模型测试</span>
+model.eval()
+preds = []
+<span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> tt_set:
+    x = x.to(device)
+    <span class="hljs-keyword">with</span> torch.no_grad():
+        pred = model(x)
+        preds.append(pred.cpu())
+<span class="hljs-comment"># 模型保存与加载</span>
+torch.save(model.state_dict(), path)
+ckpt = torch.load(path)
+model.load_state_dict(ckpt)</code></pre>
+<h2 id="作业一-回归"><a class="markdownIt-Anchor" href="#作业一-回归"></a> 作业一 回归</h2>
+<p>数据中包含有关COVID-19的三天调查问卷情况和前两天的阳性样本数，预测第三天的阳性样本数。</p>
+<p>调查问卷中类型数据（比如地理位置）使用one-hot编码，训练数据2700个，测试数据893个。使用RMSE作为评价指标。</p>
+<p>过程中一些值得注意的代码，比如设置随机数、可视化训练过程、设置超参数及模块化实现模型加载训练过程等部分。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 设置随机数使结果可复现</span>
+myseed = <span class="hljs-number">42069</span>  
+torch.backends.cudnn.deterministic = <span class="hljs-literal">True</span>  <span class="hljs-comment"># 使用确定性卷积</span>
+torch.backends.cudnn.benchmark = <span class="hljs-literal">False</span>  <span class="hljs-comment">#如果每次训练时计算图不会改变时（每次输入形状相同，模型不改变）设为True可提高性能，反之降低性能</span>
+np.random.seed(myseed)
+torch.manual_seed(myseed)
+<span class="hljs-keyword">if</span> torch.cuda.is_available():
+    torch.cuda.manual_seed_all(myseed)
+
+<span class="hljs-comment"># 以返回属性值+可变长参数传入的方式设置优化器</span>
+optimizer = getattr(torch.optim, config[<span class="hljs-string">'optimizer'</span>])(model.parameters(), **config[<span class="hljs-string">'optim_hparas'</span>])</code></pre>
+<p>加载数据时的“num_worker”设置，数值大则寻batch速度快，因为下一轮迭代的batch很可能在上一轮/上上一轮…迭代时已经加载好了。坏处是内存开销大，也加重了CPU负担。经验设置值是自己CPU数，如果CPU很强、RAM也很充足，就可以设置得更大些。如果设为0，则仅主进程加载，dataloader不再有自主加载数据到RAM这一步骤，而是在RAM中找batch，找不到时再加载相应的batch，速度更慢。</p>
+<h2 id="作业二-分类"><a class="markdownIt-Anchor" href="#作业二-分类"></a> 作业二 分类</h2>
+<h2 id="作业三-cnn"><a class="markdownIt-Anchor" href="#作业三-cnn"></a> 作业三 CNN</h2>
+<h2 id="作业四-注意力机制"><a class="markdownIt-Anchor" href="#作业四-注意力机制"></a> 作业四 注意力机制</h2>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

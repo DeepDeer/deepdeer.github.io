@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>李宏毅《机器/深度学习》2021笔记（一） - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>日言寺青</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                李宏毅《机器/深度学习》2021笔记（一）
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-05-12 15:23">
+      2021年5月12日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      52
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="背景介绍"><a class="markdownIt-Anchor" href="#背景介绍"></a> 背景介绍</h1>
+<p>官网 <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html" target="_blank" rel="noopener">https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html</a></p>
+<p>数学基础能力：微积分、线性代数和概率论。使用Python和Google Colab，也使用Kaggle。</p>
+<p>这门课程主要是针对深度学习并且涉及到比较前端的技术。如果希望了解机器学习基础可以尝试林轩田《机器学习基石与技法》。</p>
+<p>[ 这类在线课程重点还是要把作业好好完成哦~ ]</p>
+<p>本篇包括深度学习基础、CNN、注意力机制和生成对抗网络部分。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/good.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h1 id="深度学习"><a class="markdownIt-Anchor" href="#深度学习"></a> 深度学习</h1>
+<p>机器学习可大约视为一个“找方程的过程”。</p>
+<p>在分类和回归两类问题之外，还有很大一部分内容，叫做<strong>Structed Learning</strong>，即机器生成某些结构型数据。</p>
+<p>Error Surface，不同参数下的损失值等高线图。</p>
+<p>Model Bias，来自于模型自身表达能力的限制，比如线性模型无法分类“异或问题”</p>
+<p>这次课中引入Sigmoid的、Hard Sigmoid以及神经元、神经网络的思路有点意思~</p>
+<p>两个ReLU叠起来就可以合成一个Hard Sigmoid。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/sigmoid.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+深度神经网络最开始应用在CV领域，2015年Residual Net有152层（训练有特殊操作，skip connection）。
+<p>为什么选择深而不是选择“胖”呢？Fat network 哈哈哈。</p>
+<h2 id="一-神经网络训练问题"><a class="markdownIt-Anchor" href="#一-神经网络训练问题"></a> 一. 神经网络训练问题</h2>
+<p>通用的模型训练方法如下：</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/road.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>训练集上loss偏大到底是因为1）model bias还是因为2）优化策略不合适呢？</p>
+<p>可以通过比较不同的模型解决这一问题，如果深层模型在训练集上的效果没有浅层模型好，那么一定是优化策略的问题。</p>
+<p>测试集结果比训练集结果差才可能是<strong>过拟合（overfitting）</strong>，还有一种可能是mismatch，由于训练资料和测试资料的分布不同导致。</p>
+<p>最根本解决overfitting的办法其实是<strong>增加训练资料，或者叫Data Augmentation</strong>。比如CV领域将图片翻转、放大等。但Augmentation不要乱做，要有比较说得过去的理由，比如CV领域很少会把图片上下颠倒…</p>
+<p>另一种方式就是限制模型复杂度，比如加入专家经验限制模型只能是二次函数、减少DNN的神经元、共享参数、减少特征、早停、正则化、Dropout等。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/over.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="1-局部最小值local-minima与鞍点saddle-point"><a class="markdownIt-Anchor" href="#1-局部最小值local-minima与鞍点saddle-point"></a> 1. 局部最小值（local minima）与鞍点（saddle point）</h3>
+<p>这两种梯度为0的位置统称为“critical point”，如何区分二者呢？</p>
+<p>使用泰勒级数展开近似当前位置的损失函数形状，具体来说，在以上两种位置一阶项均为零，可以根据二阶项区分。如果二阶项都大于零则当前为局部最小，如果二阶项都大于零则当前为局部最大，否则是鞍点。使用线性代数里的技巧，我们不需要将当前点周围的点都带入去判断二阶项是否大于零，<strong>只需要关注H即可</strong>。如果H是正定矩阵，即所有特征值都是正数，则假设1成立。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/critical.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>如果处于鞍点可以沿着特征值小于零的特征向量方向更新参数，可以继续减小损失值。</p>
+<p>[ 但上述方法<strong>实际很少使用</strong>，因为二次微分计算量很大，而且还要算出特征向量 ]</p>
+<p>是否维度越高可以走的路越多呢？定性来解释也许局部最小值位置是很少的。</p>
+<h3 id="2-批次batch与动量momentum"><a class="markdownIt-Anchor" href="#2-批次batch与动量momentum"></a> 2. 批次（Batch）与动量（Momentum）</h3>
+<p>为什么要区分批次？（Minibatch和batch通用）</p>
+<p>批量更新概念厘清，epoch，batch，update的含义：</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/batch.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>GPU可以实现batch内资料的并行运算，但如果batch过大的话计算时间还是会增加的。正是由于有并行运算的能力，如果batch size设定过小的话，计算完所有数据所用的时间反而会较大些batch设置下的长。</p>
+<p>但有时正是由于small batch的更新过程比较noisy，反而会在最后有更好的效果。</p>
+<p><strong>有很多paper研究如何均衡batch size从而结合两方面的优势，加快模型训练过程。</strong></p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/smallb.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>缓解SGD陷入局部最小值问题，加入momentum向量。动量有两种解读方法：1）前一步方向减去当前梯度方向；2）之前所有梯度方向的加权和。</p>
+<h3 id="3-adaptive-learning-rate自适应学习率"><a class="markdownIt-Anchor" href="#3-adaptive-learning-rate自适应学习率"></a> 3. Adaptive learning rate（自适应学习率）</h3>
+<p>训练卡住不一定是局部最小/全局最小/鞍点等critical points，也可能是学习率不合适一直在震荡。</p>
+<p><strong>Adagrad</strong>使用了RMS（Root Mean Square），计算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>参数记录之前梯度值，直观上理解，针对梯度较大的参数采取小的学习率，反之亦然。</p>
+<p><strong>RMSProp</strong>支持（没有论文，直接在讲课时推导出来），第一步与Adagrad相似，但后面计算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>的时候调整当前梯度权重。带有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>参数。更多强调针对同一参数，当其处于大梯度阶段会使用小学习率。</p>
+<p>当前最常用的优化器为<strong>Adam</strong>，即RMSProp+Momentum。</p>
+<p>当前还使用Learning Rate Scheduling技术，比如Learning rate decay（随着训练进行学习率要减小），Warm up（学习率要先变大后逐渐变小，现在训练Bert的时候常用，之前在Residual network，transformer等都有提及）等。</p>
+<p>为什么需要Warm up？给出的一个解释是，自适应的学习率调节是以以往梯度值统计信息为基础的，而刚开始训练的时候数据量不足，所以让学习率小一些。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/schedule.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>自适应学习率总结如下图所示。直观上理解，momentum是直接对以往梯度的累加，而<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>只关注大小，所以即便它们分别处于分子和分母的位置，也不会将效果抵消。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/adaptive.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h3 id="4-分类问题-损失函数"><a class="markdownIt-Anchor" href="#4-分类问题-损失函数"></a> 4. 分类问题 &amp; 损失函数</h3>
+<p>由回归问题修改引入分类问题。</p>
+<p><strong>softmax函数</strong>处理结果后得到预测标签。<strong>为什么要使用softmax？</strong></p>
+<p>softmax的效果：1）将结果归一化，0、1之间加和为1；2）扩大值之间的差距</p>
+<p>softmax的输入称为logit。</p>
+<p>二分类问题直接去<strong>sigmoid</strong>就可以，二者是等价的。</p>
+<p>损失函数选择：1）均方误差，MSE；<strong>2）cross-entropy，交叉熵</strong>。最小化交叉熵等价于最大似然。</p>
+<p>Pytorch里面将cross-entropy和softmax内建在一起，不如需要在设计网络时手动添加。</p>
+<h3 id="5-批次标准化batch-normalization"><a class="markdownIt-Anchor" href="#5-批次标准化batch-normalization"></a> 5. 批次标准化（Batch Normalization）</h3>
+<p>帮助训练时使梯度下降更快收敛。因为这样使得error surface没有那么崎岖。</p>
+<p>在深度学习模型中，对隐藏层的输入（下图中的z向量）也进行标准化，而这个过程使得训练样本间不再独立。再考虑到GPU资源限制，我们在一个batch中进行这样的归一化。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/batchn.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>但在测试阶段不存在上述batch概念，Pytroch会基于训练阶段不同batch计算出的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">μ</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>，计算moving average直接应用在测试样本中。</p>
+<p>Batch Normalization的作者提出了internal covariate shift概念，但之后又有一篇文章《How dose batch normalization help optimization》打脸了这个观点…但他从实验和理论上解释了为什么BatchNorm效果会比较好，但同时还存在其它方式也能达到相同效果。</p>
+<p>此外还有很多归一化方法比如，Batch Renormalization，Layer Normalization，Instance Normalization，Group Normalization，Weight Normalization， Spectrum Normalization等。</p>
+<h2 id="二-神经网络架构设计cnn为例"><a class="markdownIt-Anchor" href="#二-神经网络架构设计cnn为例"></a> 二. 神经网络架构设计（CNN为例）</h2>
+<p>图片分类问题几点观察和对应的简化方法：</p>
+<ul>
+<li>识别关键模式，而并不需要看整张完整图片。因此，设置<strong>receptive field</strong>，限制每个神经元关注的范围；不同神经元的receptive field可以相同，可以重叠，可以调整不同大小，或者限制channel，可以设置成长方形（但通常不用）。一般会设计为，会看全部channel，所以只用设置kernel size即可（比如3 X 3, 7 X 7等），同一个receptive field会对应有一组神经元，不同receptive field之间会有重叠（步长 stride），在边缘处会补全（padding）。</li>
+<li>同样的关键模式可能出现在图片的不同区域。因此，提出<strong>共享参数</strong>思想，让不同神经元具有同样的权重参数。</li>
+<li>对一张图片进行subsampling并不影响识别。因此，提出pooling操作，其中没有需要学习的参数。而随着运算力的增强，大多数网络架构设计中不再使用pooling层而追求更高的效果。</li>
+</ul>
+<p>简化过程如下图所示，将CNN用在图像外的其它领域中时需要<strong>仔细分析一下是否具有上述特性</strong>。比如alpha go并没有使用pooling。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/cnn.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>另外一种思路是由X个不同的fiter扫过整个图片（是参数共享的另一种面向），得到X channels的feature map（可以视为另外一张新的图片，只不过channel不再代表RGB）。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/cnnl.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>经过CNN之后的结果要经过Flatten，拉直成向量，再加一层全连接层，加softmax之后得到最终的结果。</p>
+<p>CNN自己并不能够处理影像的放大、缩小或者旋转的问题，我们<strong>需要数据增强</strong>。<strong>Spatial Transformer layer</strong>可以处理这个问题。</p>
+<p>CNN当前也应用在语音识别、图像识别等领域。</p>
+<h2 id="三-自注意力机制"><a class="markdownIt-Anchor" href="#三-自注意力机制"></a> 三. 自注意力机制</h2>
+<h3 id="1-self-attention"><a class="markdownIt-Anchor" href="#1-self-attention"></a> 1. Self-attention</h3>
+<p>假设模型输入是一个<strong>长度可变</strong>的向量集合会如何？比如一段声音信号，社交网络等。</p>
+<p>以输出向量数量可以区分三类任务：1）N个输入N个输出，比如词性标定；2）N个输入1个输出，比如情感分析；3）N个输入不确定个数的输出，seq2seq，比如机器翻译。</p>
+<p>Self-attention会接收一整个sequence的信息（N个输入），并返回N个输出，它们都是考虑一整个sequence的内容而得到的，之后再经过FC得到最终结果。如下图所示的结构可以叠加多层，self-attention和FC交替使用。最知名的相关文章为《Attention is all you need》。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/self.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>计算输出向量的步骤（针对每个输入并行进行如下操作）：</p>
+<ol>
+<li>找出其他向量与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>a</mi><mn>1</mn></msup></mrow><annotation encoding="application/x-tex">a^1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span>的关联程度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>；这里有不同的做法，常见的是<strong>dot-product</strong>，additive等。所有结果会经过一个类似softmax的非线性层；</li>
+<li>将输入向量乘上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>W</mi><mi>v</mi></msup></mrow><annotation encoding="application/x-tex">W^v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span>，得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>向量；</li>
+<li>b向量即为各v向量带<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>加权。</li>
+</ol>
+<p>相关术语：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span>为query，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>为key，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>为attention score。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/dot.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>另外可以从矩阵运算角度总结如下，self-attention中需要学的参数是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>W</mi><mi>q</mi></msup><mo separator="true">,</mo><msup><mi>W</mi><mi>k</mi></msup><mo separator="true">,</mo><msup><mi>W</mi><mi>v</mi></msup></mrow><annotation encoding="application/x-tex">W^q, W^k,W^v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.043548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/selfm.png" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>进阶版本为多头自注意机制（<strong>Multi-head</strong> self attention），让不同的q负责不同种类的相关性，计算过程与上述类似，不同的head种类分别计算。</p>
+<p>目前来讲，self-attention完全<strong>没有用到位置信息</strong>。可以使用<strong>positional encoding技术</strong>加入位置信息。最早是使用人工设定的位置信息，目前可以根据资料学习。</p>
+<p>Self-attention应用在Transformer，Bert以及其它如语音辨识（Truncated self-attention，不要看一整句话，数据量太大了）、图像识别（可以将每个位置的pixel视为一个3维向量，比如self-attention GAN、DETR等）、图数据等任务中。</p>
+<p><strong>Self-attention vs CNN</strong>：CNN可以视为简化版的self-attention，后者理解为receptive field是自动被学出来的而非人为划定的。《On the relationship between self-attention and convolutional layers》</p>
+<p>**Self-attention vs RNN：**当前用到RNN的任务大多可以用self-attention取代。self-attention可以很轻易地利用远距离信息，而且可以平行处理。《Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention》</p>
+<p><strong>self-attention for graph：</strong> 可以选择以图中的边确定节点向量间的关联性。也是GNN的一种</p>
+<p>self-attention的最大问题在于运算量非常大，目前有很多变体<strong>致力于提升效率</strong>。《Long Range Arena: A Benchmark for efficient transformers》，《Efficient Transformers：A survey》。</p>
+<h3 id="2-transformer"><a class="markdownIt-Anchor" href="#2-transformer"></a> 2. Transformer</h3>
+<p>Seq2seq应用案例：1）是语法解析也可以视为是seq2seq，可以直接把语法的树状结构转换为sequence。《Grammar as a Foreign Language》；2）Multi-label分类；3）Object detection。</p>
+<p>Transformer一个seq2seq的模型，分为Encoder和Decoder两个部分，每个部分有多个block，block中有self-attention层和FC层，且遵循residual架构，而且使用了layer normalization。Encoder架构如下图所示：</p>
+<p>（但原始的Transformer的架构不一定是最优设计，有其它研究工作进行调整）</p>
+<p>《On Layer Normalization in the Transformer Architecture》、《PowerNorm: Rethinking Batch Normalization in Transformers》</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/trans.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>Decoder部分有两种，比较常见的是<strong>Autoregressive</strong>的形式。基础架构和encoder相似，但需要使用masked self-attention，还需要设置BEGINE和END符号。</p>
+<p>Non-autoregressive模型（NAT），一次产生所有输出，可以控制输出长度，平行化是它的优势。由于self-attention与次序无关，所以现在NAT的decoder也是一个热门研究方向。</p>
+<p>两种模型异同如下图所示，当前NAT的效果基本赶不上AT，主要是由于Multi-modality的问题，这也是一个热门研究方向。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/NAT.Jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>Decoder和Encoder连接的桥梁是<strong>cross-attention</strong>，Decoder提供q向量，k和v向量来自Encoder的输出最终生成v向量提供给FC。</p>
+<p>训练过程中，Decoder的输入是正确答案，<strong>Teacher Forcing</strong>。</p>
+<p>可以直接复制一些内容作为回答的模型，包括Pointer Network，Copying Network。（科研方向）</p>
+<p><strong>Guided Attention</strong>，强迫模型的attention有固定的样子，比如语音合成中要求attention必须由左向右。（科研方向）</p>
+<p><strong>Beam Search</strong>（偶尔有用），而非Greedy Decoding，</p>
+<p>如果需要一些创造力的话，可以在训练decoder的时候加入一些杂讯。TTS领域，测试的时候也会加入一些杂讯。</p>
+<p><strong>Scheduled Sampling</strong>，解决exposure bias，直接在训练时给Decoder一些错误的输入。原本的scheduled sampling会伤害到模型的平行化，所以针对transformer有所调整。</p>
+<p>[ Accept that nothing is perfect. True beauty lies in the cracks of imperfection. ]</p>
+<p>When you don’t know how to optimize, just use reinforcement learning (RL)！比如无法给出一个可微的损失函数。</p>
+<h2 id="生成对抗网络"><a class="markdownIt-Anchor" href="#生成对抗网络"></a> 生成对抗网络</h2>
+<h3 id="1-gan基础"><a class="markdownIt-Anchor" href="#1-gan基础"></a> 1. GAN基础</h3>
+<p>Generator接收一个输入X和一个分布Z，输出一个分布Y。</p>
+<p>训练时可以把生成器和判别器视为一个大网络，一部分fix，反复训练。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/gan.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>最终Generator可以根据不同的输入生成一些中间状态，比如从严肃到大笑。</p>
+<p>本质上，GAN是突破了我们无法计算生成数据与真实数据分布差异的问题，divergence between distributions of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>G</mi></msub></mrow><annotation encoding="application/x-tex">P_G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>d</mi><mi>a</mi><mi>t</mi><mi>a</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{data}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。有了GAN以后，只要我们知道如何在G和data中采样样本，就可以<strong>完成divergence计算</strong>，即使用Discrimincriminator。</p>
+<p>原始的GAN论文中关于判别器的训练貌似是从二分类任务中发散过来，比如训练目标为最大化负交叉熵，也即最小化交叉熵。经过推导发现其训练目标<strong>与JS divergence有关</strong>。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/js.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>所以可以把生成器的目标函数中的divergence项替换为判别器中的目标函数项，形成min-max形式。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/theory.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>其实也可以设计不同的目标函数得到不同的divergence计算，相关论文（<a href="https://arxiv.org/abs/1606.00709%EF%BC%89" target="_blank" rel="noopener">https://arxiv.org/abs/1606.00709）</a></p>
+<h3 id="2-gan训练技巧"><a class="markdownIt-Anchor" href="#2-gan训练技巧"></a> 2. GAN训练技巧</h3>
+<p>GAN以难训练而闻名。经常出现如果使用简单的二分类模型做判别器的话，出现百分百分辨出来的情况。</p>
+<p>实际中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>G</mi></msub></mrow><annotation encoding="application/x-tex">P_G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>d</mi><mi>a</mi><mi>t</mi><mi>a</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{data}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>间可重叠/相交的部分非常少，可从以下两个角度解释：1）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>G</mi></msub></mrow><annotation encoding="application/x-tex">P_G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>d</mi><mi>a</mi><mi>t</mi><mi>a</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{data}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>都是低维数据在高维空间的映射，重叠/相交的部分基本可以忽略；2）我们对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>G</mi></msub></mrow><annotation encoding="application/x-tex">P_G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>d</mi><mi>a</mi><mi>t</mi><mi>a</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{data}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的了解仅来自于采样样本，可能没有采样到重叠区域。</p>
+<p>所以JS divergence可能并不是很合适，因为对于两个没有重叠的分布，JS divergence永远都是log2，而没有中间值。</p>
+<p><strong>WGAN（使用Wasserstein distance）</strong>，可以解决上述问题。其实计算W distance还是比较麻烦的，可以简单的视为解下面的优化问题。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/wgan.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>注意，这边要求判别器是平滑的。最开始是通过直接截断实现的，即限制D的输出值范围。之后有了<strong>Improved WGAN（使用Gradient Penalty）</strong>。在之后还有**SNGAN（Spectral Normalization）**真的做了对判别器的限制。</p>
+<p>[ 实际训练过程和理论上有所出入，比如可能不会每轮都将判别器训到收敛 ]</p>
+<p>另外，由于GAN中判别器和生成器是“相爱相杀，相辅相成”的，一旦其中某一个出问题，另一个也会无法训练。</p>
+<p>相对而言，用GAN生成一段文字是最困难的，有很长一段时间没有人可以做到这一点，直到<strong>ScratchGAN</strong>出现。</p>
+<p>其它有关生成模型的还有<strong>VAE</strong>，<strong>flow-based model</strong>等，但一般来讲，GAN生成的效果会比较好。</p>
+<h3 id="3-gan评估"><a class="markdownIt-Anchor" href="#3-gan评估"></a> 3. GAN评估</h3>
+<p>最直接的是直接找人来看…</p>
+<p>如今的GAN也许还有mode dropping问题，即生成的图片多样性（diversity）不足。常用**Inception Score（IS）**定义生成结果的多样性。</p>
+<p>也有使用**FID（Frechet Inception Distance）**衡量。</p>
+<h3 id="4-cgan"><a class="markdownIt-Anchor" href="#4-cgan"></a> 4. CGAN</h3>
+<p>Conditional GAN，比如输入“红头发、绿眼睛”产生相应的图片。</p>
+<p>重点在于判别器还要接受条件输入，判断生成图片和条件是否匹配。</p>
+<h3 id="5-在无成对数据条件下学习"><a class="markdownIt-Anchor" href="#5-在无成对数据条件下学习"></a> 5. 在无成对数据条件下学习</h3>
+<p>Cycle GAN，比如用于图像风格迁移。网络可以设置为双向。类似的还有Disco GAN, Dual GAN都是这样的想法。</p>
+<div align="center">
+  <img src="/2021/05/12/lhy-2021/cyclegan.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>另外还有进阶版StarGAN，可以在多种风格间进行转换。</p>
+<p>另外的应用还有进行<strong>文字风格转换</strong>，长文转摘要，无监督翻译，无监督语音辨识等。</p>
+<h2 id="相关研究点整理"><a class="markdownIt-Anchor" href="#相关研究点整理"></a> 相关研究点整理</h2>
+<h3 id="1-均衡batch-size加速模型训练"><a class="markdownIt-Anchor" href="#1-均衡batch-size加速模型训练"></a> 1. 均衡batch size加速模型训练</h3>
+<p>《Large Batch Optimization for Deep Learning: Training BERT in 76 minutes》</p>
+<p>《Extremely Large Minibatch SGD: Training ResNet-50 on ImageNet in 15 Minutes》</p>
+<p>《Stochastic Weight Averaging in Parallel: Large-Batch Training That Generalizes Well 》</p>
+<p>《Large Batch Training of Convolutional Networks》</p>
+<p>《Accurate, large minibatch sgd: Training imagenet in 1 hour》</p>
+<h3 id="2-学习率warm-up"><a class="markdownIt-Anchor" href="#2-学习率warm-up"></a> 2. 学习率Warm Up</h3>
+<p>RAdam，<a href="https://arxiv.org/abs/1908.03265" target="_blank" rel="noopener">https://arxiv.org/abs/1908.03265</a></p>
+<h3 id="3-spatial-transformer-layer"><a class="markdownIt-Anchor" href="#3-spatial-transformer-layer"></a> 3. Spatial Transformer layer</h3>
+<h3 id="4-positional-encoding"><a class="markdownIt-Anchor" href="#4-positional-encoding"></a> 4. Positional encoding</h3>
+<p><a href="https://arxiv.org/abs/2003.09229" target="_blank" rel="noopener">https://arxiv.org/abs/2003.09229</a></p>
+<h3 id="5-transformer-nat"><a class="markdownIt-Anchor" href="#5-transformer-nat"></a> 5. Transformer NAT</h3>
+<h3 id="6-gan-training一些训练技巧和论文"><a class="markdownIt-Anchor" href="#6-gan-training一些训练技巧和论文"></a> 6. GAN training（一些训练技巧和论文）</h3>
+<p><a href="https://github.com/soumith/ganhacks" target="_blank" rel="noopener">https://github.com/soumith/ganhacks</a></p>
+<p><a href="https://arxiv.org/abs/1511.06434" target="_blank" rel="noopener">https://arxiv.org/abs/1511.06434</a></p>
+<p><a href="https://arxiv.org/abs/1606.03498" target="_blank" rel="noopener">https://arxiv.org/abs/1606.03498</a></p>
+<p><a href="https://arxiv.org/abs/1809.11096" target="_blank" rel="noopener">https://arxiv.org/abs/1809.11096</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/22/pytorch/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Pytorch学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/10/cs224w3/">
+                        <span class="hidden-mobile">cs224w《图机器学习》2021（三）知识图谱</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

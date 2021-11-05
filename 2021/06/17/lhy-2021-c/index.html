@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>李宏毅《机器/深度学习》2021笔记（三） - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>日言寺青</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                李宏毅《机器/深度学习》2021笔记（三）
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-17 22:59">
+      2021年6月17日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="强化学习"><a class="markdownIt-Anchor" href="#强化学习"></a> 强化学习</h2>
+<h3 id="1-基础概念"><a class="markdownIt-Anchor" href="#1-基础概念"></a> 1. 基础概念</h3>
+<p>常用名词包括state、actor、action、environment、reward、return、trajectory（包含状态与动作的交互过程）等。</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/rl.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>对于计算出的action结果，依照其概率随机采样。</p>
+<p>RL依然可以视为符合传统ML框架的三个阶段，但是模型存在随机性（actor行动选择部分，env和reward都是黑盒），所以在训练过程中的优化方法有所不同。</p>
+<h3 id="2-policy-gradient"><a class="markdownIt-Anchor" href="#2-policy-gradient"></a> 2. Policy Gradient</h3>
+<p>RL与传统ML分类问题的区别在于：1）当前动作会影响到之后的环境以及后续rewards；2）Reward delay，有时候需要牺牲短期利益换取长期收益。</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/pc.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>训练RL可以有如下几种思路：</p>
+<ul>
+<li>Version 0：直接用当前action在当前state下带来的reward作为label进行训练。但这种方法无法考虑长期策略，比如玩射击游戏时，只开火不移动。</li>
+<li>Version 1：使用cumulated reward而非仅考虑当前步骤的reward。但这种方法过多强调了早期action的重要性。</li>
+<li>Version 2：在计算cumulated reward的时候不是单纯加和而是加入discount factor，逐步减少早期action的重要性。</li>
+<li>Version 3：对cumulated reward进行标准化，比如所有值都减去一个参数b，让最终值有正有负。</li>
+</ul>
+<p>需要注意的是，在policy gradient的训练过程中，需要同步收集数据，每更新模型，重新收集一次数据。所以训练很耗时。这种训练叫做on-policy learning。</p>
+<p>另外也是存在off-policy learning方式，即收集数据时的actor和训练中的actor不同，比较经典的方法是<strong>PPO（Proximal Policy Optimization）</strong>。</p>
+<p>在收集训练数据的时候，使用Exploration方式，故意提升actor采取行动的随机性，有很多相应的技巧。</p>
+<h3 id="3-actor-critc"><a class="markdownIt-Anchor" href="#3-actor-critc"></a> 3. Actor-Critc</h3>
+<p>Critc评判actor在s下的效果。使用value function估测在s下actor <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span></span>的cumulated reward。</p>
+<p>一种是使用基于蒙特卡洛的方法训练critic，直接完成整轮拿到结果，训练Value function；</p>
+<p>第二种是使用基于temporal-difference的方法，解决有些“游戏”很难终止的问题，使用t+1和t两者之间的差别来训练Value function。</p>
+<p>这两种方法可能算出来的Value function会不同。</p>
+<ul>
+<li>Version3.5：之后使用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>G</mi><mo mathvariant="normal">′</mo></msup><mo>−</mo><mi>V</mi><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G&#x27;-V(s_t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.835222em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault">G</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>衡量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">{</mo><msub><mi>s</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{s_t,a_t\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>的好坏。</li>
+<li>Version 4：使用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>r</mi><mi>t</mi></msub><mo>+</mo><msup><mi>V</mi><mi>θ</mi></msup><mo stretchy="false">(</mo><mo stretchy="false">(</mo><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>−</mo><msup><mi>V</mi><mi>θ</mi></msup><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">r_t+V^\theta((s_{t+1})-V^\theta(s_t))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>衡量，这个方法叫做“advantage actor-critic”</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/v3.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/v4.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>实际实现的时候，发现其实actor和critic是可以共享参数的。</p>
+<p>另外还可以直接使用critic做，比如<strong>DQN</strong>。有一个知名的文章叫做Rainbow。</p>
+<h3 id="4-reward-shaping"><a class="markdownIt-Anchor" href="#4-reward-shaping"></a> 4. Reward shaping</h3>
+<p>如果大多数情况下的reward都是0怎么办？也就是sparse reward问题。</p>
+<p>要想办法提供额外的reward引导agent学习，也就是reward shaping。</p>
+<h3 id="5-learning-from-demonstration"><a class="markdownIt-Anchor" href="#5-learning-from-demonstration"></a> 5. Learning from Demonstration</h3>
+<p>有的时候连reward也没有用，让机器自己来定义（inverse reinforcement learning）。从expert的示范中学习到reward function。</p>
+<p>基本概念是：Teacher is always the best。这个过程中可以把actor想象为generator，把reward function想象为discriminator。</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/irl.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h2 id="终身学习life-long-learning"><a class="markdownIt-Anchor" href="#终身学习life-long-learning"></a> 终身学习（Life Long Learning）</h2>
+<p>还有Continuous Learning, Never Ending Learing, Incremental Learning等名称。</p>
+<p>比如要解决Task1和Task2，一般模型可以同时比较好地学习并解决两个模型，但无法串行学习，会出现学会任务二后忘掉了任务一的现象。有种狗熊掰棒子的感觉，<strong>Catastrophic Forgetting</strong>（灾难性遗忘）。</p>
+<p>由于计算资源和训练时间的限制，我们不能直接用<strong>Mutli-task training</strong>（即把所有任务的数据全部倒在一起同时训练）来解决这一问题。科研中一般把mutli-task training的结果当做life long learning的上限。</p>
+<p>另外，和<strong>迁移学习</strong>的关注点也不同。迁移学习重点在于，由于已经学习过任务1，所以也可以做任务2或者简化任务2的训练过程。而终身学习的重点在于，保证即便学习了任务2，模型也不会忘记如何解决任务1。</p>
+<p>Life long learning的模型评估一般使用多个task的表格，计算accuracy，backward transfer和forward transfer。</p>
+<h4 id="1-selective-synaptic-plasticityregularization-based-approach"><a class="markdownIt-Anchor" href="#1-selective-synaptic-plasticityregularization-based-approach"></a> 1. Selective Synaptic Plasticity（Regularization-based Approach）</h4>
+<p>每个参数对过去学过的任务的重要性不同，希望学习新任务时这些重要的参数不要变化太大。</p>
+<p>给每个参数一个“保镖”<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，表示该参数对过去任务的重要程度。将训练任务的损失函数改为如下形式：</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/lf.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>研究的关键在于如何设定<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。如果设定过大会有intransigence问题，就是新任务学不起来。</p>
+<p>之前还有一个名为**Gradient Episodic Memory（GEM）**的方法，修改参数更新方向。这个方法需要存储过去task上模型的资料，这一点和终身学习的初衷有些偏离。</p>
+<h4 id="2additional-neural-resource-allocation"><a class="markdownIt-Anchor" href="#2additional-neural-resource-allocation"></a> 2.Additional Neural Resource Allocation</h4>
+<p>Progressive Neural Networks，如下图所示，针对新的task新增模型。</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/pnn.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>PackNet，最开始的时候就开一个大的网络模型，分部分给不同的task使用。</p>
+<p>CPG，有点像上述两个思想的结合。</p>
+<h4 id="3-memory-reply"><a class="markdownIt-Anchor" href="#3-memory-reply"></a> 3. Memory Reply</h4>
+<p>训练生成器，每次产生一些符合原有任务的伪数据。生成器占用的空间比存储先前数据占用的空间小。实验表明这种方法非常有效。</p>
+<p>如果不同任务的样本类别不同如何解决？</p>
+<p>另外，更换学习不同任务的顺序可以改变模型的训练效果，有些任务就没有遗忘问题。研究这方面策略的方向叫做“Curriculum Learning”。</p>
+<h2 id="元学习"><a class="markdownIt-Anchor" href="#元学习"></a> 元学习</h2>
+<p>让机器学习如何学习。</p>
+<p>通常当前的few-shot learning的模型是通过元学习方法得到的。</p>
+<p>一些专有名词：Across-task training/testing，Within-task training/testing，</p>
+<h4 id="1-maml"><a class="markdownIt-Anchor" href="#1-maml"></a> 1. MAML</h4>
+<p>比较难训练，有进阶版本MAML++（《How to train your MAML》）。</p>
+<p>自监督学习中的Pre-training与它有比较大的差别。</p>
+<p>MAML效果好的假设有两个：1）初始参数可以很快地找到最好模型（rapid learning）；2）初始参数原本就与最终最好的模型参数非常接近了（feature reuse）。有研究认为是后者：</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/maml.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>大幅度简化运算的变形FOMAML（First order maml）。后续改进版本还有Reptile。</p>
+<h4 id="2-优化器"><a class="markdownIt-Anchor" href="#2-优化器"></a> 2. 优化器</h4>
+<p>自动根据训练任务学习直接学习最佳优化器。</p>
+<p>《Learn to Learn by gradient descent》NIPS 2016</p>
+<h4 id="3-nasnetwork-architecture-search"><a class="markdownIt-Anchor" href="#3-nasnetwork-architecture-search"></a> 3. NAS（Network architecture search）</h4>
+<p>训练得到网络架构。</p>
+<p>无法计算微分，可以用RL硬做，agent的输出是各种网络架构选项。或者使用evolution algorithm。</p>
+<p>另外有一个经典的算法叫DARTS，硬要网络架构参数可以微分。</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/lft.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="4data-augmentation"><a class="markdownIt-Anchor" href="#4data-augmentation"></a> 4.Data Augmentation</h4>
+<p>模型自动寻找数据增强方法。</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/da.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="5sample-reweighting"><a class="markdownIt-Anchor" href="#5sample-reweighting"></a> 5.Sample reweighting</h4>
+<p>如何决定边界线上的数据点的权重问题，是提升权重，还是当做噪声点而降低权重？</p>
+<div align="center">
+  <img src="/2021/06/17/lhy-2021-c/sw.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h4 id="6beyond-gradient-descent"><a class="markdownIt-Anchor" href="#6beyond-gradient-descent"></a> 6.Beyond gradient descent</h4>
+<p>放弃梯度下降，直接通过数据学习参数。</p>
+<p>《Meta-learning with latent embedding optimization》ICLR 2019</p>
+<h4 id="7-metric-based-approach"><a class="markdownIt-Anchor" href="#7-metric-based-approach"></a> 7. Metric-based approach</h4>
+<p>把训练、测试数据都喂给数据集，看看学习效果如何。</p>
+<p>一般元学习用在few shot learning上，N way k shot。</p>
+<p>当下MAML也用到NLP、语音识别、<strong>知识图谱</strong>（<a href="http://speech.ee.ntu.edu.tw/~tlkagk/meta_learning_table.pdf%EF%BC%89%E7%AD%89%E8%BE%83%E5%A4%8D%E6%9D%82%E4%BB%BB%E5%8A%A1%E4%B8%8A%E3%80%82" target="_blank" rel="noopener">http://speech.ee.ntu.edu.tw/~tlkagk/meta_learning_table.pdf）等较复杂任务上。</a></p>
+<h2 id="结语"><a class="markdownIt-Anchor" href="#结语"></a> 结语</h2>
+<h2 id="相关研究"><a class="markdownIt-Anchor" href="#相关研究"></a> 相关研究</h2>
+<h3 id="1-终身学习b_i设置"><a class="markdownIt-Anchor" href="#1-终身学习b_i设置"></a> 1. 终身学习<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>设置</h3>
+<p>EWC, <a href="https://arxiv.org/abs/1612.00796" target="_blank" rel="noopener">https://arxiv.org/abs/1612.00796</a></p>
+<p>SI, <a href="https://arxiv.org/abs/1703.04200" target="_blank" rel="noopener">https://arxiv.org/abs/1703.04200</a></p>
+<p>MAS, <a href="https://arxiv.org/abs/1711.09601" target="_blank" rel="noopener">https://arxiv.org/abs/1711.09601</a></p>
+<p>RWalk, <a href="https://arxiv.org/abs/1801.10112" target="_blank" rel="noopener">https://arxiv.org/abs/1801.10112</a></p>
+<p>SCP, <a href="https://openreview.net/forum?id=BJge3TNKwH" target="_blank" rel="noopener">https://openreview.net/forum?id=BJge3TNKwH</a></p>
+<h3 id="2-如何处理增加了标签类别"><a class="markdownIt-Anchor" href="#2-如何处理增加了标签类别"></a> 2. 如何处理增加了标签类别</h3>
+<p>Learning without forgetting（LwF）</p>
+<p>iCARL：Incremental Classifier and Representation Learning</p>
+<p>Life long learning的三个情景，<a href="https://arxiv.org/abs/1904.07734" target="_blank" rel="noopener">https://arxiv.org/abs/1904.07734</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/18/tum-mlgs/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">TUM《图与时序数据机器学习》笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/16/lhy-2021-b/">
+                        <span class="hidden-mobile">李宏毅《机器/深度学习》2021笔记（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

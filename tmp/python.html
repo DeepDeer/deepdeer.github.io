@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>人生苦短，我用... - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>日言寺青</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                人生苦短，我用...
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="page-content">
+  <h1 id="effective-python"><a class="markdownIt-Anchor" href="#effective-python"></a> 《Effective Python》</h1>
+<p>共分为59个要点介绍。</p>
+<h3 id="一-pythonic思考方式"><a class="markdownIt-Anchor" href="#一-pythonic思考方式"></a> 一. Pythonic思考方式</h3>
+<h4 id="要点一-版本问题"><a class="markdownIt-Anchor" href="#要点一-版本问题"></a> 要点一 版本问题</h4>
+<h4 id="要点二-pep8风格"><a class="markdownIt-Anchor" href="#要点二-pep8风格"></a> 要点二 PEP8风格</h4>
+<p>8号python增强提案，可以直接在IDE中设置，或者使用Pylint等静态源码分析工具。一些规则如下：</p>
+<ul>
+<li>受保护的实例属性用单个下划线开头，私有实例属性用双下划线开头；</li>
+<li>类与异常，采用单词字母均大写的方式</li>
+<li>类中实例方法，第一个参数为self表示该对象自身</li>
+<li>类方法的首个参数，命名为cls，表示类自身</li>
+<li>引入模块时一定使用绝对路径，比如from boo import foo</li>
+<li>import按顺序分为三个部分，标准库模块、第三方模块以及自用模块，每个部分内按字母排序</li>
+</ul>
+<h4 id="要点三-字符序列类型"><a class="markdownIt-Anchor" href="#要点三-字符序列类型"></a> 要点三 字符序列类型</h4>
+<p>Python2中“str”表示原始的8位值，“unicode”包含Unicode字符；Python3中则是“bytes”表示原始的8位值，“str”包含Unicode字符。</p>
+<p>UnionCode和二进制（即原始的8位值）的相互转化使用encode和decode方法，比较常用的是UTF-8。</p>
+<p>编写Python程序的时候，在最外围进行编码和解码。</p>
+<p>**问题1：**Python2中如果str只包含7位ASCII字符，则str和Unicode成为同一类型3。Python3中绝对不可以等价混用，空字符串也不行。</p>
+<p>**问题2：**Open函数获取文件句柄时，Python2中默认使用二进制形式，而Python3默认使用UTF-8编码，如果操作二进制文件需要传入‘wb’参数。</p>
+<h4 id="要点四-辅助函数"><a class="markdownIt-Anchor" href="#要点四-辅助函数"></a> 要点四 辅助函数</h4>
+<p>表达式如果变得复杂，要考虑把它拆解成小块，并把逻辑移入函数中。不要过度使用Python的语法特性，写成难以理解的表达式。</p>
+<h4 id="要点五-切割序列"><a class="markdownIt-Anchor" href="#要点五-切割序列"></a> 要点五 切割序列</h4>
+<p>如果列表要保留开头/结尾，不需要再切片中写0或者len(list)，会更清爽。</p>
+<p>切片操作不考虑索引是否越界。</p>
+<p>对原列表切割后会生成一份新的列表，在新列表上进行修改不会影响原列表。赋值的时候则会直接替换。</p>
+<p>作者建议尽量不要在一个切片操作中，同时制定start，end和stride，可以拆分成两步，先做范围分割再处理步长。另外尽量对stride只用正数。（这个就是要点六）</p>
+<h4 id="要点七-列表推导式"><a class="markdownIt-Anchor" href="#要点七-列表推导式"></a> 要点七 列表推导式</h4>
+<p>列表推导式可以根据一个列表比较简单地生成另一个列表。</p>
+<p>尽量使用列表推导式替代map和filter。</p>
+<p>字典和集合类型也有相同的推导机制。</p>
+<p>列表推导式中支持多重循环，但尽量不要超过两层，同层的if条件语句间默认使用and。</p>
+<p>为了保证后续阅读难度不要太大，尽量不要编写看似简洁但难以理解的代码。</p>
+<h4 id="要点九-生成器表达式"><a class="markdownIt-Anchor" href="#要点九-生成器表达式"></a> 要点九 生成器表达式</h4>
+<p>推导式中会对于每一个输入的值都要创建仅包含一项元素的全新列表，只适用于处理少量的输入值，否则会占用太多内存。</p>
+<p>生成表达式是对列表推导和生成器的一种泛化，运行时不会把整个输出序列都呈现出来，而是估值为一个迭代器，逐次调用next函数生成新值。生成表达式的格式即将列表表达式的中括号换为圆括号。</p>
+<pre><code class="hljs python">value = [len(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> open(<span class="hljs-string">'/tmp/my_file.txt'</span>)]
+it = (len(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> open(<span class="hljs-string">'/tmp/my_file.txt'</span>))
+next(it)</code></pre>
+<p>生成器还可以相互作用，比如某个生成器所返回的迭代器放在另一个生成器表达式的for子表达式中，串在一起的生成器执行速度很快。</p>
+<pre><code class="hljs python">roots = ((x, x**<span class="hljs-number">0.5</span>) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> it)
+print(roots)</code></pre>
+<h4 id="要点十-使用enumerate"><a class="markdownIt-Anchor" href="#要点十-使用enumerate"></a> 要点十 使用enumerate</h4>
+<p>enumerate可以指定索引起始值，默认为0。</p>
+<h4 id="要点十一-zip遍历两个列表"><a class="markdownIt-Anchor" href="#要点十一-zip遍历两个列表"></a> 要点十一 zip遍历两个列表</h4>
+<p>Python3中的zip函数可以把两个或两个以上的迭代器封装成生成器，会从每个迭代器中获取下一个值，然后汇聚成元组。</p>
+<p>Python2中的zip函数并不是一个生成器而是把所有元素完全汇聚出来一次性返回，如果想达到相同效果可以使用itertools中的izip函数。</p>
+<p>如果两个列表中的元素数目不同，只要有一个耗尽，zip就不再产生元组了，提前终止。如果不确定列表是否等长，可以使用itertools中的zip_longest函数。</p>
+<h4 id="要点十二-for和while后面跟else"><a class="markdownIt-Anchor" href="#要点十二-for和while后面跟else"></a> 要点十二 for和while后面跟else</h4>
+<p>Python有特殊的语法，可以在for，while循环后面加else，如果整个循环体中没有遇到break语句就会执行else，但是尽量不要这样写！</p>
+<h4 id="要点十三-tryexceptelsefinally代码块的利用"><a class="markdownIt-Anchor" href="#要点十三-tryexceptelsefinally代码块的利用"></a> 要点十三 try/except/else/finally代码块的利用</h4>
+<p><strong>try/finally结构</strong>比较常见，既要异常向上传播，又要在异常发生时进行清理工作。比如确保程序能可靠地关闭文件句柄，其实with语句有实现这个效果。</p>
+<p><strong>try/except/else结构</strong>可以清晰描述哪些异常会自行处理，哪些会上报上级。try块中没有发生异常就会执行else块。<strong>else块</strong>可以缩减try块中的代码量，而且如果发生异常会向上传播。</p>
+<p>混合使用完整的<strong>try/except/else/finally结构</strong>，比如要从文件中读取某项事务的描述信息，处理事务并更新文件。可以用try读取文件内容并处理，用except对应try块中可能发生的相关异常，else事实更新文件并把更新文件异常回报给上级代码，然后用finally（finally块总是会执行）清理文件句柄。</p>
+<h3 id="二-函数"><a class="markdownIt-Anchor" href="#二-函数"></a> 二. 函数</h3>
+<h4 id="要点十四-函数返回值"><a class="markdownIt-Anchor" href="#要点十四-函数返回值"></a> 要点十四 函数返回值</h4>
+<p>None和0以及空字符串之类的值，都会在条件表达式里判定为False，使用None这个返回值表示特殊意义的函数，很容易使调用者犯错。</p>
+<p>函数在遇到特殊情况（比如除法不允许被除数是0等）应该抛出异常而不是返回None，并在开发文档中写明。</p>
+<h1 id="python进阶"><a class="markdownIt-Anchor" href="#python进阶"></a> 《Python进阶》</h1>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

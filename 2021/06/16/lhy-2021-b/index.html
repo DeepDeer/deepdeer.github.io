@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/deer-icon.png">
+  <link rel="icon" type="image/png" href="/img/deer-icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#87847e">
+  <meta name="description" content="">
+  <meta name="author" content="Skyla Sun">
+  <meta name="keywords" content="">
+  <title>李宏毅《机器/深度学习》2021笔记（二） - DeepDeer</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 40vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>日言寺青</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fav.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                李宏毅《机器/深度学习》2021笔记（二）
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-16 20:52">
+      2021年6月16日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="自督导式学习"><a class="markdownIt-Anchor" href="#自督导式学习"></a> 自督导式学习</h2>
+<p>从资料中抽取两部分，一部分作为模型输入，一部分作为目标输出。Self-supervised可视为无监督学习方法的一种，这个概念最早于2019年提出。</p>
+<p>相关模型有：ELMo（94M参数），BERT（340M参数），ERNIE，Big Bird，GPT-2（1500M参数），Megatron（ 8B），T5（11B），Turing NLG（17B），GPT-3（10倍图灵），Switch Transformer（1.6T）。</p>
+<h3 id="1-bert"><a class="markdownIt-Anchor" href="#1-bert"></a> 1. Bert</h3>
+<p>主要结构是<strong>Transformer Encoder</strong>。训练是主要进行两个任务：1）随机mask输入的token，可以替换为特殊符号或者随机值；2）下一句子预测（进阶版ALBERT使用的是SOP，sentence order prediction）。</p>
+<p>使用上述“填空题”训练BERT，在经过Fine-tune之后，可应用到下游任务中。而之前的BERT训练过程称为Pre-train。整个过程合起来算是一种semi-supervised方法。</p>
+<p>评估自监督模型的常用任务集，GLUE（General Language Understanding Evaluation），包含九个任务。</p>
+<p>下游任务包括：情感分析（Linear模型部分随机初始化，BERT部分在之前参数基础上更新）、词性标注、自然语言推理（前提与假设）、问答系统。</p>
+<p>BERT可以视为Deep版的CBOW，而且可以根据上下文情况得到多义字不同的表征向量，Contextualized word embedding。</p>
+<h3 id="2-扩展工作"><a class="markdownIt-Anchor" href="#2-扩展工作"></a> 2. 扩展工作</h3>
+<p>BERT训练过程需要耗费非常多的资源，所以大家致力于研究&quot;BERT胚胎学&quot;，研究训练中模型的发展过程。</p>
+<p>Pre-train seq2seq模型，将一些故意“弄坏”的输入给Encoder，要求Decoder输出原本完好的数据。</p>
+<p>论文BART研究使用了很多种“弄坏”输入的训练方法，表明组合起来效果比较好。</p>
+<p>论文T5，在C4数据集上训练。</p>
+<p>多语言Bert，multi-bert，可以进行zero-shot阅读理解。</p>
+<h3 id="3-gpt系列模型"><a class="markdownIt-Anchor" href="#3-gpt系列模型"></a> 3. GPT系列模型</h3>
+<p>预测下一个token，类似于Transformer的Decoder。所以GPT有生成能力（独角兽形象，因为写了一个有关独角兽的假新闻）。</p>
+<p>直接有Few-shot learning、one-shot learning、zero-shot learning。</p>
+<p>另外还有很多类型的自监督学习模型，应用在更多不同领域中，如下图所示：</p>
+<div align="center">
+  <img src="/2021/06/16/lhy-2021-b/self.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<h2 id="自编码器"><a class="markdownIt-Anchor" href="#自编码器"></a> 自编码器</h2>
+<p>李老师认为autoencoder可以视为self-supervised中pre-train的一种，因为同样也是没有应用到标签数据。</p>
+<p>Autoencoder流程和之前提到的Cycle GAN类似，常见作用是降维。</p>
+<p>De-noising Autoencoder，设计思想和Bert中的mask很类似。Bert可以视为一种De-noising Autoencoder。</p>
+<p>Feature Disentangle技术，即有可能知道autoencoder中每个维度代表了什么信息。可以应用到语者转换（变声器）等领域。比如可以支持双方语者间不需要相同语料。最代表性的工作是<strong>VQVAE</strong>，可以学习到最基本的发音单位，也可以做到文章摘要。</p>
+<p>Decoder可以视为一个生成器，比如VAE</p>
+<p>Autoencoder可以用来做压缩与解压，lossy compression。</p>
+<p>重点应用场景还有<strong>异常检测</strong>，比如欺诈检测（<a href="https://www.kaggle.com/mlg-ulb/creditcardfraud/home%EF%BC%89%EF%BC%8C%E7%BD%91%E7%BB%9C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%EF%BC%88http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html%EF%BC%89%EF%BC%8C%E7%99%8C%E7%97%87%E7%BB%86%E8%83%9E%E6%A3%80%E6%B5%8B%E7%AD%89%E3%80%82%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%AD%E5%A4%A7%E5%A4%9A%E6%95%B0%E6%95%B0%E6%8D%AE%E9%83%BD%E6%98%AF%E6%AD%A3%E5%B8%B8%E6%95%B0%E6%8D%AE%E3%80%82" target="_blank" rel="noopener">https://www.kaggle.com/mlg-ulb/creditcardfraud/home），网络入侵检测（http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html），癌症细胞检测等。数据集中大多数数据都是正常数据。</a></p>
+<h2 id="对抗攻击"><a class="markdownIt-Anchor" href="#对抗攻击"></a> 对抗攻击</h2>
+<h3 id="1-攻击方式"><a class="markdownIt-Anchor" href="#1-攻击方式"></a> 1. 攻击方式</h3>
+<p>超出范围的噪声值直接拉回范围内fix就好。</p>
+<p>代表方法FGSM，只使用一次迭代，在这次迭代中并不直接使用梯度进行更新，而是取更新方向（一击必杀）。也有iterative FGSM。</p>
+<p>白盒攻击</p>
+<p>黑盒攻击，可以训练一个proxy模型，模仿原本的攻击对象。如果连训练资料都没有的话，就自备数据，获取其检测结果。实验中黑箱攻击效果还不错，target attack会相对比较难一点。</p>
+<p><strong>Ensemble Attack</strong>技巧</p>
+<p>为什么攻击很容易成功？《Adverserial Examples are not bugs, they are features》部分人认为可能问题不是出现在模型上而是数据上。</p>
+<p>One pixel attack，只修改图片里的一个像素点就完成攻击。</p>
+<p>Universal attack，所有的图片都可以用着一个噪声完成攻击。</p>
+<p>Adversarial Reprogramming，操控模型去做本来不是他想做的事情。</p>
+<p>Backdoor，在模型中开后门，从训练阶段就开始攻击</p>
+<h3 id="2-防御方式"><a class="markdownIt-Anchor" href="#2-防御方式"></a> 2. 防御方式</h3>
+<p><strong>被动防御</strong>，比如smoothing（模糊化），compression（压缩后解压），Generator（重新产生输入数据）、Randomization等。</p>
+<p>但攻击者了解这些防御措施后，这些措施就会失效。</p>
+<p><strong>主动防御</strong>，adversarial training（可以视为一种data augmentation），这是一种比较吃运算资源的方法，提升效率是一个研究点。</p>
+<h2 id="可解释性"><a class="markdownIt-Anchor" href="#可解释性"></a> 可解释性</h2>
+<p>explainable vs interpretable</p>
+<p>是否有解释性又高，能力又强的模型呢？比如决策树。</p>
+<p>可解释性ML的目标如何设定？</p>
+<p><strong>Local explaination</strong>，比如“为什么认为这张图片是一只猫？”</p>
+<p>使用SmoothGrad，随机加入噪声，生成saliency map。但是这种方法会有Gradient Saturation的问题，为解决这一问题提出Integrated gradient分析。</p>
+<div align="center">
+  <img src="/2021/06/16/lhy-2021-b/noise.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>可以取中间层向量可视化，也可以在中间层加入probe。</p>
+<p><strong>Global explainable</strong>，比如“什么样的图片叫做一只猫？”</p>
+<p>寻找使经过卷积层后产生的feature map的元素加和最大的输入X。但这样通常会找到一堆噪声，所以还要加上一些约束条件，比如限制X中的非零元素个数。如果想要产生清晰地图片，可以加入一个生成器。</p>
+<p>目前explainable AI其实更多的是倾向于产生人类比较喜欢的结果。</p>
+<p><strong>使用比较简单的模型</strong>，模仿复杂深度学习模型。比如LIME（Local Interpretable Model-Agnostic Explanations）。</p>
+<h2 id="领域自适应domain-adaptation学习一下助教课"><a class="markdownIt-Anchor" href="#领域自适应domain-adaptation学习一下助教课"></a> 领域自适应（Domain Adaptation）&lt;学习一下助教课&gt;</h2>
+<p><strong>Domain Shift（概念漂移）</strong>，训练集和测试集上的数据分布不同，比如输入数据的变化，输出的分布有变化（即标签分布的变化）以及输入和输出关系的变化。[ 课程专注于输入数据的变化部分 ]</p>
+<p><strong>领域自适应</strong>可以视为迁移学习其中的环节，根据目标领域中的数据分为以下几种情况：</p>
+<ul>
+<li>有少量带标签数据；使用原始数据训练模型后利用目标领域数据进行微调，但注意不要过拟合。</li>
+<li>有大量无标签数据；训练一个模型提取器，以及一个领域分类器；Feature Extractor的目标是骗过Domain Classifier，思路和GAN类似，原始论文中的目标函数设计如下。另外还有<strong>DIRT-T，Maximum Classifier Discrepancy</strong>，它们使用的思想是，将Feature Extractor的训练目标设定为让目标数据最终提取出来的特征分布距离当前分类界限越远越好。</li>
+</ul>
+<div align="center">
+  <img src="/2021/06/16/lhy-2021-b/da.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<ul>
+<li>
+<p>只有少量无标签数据；使用<strong>Testing Time Training（TTT）</strong></p>
+</li>
+<li>
+<p>对目标领域一无所知（<strong>Domain Generalization</strong>）<a href="https://ieeexplore.ieee.org/document/8578664%EF%BC%9Bhttps://arxiv.org/abs/2003.13216" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/8578664；https://arxiv.org/abs/2003.13216</a></p>
+</li>
+</ul>
+<h2 id="网络压缩"><a class="markdownIt-Anchor" href="#网络压缩"></a> 网络压缩</h2>
+<p>因为需要考虑终端算力及隐私问题，所以需要进行模型压缩。本课程中只介绍了和软件相关的部分。</p>
+<h3 id="1-network-prunning"><a class="markdownIt-Anchor" href="#1-network-prunning"></a> 1. Network Prunning</h3>
+<p>首先训练一个大模型，之后将网络中的一些参数/神经元删减掉，之后经过fine-tune让效果回升一下。以上过程可以反复迭代。</p>
+<p>以参数为单位（weight prunning）进行裁剪，会出现形状不规则的神经网络模型不太好实现，GPU加速也不容易的问题。所以很多人是直接把参数设为0，但这样做并没有真的把网络变小。而以神经元为单位（neuron pruning）做，比较容易编程实现。</p>
+<p><strong>大乐透假说</strong>，但也有人反对这一假说。</p>
+<p>后续有研究调研各种prunning策略的效果，并试图解释其中的原因。</p>
+<p>《Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask》</p>
+<p>《Weight Agnostic Neural Networks》</p>
+<h3 id="2-knowledge-distillation"><a class="markdownIt-Anchor" href="#2-knowledge-distillation"></a> 2. Knowledge distillation</h3>
+<p>知识蒸馏，大的模型为teacher network，之后据此学习一个小的模型 student network。</p>
+<p>比如目前打比赛的时候用ensemble的方法比较好，但是实际应用中可以简化一个小的模型去学习多个模型的ensemble结果。</p>
+<p>temperature for softmax</p>
+<h4 id="3-parameter-quantization"><a class="markdownIt-Anchor" href="#3-parameter-quantization"></a> 3. Parameter Quantization</h4>
+<p>Less bit represent: 可以用更少的bit存储参数。</p>
+<p>Weight clustering，对参数进行分区，每个分区选取一个代表。</p>
+<p>Binary weights，参数只有+1，-1两种可能。</p>
+<h4 id="4-depthwise-separable-convolution"><a class="markdownIt-Anchor" href="#4-depthwise-separable-convolution"></a> 4. Depthwise Separable Convolution</h4>
+<p>Depthwise convolution, filter数目和channel数目相同，每个filter只管一个channel，channel间没有任何交互。</p>
+<p>Pointwise convolution，加入多个1x1的filter，作用是考虑不同channel之间的关系。</p>
+<p>这个思路的来源是low rank approximation，矩阵分解的感觉，将一层拆成两层减少参数。</p>
+<p>另外还有很多设计思路，SqueezeNet、MobileNet、ShuffleNet、Xception、GhostNet等等。</p>
+<h4 id="5-dynamic-computation"><a class="markdownIt-Anchor" href="#5-dynamic-computation"></a> 5. Dynamic Computation</h4>
+<p>希望模型可以自由调整其需要的运算资源。</p>
+<p>可以在每一层额外加输出层，运算资源不够的时候就提前输出结果。</p>
+<div align="center">
+  <img src="/2021/06/16/lhy-2021-b/dd.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>也可以让调整网络模型宽度（Slimmable Neural Networks）。</p>
+<p>或者可以让模型自己决定，调整深度和宽度，比如有些样本非常容易判断，不需要经过特别多层。</p>
+<div align="center">
+  <img src="/2021/06/16/lhy-2021-b/cp.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth">
+</div>
+<p>以上这些方法可以结合使用。</p>
+<h2 id="相关研究方向"><a class="markdownIt-Anchor" href="#相关研究方向"></a> 相关研究方向</h2>
+<h3 id="1-feature-disentangle关于autoencoder特征的解释性"><a class="markdownIt-Anchor" href="#1-feature-disentangle关于autoencoder特征的解释性"></a> 1. Feature Disentangle（关于Autoencoder特征的解释性）</h3>
+<p><a href="https://arxiv.org/abs/1904.05742" target="_blank" rel="noopener">https://arxiv.org/abs/1904.05742</a></p>
+<p><a href="https://arxiv.org/abs/1804.02812" target="_blank" rel="noopener">https://arxiv.org/abs/1804.02812</a></p>
+<p><a href="https://arxiv.org/abs/1905.05879" target="_blank" rel="noopener">https://arxiv.org/abs/1905.05879</a></p>
+<h3 id="2-tree-as-embedding"><a class="markdownIt-Anchor" href="#2-tree-as-embedding"></a> 2. Tree as Embedding</h3>
+<p><a href="https://arxiv.org/abs/1806.07832" target="_blank" rel="noopener">https://arxiv.org/abs/1806.07832</a></p>
+<p><a href="https://arxiv.org/abs/1904.03746" target="_blank" rel="noopener">https://arxiv.org/abs/1904.03746</a></p>
+<h3 id="3-模型攻击"><a class="markdownIt-Anchor" href="#3-模型攻击"></a> 3. 模型攻击</h3>
+<p>《Adverserial Examples are not bugs, they are features》</p>
+<p>文字领域对抗攻击，加入一个短句后，所有问答都失效，<a href="https://arxiv.org/abs/1908.07125" target="_blank" rel="noopener">https://arxiv.org/abs/1908.07125</a></p>
+<p>CCS’16 考虑物理世界特性的CV模型攻击，Accessorize to a Crime: Real and Stealthy Attacks on State-of-the-Art Face Recognition</p>
+<p>Adversarial Reprogramming，<a href="https://arxiv.org/abs/1806.11146" target="_blank" rel="noopener">https://arxiv.org/abs/1806.11146</a></p>
+<p>Backdoor，<a href="https://arxiv.org/abs/1804.00792" target="_blank" rel="noopener">https://arxiv.org/abs/1804.00792</a></p>
+<p>Adversarial Training for free，<a href="https://arxiv.org/abs/1904.12843" target="_blank" rel="noopener">https://arxiv.org/abs/1904.12843</a></p>
+<h3 id="4-概念漂移比较重要"><a class="markdownIt-Anchor" href="#4-概念漂移比较重要"></a> 4. 概念漂移（比较重要）</h3>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/17/lhy-2021-c/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">李宏毅《机器/深度学习》2021笔记（三）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/22/pytorch/">
+                        <span class="hidden-mobile">Pytorch学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '719893e76127bcc98b08',
+          clientSecret: 'ed167d3d935e2922b47f190e1f36b026bd823a2d',
+          repo: 'deepdeer.github.io',
+          owner: 'DeepDeer',
+          admin: 'DeepDeer',
+          id: location.pathname,
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'false',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
+      });
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
