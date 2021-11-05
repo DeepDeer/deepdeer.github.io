@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>cs224n《深度学习自然语言处理》2021</title>
+    <link href="/2021/11/05/cs224n/"/>
+    <url>/2021/11/05/cs224n/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第一课-简介"><a class="markdownIt-Anchor" href="#第一课-简介"></a> 第一课 简介</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>课程笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>NLP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>一些计算机基础知识读书笔记</title>
     <link href="/2021/08/13/cs-base/"/>
     <url>/2021/08/13/cs-base/</url>
@@ -463,33 +488,6 @@
       <tag>图模型</tag>
       
       <tag>深度学习</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>大规模图数据分析技术：挑战与机遇</title>
-    <link href="/2020/11/16/talk-1/"/>
-    <url>/2020/11/16/talk-1/</url>
-    
-    <content type="html"><![CDATA[<p>2020年11月16日，FIT楼多功能厅，听取樊文飞教授报告。以下为报告笔记，因为背景知识有限，听取现场报告，可能会有一些遗漏或理解错误之处。</p><p>当前图数据已成为大数据分析场景下的重要数据来源，老师在报告中就<strong>4V问题</strong>（Volume，Variety，Velocity，Veracity/value），分析图数据存储、分析中遇到的问题与部分解决思路。</p><h4 id="1volume体量"><a class="markdownIt-Anchor" href="#1volume体量"></a> 1.Volume（体量）</h4><p>大型图网络中包含百亿节点，百亿条边，如何存储处理？</p><p>DFS虽然是线性复杂度，但在大图上已经难以运行。</p><p>使用并行计算系统完成大图处理，在工业界存在很多问题：</p><p>1）已知的图算法能否并行化，学术界有很多这样的尝试比如google的pregel，CMU的Graphlab/PowerGraph，Facebook的Giraph，Berkeley的GraphX，IBM的Giraph++，但工业界未使用。樊老师团队有此类工作发表在SIGMOD，同时项目被阿里收购，今年开源为GraphScope。</p><div align="center">  <img src="/2020/11/16/talk-1/graphscope.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth"></div><p>2）并行计算中如何选择同步或异步，樊老师团队提出AAP工作，《Adaptive Asynchronous Parallelization of Graph Algorithms》</p><p>2）如何衡量某个并行算法是有效的？</p><p>3）传统计算复杂性理论在并行计算环境下有什么样的新表现？</p><h4 id="2velocity动态"><a class="markdownIt-Anchor" href="#2velocity动态"></a> 2.Velocity（动态）</h4><p>实际中的网络动态变化，但变化部分相对原网络占比较小，如何高效处理变化的信息？</p><p>计算output的变化。</p><p>1）很多被证明不是bounded的问题仍要解决，樊老师团队提出relative bounded，《Bounded incremental graph computations: Undoable and doable》。</p><p>2）如何提出增量式的算法，《Incrementalization of graph partitioning algorithms》VLDB 2020。</p><h4 id="3-variety异构"><a class="markdownIt-Anchor" href="#3-variety异构"></a> 3. Variety（异构）</h4><p>如何达成图数据库与原有关系型数据库的统一？比如阿里提到的数据中台概念。但这一方向距离落地还有很多工作要做。樊老师提出gSQL概念，以及联邦数据库（这里与联邦学习的概念不同，强调的是多类型数据的联邦）。</p><div align="center">  <img src="/2020/11/16/talk-1/gsql.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth"></div><h4 id="4-veracity质量"><a class="markdownIt-Anchor" href="#4-veracity质量"></a> 4. Veracity（质量）</h4><p>存在过时数据、链接丢失与语义不一致等问题，如何解决？这个问题是4V中解决度最低的。</p><p>樊老师认为可以将logic规则与AI统一在一个框架下，同时还可以提高ML的可解释性。</p><div align="center">  <img src="/2020/11/16/talk-1/ml-1.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth"></div><div align="center">  <img src="/2020/11/16/talk-1/ml-2.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth"></div><div align="center">  <img src="/2020/11/16/talk-1/ml-3.jpg" srcset="/img/loading.gif" width="40%" height="40%" alt="oauth"></div><h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3><p>大数据场景下，图数据分析在4V中存在如下挑战：</p><ul><li>Volume，并行处理——reduction，complete problems等</li><li>Velocity，增量计算理论与实践</li><li>Variety，在SQL上做到图数据库与关系型数据库的统一</li><li>Veracity，统一规则（logic）与ML；图数据清洗；链路预测等</li></ul><h3 id="相关文献"><a class="markdownIt-Anchor" href="#相关文献"></a> 相关文献</h3><ol><li>Application driven graph partitions. SIGMOD 2020</li><li>Capturing associations in graphs VLDB 2020</li><li>Incrementalization of graph partitioning algorithms. VLDB 2020</li><li>Graph algorithms: Parallelization ans scalability. Science China Information Sciences, 2020</li><li>Adaptive asynchronous paralleization of graph algorithms, TODS2020</li><li>Deducing certain fixes to graphs, VLDB 2020</li><li>Parallelizing sequential graph computations TODS 2018</li><li>Incremental graph compulations: doable and undoable SIGMOD 2017</li></ol><h3 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h3><p>1）有关数据质量的部分，老师提到将规则与AI纳入统一框架，这个让我联想到网络安全领域目前基于规则和基于AI的方法，是否可以进行结合？比如Yara规则与CFG恶意软件检测等。这部分可以搜一下相关资料，樊老师并没有更详细地分享。</p><p>2）<strong>理论与系统</strong>是计算机专业领域的核心，要结合考虑理论研究的应用落实，同时学会如何在项目开发中发现待解决问题。</p><p>3）科研技术与产业落地之间还会有比如，政策、安全性、市场等多方面问题，需要综合考虑。比如XML并没有实现统一，比如在当前已有标准的情况下，为什么不能把关系型数据库全部转化为图数据存储。</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>交流报告</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>图模型</tag>
-      
-      <tag>大数据分析</tag>
       
     </tags>
     
