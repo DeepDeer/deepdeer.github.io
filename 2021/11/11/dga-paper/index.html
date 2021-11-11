@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Skyla Sun">
   <meta name="keywords" content="">
-  <title>cs224n《深度学习自然语言处理》2021 - DeepDeer</title>
+  <title>DGA域名检测最新论文汇总 - DeepDeer</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -148,7 +148,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                cs224n《深度学习自然语言处理》2021
+                DGA域名检测最新论文汇总
               
             </span>
 
@@ -156,8 +156,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-11-05 14:37">
-      2021年11月5日 下午
+    <time datetime="2021-11-11 13:21">
+      2021年11月11日 下午
     </time>
   </div>
 
@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      30 字
+      1k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      11
        分钟
     </span>
   
@@ -208,13 +208,45 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="第一课-简介"><a class="markdownIt-Anchor" href="#第一课-简介"></a> 第一课 简介</h1>
-<p><a href="http://web.stanford.edu/class/cs224n/" target="_blank" rel="noopener">http://web.stanford.edu/class/cs224n/</a></p>
-<p>应用案例：SQL语句生成</p>
-<p><a href="https://www.youtube.com/watch?v=rmVRLeJRkl4&amp;list=PLoROMvodv4rOSH4v6133s9LFPRHjEmbmJ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=rmVRLeJRkl4&amp;list=PLoROMvodv4rOSH4v6133s9LFPRHjEmbmJ</a></p>
+              <p>为了写论文的Related work部分，重新跟进一下近两年发表的DGA域名检测工作，在此仅整理并简述一下各篇的创新点。关于问题背景及“经典/高光”研究工作的整理见另一篇博文。</p>
+<h1 id="内容概述"><a class="markdownIt-Anchor" href="#内容概述"></a> 内容概述</h1>
+<p>注意数据预处理部分</p>
+<p>写作时描述实验过程，注意“落地”。</p>
+<h1 id="论文汇总"><a class="markdownIt-Anchor" href="#论文汇总"></a> 论文汇总</h1>
+<h2 id="analyzing-the-real-world-applicability-of-dga-classifiers"><a class="markdownIt-Anchor" href="#analyzing-the-real-world-applicability-of-dga-classifiers"></a> Analyzing the Real-World Applicability of DGA Classifiers</h2>
+<p>【会议ARES20 ; 作者Arthur Drichel; 机构RWTH Aachen University】</p>
+<p>在DGA检测任务中的二分类器被研究得明明白白，但是很少有工作关注到多分类任务。针对DGA域名进行多分类可以更有效地发现恶意软件家族，方便安全人员进行后续处理。</p>
+<p>由于数据、代码基本不公开透明，之前文献中的二分类器们也不好比较。</p>
+<p>另外，实际应用各个论文中的二分类器时还需要处理一些问题，比如用哪些流量数据、训哪个模型、隔多久更新训练？</p>
+<p>文章贡献点：1）提出两个基于ResNet的DGA域名检测模型（单分类和多分类），强调仅处理NXDomain数据，可以在不太影响效果的同时，极大降低数据量，而且在恶意软件未行动前完成检测；2）在同一数据集和同样的预处理方法下，统一比对了现有分类器；3）额外考察了分类器们的可解释性、鲁棒性、泛化性以及训练速度。</p>
+<h2 id="first-step-towards-explainable-dga-mutliclass-classification"><a class="markdownIt-Anchor" href="#first-step-towards-explainable-dga-mutliclass-classification"></a> First Step Towards Explainable DGA Mutliclass Classification</h2>
+<p>【会议 ARES21; 作者Arthur Drichel; 机构RWTH Aachen University】</p>
+<h2 id="far-from-classification-algorithm-dive-into-the-preprocessing-stage-in-dga-detection"><a class="markdownIt-Anchor" href="#far-from-classification-algorithm-dive-into-the-preprocessing-stage-in-dga-detection"></a> Far from classification algorithm: dive into the preprocessing stage in DGA detection</h2>
+<p>【会议Trustcom20; 作者Mingkai Tong; 机构NSFOCUS】</p>
+<p>文章贡献要点：1）数据集规模更大，更贴近实际情况；2）分析发现处理NXDomain流量更适合进行DGA检测；3）重点强调<strong>数据预处理</strong>方法。</p>
+<p>现有检测方法仅针对有限的闭合数据集，一般从Bambenek Consulting和DGArchive收集恶意样本，以Alexa Top为良性样本，两数据集间差距过大，且不具有实际场景代表性。此外，当前研究专注于检测算法，而很少关注数据预处理阶段。</p>
+<p>从Bambenek Consulting、DGArchive和360 Netlab拿到DGA样本。在中国一家大型网络安全公司拿到DNS日志。</p>
 <div align="center">
-  <img src="/2021/11/05/cs224n/dagang.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
+  <img src="/2021/11/11/dga-paper/1.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
 </div>
+<p>首先进行数据集初步分析，得出以下结论：</p>
+<ul>
+<li>各数据源DGA样本量会随时间发生变化；文章对比了2017.1-2019.10和2018.10-2019.10的数据量，得出结论，必须保证数据集的时间跨度够大。</li>
+<li>数据集中的噪声样本对效果影响较大，有些DGA算法可能会生成正常用户会注册域名。文章使用Tranco列表（可视为修正后的Alexa Top）作为白样本集，比对发现采集的63M DGA域名中仅冲突了2430个，认为数据集足够纯净。</li>
+<li>时间段数据质量/特征分布是否差异会影响检测效果？经实验验证发现没有。</li>
+<li>绝大部分DGA域名是无法成功解析的，因此NXDomain是检测DGA域名的重要指标/数据来源。</li>
+</ul>
+<p>此后，进行数据预处理：</p>
+<ul>
+<li>去除无效域名，如无效后缀、无效字符等；</li>
+<li>绝大多数DGA域名只到二级域名，所以最终保留到二阶域名完成训练与检测；</li>
+<li>删除二级域名长度小于5的域名，因为DGA基本不这样（为了避免冲突并增加随机性）；</li>
+<li>强调保留一些特殊后缀域名，<a href="http://xn--dynserv-i22m.com" target="_blank" rel="noopener">如dynserv.com</a>、<a href="http://yi.org" target="_blank" rel="noopener">yi.org</a>、mynumer.org等动态DNS域名，和以.bit为后缀的比特币相关域名。</li>
+</ul>
+<p>实验中对比了FANCI（基于RF和SVM）和Endgame（基于LSTM）两个工作。</p>
+<p>【Thinking】文章的意思是把公司NXDomain数据中没出现在三个DGA数据源中的域名都视为良性的么？就平时针对基于DGA的恶意样本的网络行为分析来看，这个假设并不合理。</p>
+<h2 id="domain-generation-algorithms-detection-through-deep-neural-network-and-ensemble"><a class="markdownIt-Anchor" href="#domain-generation-algorithms-detection-through-deep-neural-network-and-ensemble"></a> Domain Generation Algorithms detection through deep neural network and ensemble</h2>
+<h2 id="sharing-fanci-features-a-privacy-analysis-of-feature-for-dga-detection"><a class="markdownIt-Anchor" href="#sharing-fanci-features-a-privacy-analysis-of-feature-for-dga-detection"></a> Sharing FANCI Features: A Privacy Analysis of Feature for DGA Detection</h2>
 
             </article>
             <hr>
@@ -224,7 +256,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+                      <a class="hover-with-bg" href="/categories/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识梳理</a>
                     
                   </div>
                 
@@ -232,7 +264,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
                     
                   </div>
                 
@@ -245,9 +279,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/11/dga-paper/">
+                      <a href="/2021/11/11/dga-classic/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">DGA域名检测最新论文汇总</span>
+                        <span class="hidden-mobile">DGA域名检测经典工作梳理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -255,8 +289,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/08/13/cs-base/">
-                        <span class="hidden-mobile">一些计算机基础知识读书笔记</span>
+                      <a href="/2021/11/05/cs224n/">
+                        <span class="hidden-mobile">cs224n《深度学习自然语言处理》2021</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -468,6 +502,13 @@
 
 
 
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
+  
 
 
 
