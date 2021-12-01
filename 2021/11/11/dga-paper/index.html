@@ -167,7 +167,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      1.7k 字
     </span>
   
 
@@ -177,7 +177,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      18
        分钟
     </span>
   
@@ -210,31 +210,43 @@
             <article class="markdown-body">
               <p>为了写论文的Related work部分，重新跟进一下近两年发表的DGA域名检测工作，在此仅整理并简述一下各篇的创新点。关于问题背景及“经典/高光”研究工作的整理见另一篇博文。</p>
 <h1 id="内容概述"><a class="markdownIt-Anchor" href="#内容概述"></a> 内容概述</h1>
-<p>注意数据预处理部分</p>
+<p>注意数据预处理部分、进一步分析出错数据、</p>
+<p>结论相反，但大家貌似都可以讲出道理…</p>
 <p>写作时描述实验过程，注意“落地”。</p>
 <h1 id="论文汇总"><a class="markdownIt-Anchor" href="#论文汇总"></a> 论文汇总</h1>
 <h2 id="analyzing-the-real-world-applicability-of-dga-classifiers"><a class="markdownIt-Anchor" href="#analyzing-the-real-world-applicability-of-dga-classifiers"></a> Analyzing the Real-World Applicability of DGA Classifiers</h2>
 <p>【会议ARES20 ; 作者Arthur Drichel; 机构RWTH Aachen University】</p>
-<p>在DGA检测任务中的二分类器被研究得明明白白，但是很少有工作关注到多分类任务。针对DGA域名进行多分类可以更有效地发现恶意软件家族，方便安全人员进行后续处理。</p>
-<p>由于数据、代码基本不公开透明，之前文献中的二分类器们也不好比较。</p>
-<p>另外，实际应用各个论文中的二分类器时还需要处理一些问题，比如用哪些流量数据、训哪个模型、隔多久更新训练？</p>
-<p>文章贡献点：1）提出两个基于ResNet的DGA域名检测模型（单分类和多分类），强调仅处理NXDomain数据，可以在不太影响效果的同时，极大降低数据量，而且在恶意软件未行动前完成检测；2）在同一数据集和同样的预处理方法下，统一比对了现有分类器；3）额外考察了分类器们的可解释性、鲁棒性、泛化性以及训练速度。</p>
+<p>文章贡献点：提出两个<strong>基于ResNet</strong>的DGA域名检测模型（单分类和多分类），强调<strong>仅处理NXDomain数据</strong>，可以在不太影响效果的同时，极大降低数据量，而且在恶意软件未行动前完成检测；在同一数据集和同样的预处理方法下，<strong>统一比对现有分类器</strong>；额外考察了分类器们的<strong>可解释性、鲁棒性、泛化性以及训练速度</strong>。</p>
+<blockquote>
+<p>Making ResNetts deeper correlates to the effect of increasing the number of shallow networks of an ensemble classifier.</p>
+</blockquote>
+<p>背景情况：在DGA检测任务中的二分类器被研究得明明白白，但是很少有工作关注到<strong>多分类任务</strong>。针对DGA域名进行多分类可以更有效地发现恶意软件家族，方便安全人员进行后续处理。由于数据、代码基本不公开透明，之前文献中的二分类器们也<strong>不好比较</strong>，而在各自论文的比较中，大家都把对家数据处理做得过于粗糙。另外，<strong>实际部署</strong>各个论文中的二分类器时还需要处理一些问题，比如用哪些流量数据、训哪个模型、隔多久更新训练？</p>
+<p>文章提到了对抗DGA，并认为它们可以逃过检测是因为是在可解析DNS流量上训练的，文中实验证明如果只在造成了NXDomain的数据上训练的话，并不会出现这个问题。</p>
+<p>处理细节：大小写转化、将字符转为整数、域名补全至235字符长度、没有进行除子域名处理（有更深的模型也许也可以理解）。[注意这里有一些操作及分析结论和下面一篇论文相反]</p>
+<p>可解释性：观察每类域名的正则表示，发现正则表示类似的家族确实容易被多分类器混淆。通过分析错分类数据，发现域名长度、域名后缀也都是模型考量的重要特征。另外，故意构造难以区分的AGD数据集，考察各模型复杂特征提取能力。</p>
+<p>鲁棒性：使用了charbot和deceptionDGA生成出来的对抗FANCI的样本，认为如果仅针对NXDomain的域名数据训练模型的话，不会受到影响。</p>
+<p>泛化性：公司网络与校园网络数据集间的泛化，时间跨度上的泛化。</p>
+<p>模型训练速度比对：除去FANCI，因为不能通过GPU加速。</p>
+<p>之后在公司和校园网数据中发现了DGArchive等开源情报库中不存在的DGA域名，其中有一些新型DGA。</p>
+<p>【Thinking】虽然仅处理NXDomain数据可以在模型性能（检测率、鲁棒）方面带来较大提升，但我认为对于DGA域名的检测除了排查受感染客户端外，还涉及到攻击者检测。考虑已解析的DGA域名，才有可能进一步确定可疑IP，为攻击者/威胁团伙检测提供更有价值的情报。</p>
+<p>另外，鲁棒性部分，charbot和deceptionDGA本来就是依照Alexa正常域名字符分布来构造对抗样本，模型通过NXDomain训练当然不会受到影响，这样对比太不公平。这一条应该扛不住GAN生成的域名或者MaskDGA。</p>
+<p>此外，以情报中的DGA为恶意样本，NXDomain中其它域名为良性样本，这样的划分不合理。</p>
 <h2 id="first-step-towards-explainable-dga-mutliclass-classification"><a class="markdownIt-Anchor" href="#first-step-towards-explainable-dga-mutliclass-classification"></a> First Step Towards Explainable DGA Mutliclass Classification</h2>
 <p>【会议 ARES21; 作者Arthur Drichel; 机构RWTH Aachen University】</p>
 <h2 id="far-from-classification-algorithm-dive-into-the-preprocessing-stage-in-dga-detection"><a class="markdownIt-Anchor" href="#far-from-classification-algorithm-dive-into-the-preprocessing-stage-in-dga-detection"></a> Far from classification algorithm: dive into the preprocessing stage in DGA detection</h2>
 <p>【会议Trustcom20; 作者Mingkai Tong; 机构NSFOCUS】</p>
-<p>文章贡献要点：1）数据集规模更大，更贴近实际情况；2）分析发现处理NXDomain流量更适合进行DGA检测；3）重点强调<strong>数据预处理</strong>方法。</p>
+<p>文章贡献要点：数据集规模更大，更贴近实际情况；分析发现处理NXDomain流量更适合进行DGA检测；重点强调<strong>数据预处理</strong>方法。</p>
 <p>现有检测方法仅针对有限的闭合数据集，一般从Bambenek Consulting和DGArchive收集恶意样本，以Alexa Top为良性样本，两数据集间差距过大，且不具有实际场景代表性。此外，当前研究专注于检测算法，而很少关注数据预处理阶段。</p>
-<p>从Bambenek Consulting、DGArchive和360 Netlab拿到DGA样本。在中国一家大型网络安全公司拿到DNS日志。</p>
+<p>文章从Bambenek Consulting、DGArchive和360 Netlab拿到DGA样本，并在中国一家大型网络安全公司拿到DNS日志。</p>
 <div align="center">
   <img src="/2021/11/11/dga-paper/1.jpg" srcset="/img/loading.gif" width="50%" height="50%" alt="oauth">
 </div>
 <p>首先进行数据集初步分析，得出以下结论：</p>
 <ul>
-<li>各数据源DGA样本量会随时间发生变化；文章对比了2017.1-2019.10和2018.10-2019.10的数据量，得出结论，必须保证数据集的时间跨度够大。</li>
+<li>各数据源DGA样本量会随时间发生变化；文章对比了2017.1-2019.10和2018.10-2019.10的数据量，得出结论，必须保证数据集的<strong>时间跨度够大</strong>。</li>
 <li>数据集中的噪声样本对效果影响较大，有些DGA算法可能会生成正常用户会注册域名。文章使用Tranco列表（可视为修正后的Alexa Top）作为白样本集，比对发现采集的63M DGA域名中仅冲突了2430个，认为数据集足够纯净。</li>
 <li>时间段数据质量/特征分布是否差异会影响检测效果？经实验验证发现没有。</li>
-<li>绝大部分DGA域名是无法成功解析的，因此NXDomain是检测DGA域名的重要指标/数据来源。</li>
+<li>绝大部分DGA域名是无法成功解析的，因此<strong>NXDomain</strong>是检测DGA域名的重要指标/数据来源。</li>
 </ul>
 <p>此后，进行数据预处理：</p>
 <ul>
@@ -243,10 +255,12 @@
 <li>删除二级域名长度小于5的域名，因为DGA基本不这样（为了避免冲突并增加随机性）；</li>
 <li>强调保留一些特殊后缀域名，<a href="http://xn--dynserv-i22m.com" target="_blank" rel="noopener">如dynserv.com</a>、<a href="http://yi.org" target="_blank" rel="noopener">yi.org</a>、mynumer.org等动态DNS域名，和以.bit为后缀的比特币相关域名。</li>
 </ul>
-<p>实验中对比了FANCI（基于RF和SVM）和Endgame（基于LSTM）两个工作。</p>
+<p>实验中对比了FANCI（基于RF和SVM）和Endgame（基于LSTM）两个工作，分别在有/无上述分析步骤时的效果。</p>
 <p>【Thinking】文章的意思是把公司NXDomain数据中没出现在三个DGA数据源中的域名都视为良性的么？就平时针对基于DGA的恶意样本的网络行为分析来看，这个假设并不合理。</p>
 <h2 id="domain-generation-algorithms-detection-through-deep-neural-network-and-ensemble"><a class="markdownIt-Anchor" href="#domain-generation-algorithms-detection-through-deep-neural-network-and-ensemble"></a> Domain Generation Algorithms detection through deep neural network and ensemble</h2>
 <h2 id="sharing-fanci-features-a-privacy-analysis-of-feature-for-dga-detection"><a class="markdownIt-Anchor" href="#sharing-fanci-features-a-privacy-analysis-of-feature-for-dga-detection"></a> Sharing FANCI Features: A Privacy Analysis of Feature for DGA Detection</h2>
+<h1 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h1>
+<p><a href="https://github.com/liorsidi/Helix" target="_blank" rel="noopener">https://github.com/liorsidi/Helix</a></p>
 
             </article>
             <hr>
@@ -289,8 +303,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/11/05/cs224n/">
-                        <span class="hidden-mobile">cs224n《深度学习自然语言处理》2021</span>
+                      <a href="/2021/07/14/weird/">
+                        <span class="hidden-mobile">杜克大学《怪诞行为学》</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
